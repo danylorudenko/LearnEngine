@@ -33,7 +33,7 @@ GLchar* ReadStringFromFile(const std::string& file_name)
 
 GLuint CompileVertexShader()
 {
-	GLchar* vertex_string = ReadStringFromFile("Shaders\\vertex_shader.vshader");
+	GLchar* vertex_string = ReadStringFromFile("Shaders\\vertex_shader.vglsl");
 	GLuint vertex_shader = 0;
 	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 
@@ -56,7 +56,7 @@ GLuint CompileVertexShader()
 
 GLuint CompileFragmentShader()
 {
-	GLchar* fragment_string = ReadStringFromFile("Shaders\\fragment_shader.fshader");
+	GLchar* fragment_string = ReadStringFromFile("Shaders\\fragment_shader.fglsl");
 	GLuint fragment_shader = 0;
 	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 

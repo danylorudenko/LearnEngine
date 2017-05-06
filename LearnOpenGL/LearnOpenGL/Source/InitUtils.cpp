@@ -140,6 +140,8 @@ void StartGameLoop(GLFWwindow*& window)
 
 	//=====================================
 
+	GLuint vertex_color_location = glGetUniformLocation(shader_program, "ourColor");
+
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
 
@@ -148,7 +150,12 @@ void StartGameLoop(GLFWwindow*& window)
 
 		// RENDERING HERE
 
+		GLfloat time_value = static_cast<GLfloat>(glfwGetTime());
+		GLfloat green_value = (std::sinf(time_value) / 2) + 0.5f;
+
 		glUseProgram(shader_program);
+		glUniform4f(vertex_color_location, 0.0f, green_value, 0.0f, 1.0f);
+
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);

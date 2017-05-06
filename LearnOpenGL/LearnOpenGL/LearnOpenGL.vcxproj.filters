@@ -70,7 +70,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shaders\vertex_shader.vshader" />
-    <Text Include="Shaders\fragment_shader.fshader" />
+    <Text Include="Shaders\fragment_shader.fglsl" />
+    <Text Include="Shaders\vertex_shader.vglsl" />
   </ItemGroup>
 </Project>

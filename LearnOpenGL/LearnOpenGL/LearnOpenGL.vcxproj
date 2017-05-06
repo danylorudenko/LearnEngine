@@ -146,8 +146,8 @@
     <ClInclude Include="Include\Util\Input.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Shaders\fragment_shader.fshader" />
-    <Text Include="Shaders\vertex_shader.vshader" />
+    <Text Include="Shaders\fragment_shader.fglsl" />
+    <Text Include="Shaders\vertex_shader.vglsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

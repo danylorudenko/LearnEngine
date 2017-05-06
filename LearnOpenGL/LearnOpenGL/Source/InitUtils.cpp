@@ -96,13 +96,22 @@ void StartGameLoop(GLFWwindow*& window)
 
 
 	GLfloat vertex[] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.0f,  0.5f, 0.0f
+		 0.5f,  0.5f, 0.0f,  // Top Right
+		 0.5f, -0.5f, 0.0f,  // Bottom Right
+		-0.5f, -0.5f, 0.0f,  // Bottom Left
+		-0.5f,  0.5f, 0.0f   // Top Left 
+	};
+
+	GLuint indices[] = {  // Note that we start from 0!
+		0, 1, 3,   // First Triangle
+		1, 2, 3    // Second Triangle
 	};
 
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
+
+	GLuint EBO;
+	glGenBuffers(1, &EBO);
 
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);
@@ -116,6 +125,9 @@ void StartGameLoop(GLFWwindow*& window)
 
 	// Loading data to the buffer
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 	// Some hard shit with vertex attributes
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
@@ -138,7 +150,7 @@ void StartGameLoop(GLFWwindow*& window)
 
 		glUseProgram(shader_program);
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
 		// END OF RENDERING

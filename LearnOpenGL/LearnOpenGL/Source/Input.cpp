@@ -1,4 +1,4 @@
-#include "..\Include\Input.h"
+#include "..\Include\Util\Input.h"
 
 void key_callback(GLFWwindow* window, int key, int scan_code, int action, int mode)
 {

@@ -1,5 +1,5 @@
-#include "..\Include\InitUtils.h"
-#include "..\Include\Input.h"
+#include "..\Include\Util\InitUtils.h"
+#include "..\Include\Util\Input.h"
 
 #include <iostream>
 
@@ -79,7 +79,54 @@ void StartGameLoop(GLFWwindow*& window)
 	glfwSetKeyCallback(window, key_callback);
 
 	// Setting color to clear the buffer
-	glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+	glClearColor(0.3f, 0.1f, 0.9f, 1.0f);
+
+	GLuint vertex_shader;
+	vertex_shader = CompileVertexShader();
+
+	GLuint fragment_shader;
+	fragment_shader = CompileFragmentShader();
+
+	GLuint shader_program;
+	shader_program = LinkShaderProgram(vertex_shader, fragment_shader);
+
+	glDeleteShader(vertex_shader);
+	glDeleteShader(fragment_shader);
+	//=====================================
+
+
+	GLfloat vertex[] = {
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		 0.0f,  0.5f, 0.0f
+	};
+
+	GLuint VBO;
+	glGenBuffers(1, &VBO);
+
+	GLuint VAO;
+	glGenVertexArrays(1, &VAO);
+
+
+	// Binding Vertex Array object to store all preferences below
+	glBindVertexArray(VAO);
+
+	// Binding to the buffer
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	// Loading data to the buffer
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
+
+	// Some hard shit with vertex attributes
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+
+	// Unbinding Vertex Array Object
+	glBindVertexArray(0);
+
+
+
+	//=====================================
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
@@ -89,7 +136,10 @@ void StartGameLoop(GLFWwindow*& window)
 
 		// RENDERING HERE
 
-
+		glUseProgram(shader_program);
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glBindVertexArray(0);
 
 		// END OF RENDERING
 

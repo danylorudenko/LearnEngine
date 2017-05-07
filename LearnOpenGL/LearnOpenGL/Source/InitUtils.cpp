@@ -95,23 +95,15 @@ void StartGameLoop(GLFWwindow*& window)
 	//=====================================
 
 
-	GLfloat vertex[] = {
-		 0.5f,  0.5f, 0.0f,  // Top Right
-		 0.5f, -0.5f, 0.0f,  // Bottom Right
-		-0.5f, -0.5f, 0.0f,  // Bottom Left
-		-0.5f,  0.5f, 0.0f   // Top Left 
-	};
-
-	GLuint indices[] = {  // Note that we start from 0!
-		0, 1, 3,   // First Triangle
-		1, 2, 3    // Second Triangle
+	GLfloat vertices[] = {
+		// Positions         // Colors
+		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // Bottom Right
+		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // Bottom Left
+		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // Top 
 	};
 
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
-
-	GLuint EBO;
-	glGenBuffers(1, &EBO);
 
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);
@@ -124,14 +116,14 @@ void StartGameLoop(GLFWwindow*& window)
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
 	// Loading data to the buffer
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertex), vertex, GL_STATIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
 	// Some hard shit with vertex attributes
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
 
 	// Unbinding Vertex Array Object
 	glBindVertexArray(0);
@@ -140,7 +132,6 @@ void StartGameLoop(GLFWwindow*& window)
 
 	//=====================================
 
-	GLuint vertex_color_location = glGetUniformLocation(shader_program, "ourColor");
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
@@ -150,14 +141,10 @@ void StartGameLoop(GLFWwindow*& window)
 
 		// RENDERING HERE
 
-		GLfloat time_value = static_cast<GLfloat>(glfwGetTime());
-		GLfloat green_value = (std::sinf(time_value) / 2) + 0.5f;
-
 		glUseProgram(shader_program);
-		glUniform4f(vertex_color_location, 0.0f, green_value, 0.0f, 1.0f);
 
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
 		glBindVertexArray(0);
 
 		// END OF RENDERING

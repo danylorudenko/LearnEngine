@@ -1,5 +1,6 @@
 #include "..\Include\Util\InitUtils.h"
 #include "..\Include\Util\Input.h"
+#include "..\Include\Shaders\ShaderProgram.h"
 
 #include <iostream>
 
@@ -81,17 +82,8 @@ void StartGameLoop(GLFWwindow*& window)
 	// Setting color to clear the buffer
 	glClearColor(0.3f, 0.1f, 0.9f, 1.0f);
 
-	GLuint vertex_shader;
-	vertex_shader = CompileVertexShader();
+	ShaderProgram shader_program("Shaders\\vertex_shader.vglsl", "Shaders\\fragment_shader.fglsl");
 
-	GLuint fragment_shader;
-	fragment_shader = CompileFragmentShader();
-
-	GLuint shader_program;
-	shader_program = LinkShaderProgram(vertex_shader, fragment_shader);
-
-	glDeleteShader(vertex_shader);
-	glDeleteShader(fragment_shader);
 	//=====================================
 
 
@@ -141,7 +133,7 @@ void StartGameLoop(GLFWwindow*& window)
 
 		// RENDERING HERE
 
-		glUseProgram(shader_program);
+		shader_program.Use();
 
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, 3);

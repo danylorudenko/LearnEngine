@@ -5,8 +5,6 @@
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 
-#include "..\Shaders\ShaderUtil.h"
-
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 600;
 

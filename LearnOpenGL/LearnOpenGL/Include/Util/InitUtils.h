@@ -1,9 +1,10 @@
 #ifndef __INIT_UTILS_H__
 #define __INIT_UTILS_H__
 
-#define GLEW_STATIC
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
+
+#include "..\..\Include\Shaders\ShaderProgram.h"
 
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 600;

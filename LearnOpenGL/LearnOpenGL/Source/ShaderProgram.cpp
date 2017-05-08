@@ -5,19 +5,16 @@
 
 ShaderProgram::ShaderProgram(const GLchar* vertex_source_file, const GLchar* fragment_source_file)
 {
-	GLchar* vertex_source = ReadFromFile(vertex_source_file);
-	GLchar* fragment_source = ReadFromFile(fragment_source_file);
+	std::string vertex_source = ReadFromFile(vertex_source_file);
+	std::string fragment_source = ReadFromFile(fragment_source_file);
 
-	GLuint vertex_shader = CompileVertex(vertex_source);
-	GLuint fragment_shader = CompileFragment(fragment_source);
+	GLuint vertex_shader = CompileVertex(vertex_source.c_str());
+	GLuint fragment_shader = CompileFragment(fragment_source.c_str());
 
 	program_ = LinkShaders(vertex_shader, fragment_shader);
 
 	glDeleteShader(fragment_shader);
 	glDeleteShader(vertex_shader);
-
-	delete[] fragment_source;
-	delete[] vertex_source;
 }
 
 void ShaderProgram::Use()
@@ -35,7 +32,7 @@ GLuint ShaderProgram::CompileVertex(const GLchar* vertex_source)
 	GLuint vertex_shader = 0;
 	vertex_shader = glCreateShader(GL_VERTEX_SHADER);
 
-	glShaderSource(vertex_shader, 1, &vertex_source, NULL);
+	glShaderSource(vertex_shader, 1, &vertex_source, nullptr);
 	glCompileShader(vertex_shader);
 
 	GLint success;
@@ -55,7 +52,7 @@ GLuint ShaderProgram::CompileFragment(const GLchar* fragment_source)
 	GLuint fragment_shader = 0;
 	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 
-	glShaderSource(fragment_shader, 1, &fragment_source, NULL);
+	glShaderSource(fragment_shader, 1, &fragment_source, nullptr);
 	glCompileShader(fragment_shader);
 
 	GLint success;
@@ -91,7 +88,7 @@ GLuint ShaderProgram::LinkShaders(const GLuint vertex_shader, const GLuint fragm
 	return shader_program;
 }
 
-GLchar* ShaderProgram::ReadFromFile(const GLchar* file_name)
+std::string ShaderProgram::ReadFromFile(const GLchar* file_name)
 {
 	std::ifstream in_stream(file_name, std::ios_base::in);
 
@@ -103,15 +100,15 @@ GLchar* ShaderProgram::ReadFromFile(const GLchar* file_name)
 	int file_length = static_cast<int>(in_stream.tellg());
 	in_stream.seekg(0, std::ios_base::beg);
 
-	GLchar* file_content = new GLchar[file_length + 1];
+	std::string file_content;
+	std::string buffer;
 
 	int read_position = 0;
-	while (in_stream.good()) {
-		file_content[read_position] = in_stream.get();
-		++read_position;
+	while (std::getline(in_stream, buffer)) {
+		file_content.append(buffer);
 	}
 
-	file_content[read_position] = '\0';
+	file_content[read_position + 1] = '\0';
 
 	in_stream.close();
 

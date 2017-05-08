@@ -80,7 +80,7 @@ void StartGameLoop(GLFWwindow*& window)
 	glfwSetKeyCallback(window, key_callback);
 
 	// Setting color to clear the buffer
-	glClearColor(0.3f, 0.1f, 0.9f, 1.0f);
+	glClearColor(0.3f, 0.4f, 0.9f, 1.0f);
 
 	ShaderProgram shader_program("Shaders\\vertex_shader.vglsl", "Shaders\\fragment_shader.fglsl");
 

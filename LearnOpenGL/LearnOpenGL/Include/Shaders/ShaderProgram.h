@@ -3,6 +3,8 @@
 
 #include <GL\glew.h>
 
+#include <string>
+
 class ShaderProgram
 {
 public:
@@ -18,7 +20,7 @@ private:
 	GLuint			CompileFragment	(const GLchar* fragment_source);
 	GLuint			LinkShaders		(const GLuint vertex_shader, const GLuint fragment_shader);
 
-	GLchar*			ReadFromFile	(const GLchar* file_path);
+	std::string		ReadFromFile	(const GLchar* file_path);
 
 private:
 	GLuint			program_;

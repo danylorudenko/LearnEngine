@@ -103,12 +103,10 @@ std::string ShaderProgram::ReadFromFile(const GLchar* file_name)
 	std::string file_content;
 	std::string buffer;
 
-	int read_position = 0;
 	while (std::getline(in_stream, buffer)) {
 		file_content.append(buffer);
+		file_content.append("\n");
 	}
-
-	file_content[read_position + 1] = '\0';
 
 	in_stream.close();
 

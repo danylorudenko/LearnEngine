@@ -1,6 +1,8 @@
 #include "..\Include\Util\InitUtils.h"
 #include "..\Include\Util\Input.h"
 
+#include <SOIL\SOIL.h>
+
 #include <iostream>
 
 int Start()
@@ -85,16 +87,38 @@ void StartGameLoop(GLFWwindow*& window)
 
 	//=====================================
 
+	int width, height;
+	unsigned char* image = SOIL_load_image("Resources\\container.jpg", &width, &height, 0, SOIL_LOAD_RGB);
+
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	SOIL_free_image_data(image);
+	glBindTexture(GL_TEXTURE_2D, texture);
+
 
 	GLfloat vertices[] = {
-		// Positions         // Colors
-		 0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // Bottom Right
-		-0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // Bottom Left
-		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // Top 
+		// Positions          // Colors           // Texture Coords
+		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Top Right
+		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // Bottom Right
+		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // Bottom Left
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // Top Left 
+	};
+
+	GLfloat indicies[] = {
+		0, 1, 2,
+		3, 2, 1
 	};
 
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
+
+	GLuint EBO;
+	glGenBuffers(1, &EBO);
 
 	GLuint VAO;
 	glGenVertexArrays(1, &VAO);
@@ -109,12 +133,18 @@ void StartGameLoop(GLFWwindow*& window)
 	// Loading data to the buffer
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicies), indicies, GL_STATIC_DRAW);
+
 	// Some hard shit with vertex attributes
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
+
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(2);
 
 	// Unbinding Vertex Array Object
 	glBindVertexArray(0);
@@ -131,11 +161,12 @@ void StartGameLoop(GLFWwindow*& window)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// RENDERING HERE
+		glBindTexture(GL_TEXTURE_2D, texture);
 
 		shader_program.Use();
 
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, indicies);
 		glBindVertexArray(0);
 
 		// END OF RENDERING

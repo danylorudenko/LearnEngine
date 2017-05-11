@@ -73,4 +73,9 @@
     <Text Include="Shaders\fragment_shader.fglsl" />
     <Text Include="Shaders\vertex_shader.vglsl" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

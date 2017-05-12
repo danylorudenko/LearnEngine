@@ -1,7 +1,6 @@
 #include "..\Include\Util\InitUtils.h"
 #include "..\Include\Util\Input.h"
-
-#include <SOIL\SOIL.h>
+#include "..\Include\Texture\Texture2DController.h"
 
 #include <iostream>
 
@@ -87,20 +86,7 @@ void StartGameLoop(GLFWwindow*& window)
 
 	//=====================================
 
-	int width, height;
-	unsigned char* image = SOIL_load_image("Resources\\container.jpg", &width, &height, 0, SOIL_LOAD_RGB);
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, texture);
-
-
+	
 	GLfloat vertices[] = {
 		// Positions          // Colors           // Texture Coords
 		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Top Right
@@ -109,10 +95,12 @@ void StartGameLoop(GLFWwindow*& window)
 		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // Top Left 
 	};
 
-	GLfloat indicies[] = {
+	GLuint indicies[] = {
 		0, 1, 2,
-		3, 2, 1
+		2, 3, 0
 	};
+
+
 
 	GLuint VBO;
 	glGenBuffers(1, &VBO);
@@ -150,9 +138,13 @@ void StartGameLoop(GLFWwindow*& window)
 	glBindVertexArray(0);
 
 
+	Texture2DController texture("Resources\\container.jpg", "Resources\\awesomeface.png");
+
 
 	//=====================================
 
+	GLint texure_1_uniform = glGetUniformLocation(shader_program.GetProgram(), "myTexture1");
+	GLint texure_2_uniform = glGetUniformLocation(shader_program.GetProgram(), "myTexture2");
 
 	while (!glfwWindowShouldClose(window)) {
 		glfwPollEvents();
@@ -161,12 +153,18 @@ void StartGameLoop(GLFWwindow*& window)
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// RENDERING HERE
-		glBindTexture(GL_TEXTURE_2D, texture);
+		glActiveTexture(GL_TEXTURE0);
+		texture.Bind1();
+		glUniform1i(texure_1_uniform, 0);
+
+		glActiveTexture(GL_TEXTURE1);
+		texture.Bind2();
+		glUniform1i(texure_2_uniform, 1);
 
 		shader_program.Use();
 
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, indicies);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
 		// END OF RENDERING

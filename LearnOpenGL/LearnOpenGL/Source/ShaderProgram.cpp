@@ -22,6 +22,18 @@ void ShaderProgram::Use()
 	glUseProgram(program_);
 }
 
+void ShaderProgram::SetIntUniform(const std::string& name, GLint value)
+{
+    GLint uniform_handle = glGetUniformLocation(program_, name.c_str());
+    glUniform1i(uniform_handle, value);
+}
+
+void ShaderProgram::SetFloatUniform(const std::string& name, GLfloat value)
+{
+    GLint uniform_handle = glGetUniformLocation(program_, name.c_str());
+    glUniform1f(uniform_handle, value);
+}
+
 GLuint ShaderProgram::GetProgram()
 {
 	return program_;

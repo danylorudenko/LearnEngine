@@ -11,6 +11,10 @@ public:
 	ShaderProgram					(const GLchar* vertex_cource, const GLchar* fragment_source);
 
 	void			Use				();
+
+    void            SetIntUniform   (const std::string& name, GLint value);
+    void            SetFloatUniform (const std::string& name, GLfloat value);
+
 	GLuint			GetProgram		();
 
 	~ShaderProgram					();

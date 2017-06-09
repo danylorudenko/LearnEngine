@@ -144,9 +144,6 @@ void StartGameLoop(GLFWwindow*& window)
 
 	//=====================================
 
-	GLint texure_1_uniform = glGetUniformLocation(shader_program.GetProgram(), "myTexture1");
-	GLint texure_2_uniform = glGetUniformLocation(shader_program.GetProgram(), "myTexture2");
-
     GLint64 startTime = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 
 	while (!glfwWindowShouldClose(window)) {
@@ -158,16 +155,12 @@ void StartGameLoop(GLFWwindow*& window)
 		// RENDERING HERE
 		glActiveTexture(GL_TEXTURE0);
 		texture.Bind1();
-		glUniform1i(texure_1_uniform, 0);
+        shader_program.SetIntUniform("myTexture1", 0);
 
 		glActiveTexture(GL_TEXTURE1);
 		texture.Bind2();
-		glUniform1i(texure_2_uniform, 1);
+        shader_program.SetIntUniform("myTexture2", 1);
 
-        GLint64 timePassed = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count() - startTime;
-        GLfloat colorMultiplier = static_cast<GLfloat>(timePassed) / 100;
-        std::cout << colorMultiplier + MODIFIER_OVERLOAD << std::endl;
-        shader_program.SetFloatUniform("colorMultiplier", colorMultiplier + MODIFIER_OVERLOAD);
 		shader_program.Use();
 
 		glBindVertexArray(VAO);

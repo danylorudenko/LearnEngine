@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>D:\Git_local\LearnOpenGL\_Libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>D:\Git_local\LearnOpenGL\_Headers;$(IncludePath)</IncludePath>
+    <LibraryPath>F:\Git_local\LearnOpenGL\_Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>F:\Git_local\LearnOpenGL\_Headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>F:\Git_local\LearnOpenGL\_Headers;$(IncludePath)</IncludePath>
@@ -126,27 +126,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\VertexData.cpp" />
     <ClCompile Include="Source\InitUtils.cpp" />
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\MathUtil.cpp" />
-    <ClCompile Include="Source\Matrix2X2.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
     <ClCompile Include="Source\Texture2DController.cpp" />
-    <ClCompile Include="Source\Triangle.cpp" />
-    <ClCompile Include="Source\Vector2.cpp" />
-    <ClCompile Include="Source\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\Math\MathUtil.h" />
-    <ClInclude Include="Include\Math\Matrix2X2.h" />
-    <ClInclude Include="Include\Math\Vector2.h" />
-    <ClInclude Include="Include\Math\Vector3.h" />
+    <ClInclude Include="Include\GLObject.h" />
+    <ClInclude Include="Include\Constants.h" />
     <ClInclude Include="Include\Texture\Texture2DController.h" />
-    <ClInclude Include="Include\Triangle.h" />
     <ClInclude Include="Include\Util\InitUtils.h" />
     <ClInclude Include="Include\Util\Input.h" />
     <ClInclude Include="Include\Shaders\ShaderProgram.h" />
+    <ClInclude Include="Include\VertexData.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\fragment_shader.fglsl" />

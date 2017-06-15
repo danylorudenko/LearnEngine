@@ -1,17 +1,24 @@
-#include "..\Include\VertexData.h"
+#include "..\Include\Util\VertexData.h"
 
 #include <cstdlib>
 
-VertexData::VertexData(void * data, int size)
+VertexData::VertexData(void * data, int size) : vertex_data_(data), data_size_(size)
 {
-    vertex_data_ = data;
-    data_size_ = size;
+    
 }
 
-VertexData::VertexData(const VertexData & rhs)
+int VertexData::GetDataSize()
 {
-    data_size_ = rhs.data_size_;
+    return data_size_;
+}
 
+void * VertexData::GetRawData()
+{
+    return vertex_data_;
+}
+
+VertexData::VertexData(const VertexData & rhs) : data_size_(rhs.data_size_)
+{
     vertex_data_ = std::malloc(data_size_);
 
     // Copying of all bytes to the newly allocated memory.
@@ -21,12 +28,9 @@ VertexData::VertexData(const VertexData & rhs)
     }
 }
 
-VertexData::VertexData(VertexData && rhs)
+VertexData::VertexData(VertexData && rhs) : data_size_(rhs.data_size_), vertex_data_(rhs.vertex_data_)
 {
-    data_size_ = rhs.data_size_;
     rhs.data_size_ = 0;
-
-    vertex_data_ = rhs.vertex_data_;
     rhs.vertex_data_ = nullptr;
 }
 

@@ -33,6 +33,12 @@
     <ClCompile Include="Source\VertexData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GLObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GLTestCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Util\Input.h">
@@ -50,10 +56,13 @@
     <ClInclude Include="Include\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GLObject.h">
+    <ClInclude Include="Include\GLObject\GLObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\VertexData.h">
+    <ClInclude Include="Include\Util\VertexData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GLObject\GLTestCube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

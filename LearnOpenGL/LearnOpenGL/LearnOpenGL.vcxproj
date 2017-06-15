@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>F:\Git_local\LearnOpenGL\_Libs;$(LibraryPath)</LibraryPath>
-    <IncludePath>F:\Git_local\LearnOpenGL\_Headers;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Git_local\LearnOpenGL\_Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Git_local\LearnOpenGL\_Headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>F:\Git_local\LearnOpenGL\_Headers;$(IncludePath)</IncludePath>
@@ -126,6 +126,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\GLTestCube.cpp" />
+    <ClCompile Include="Source\GLObject.cpp" />
     <ClCompile Include="Source\VertexData.cpp" />
     <ClCompile Include="Source\InitUtils.cpp" />
     <ClCompile Include="Source\Input.cpp" />
@@ -134,13 +136,14 @@
     <ClCompile Include="Source\Texture2DController.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Include\GLObject.h" />
+    <ClInclude Include="Include\GLObject\GLTestCube.h" />
+    <ClInclude Include="Include\GLObject\GLObject.h" />
     <ClInclude Include="Include\Constants.h" />
     <ClInclude Include="Include\Texture\Texture2DController.h" />
     <ClInclude Include="Include\Util\InitUtils.h" />
     <ClInclude Include="Include\Util\Input.h" />
     <ClInclude Include="Include\Shaders\ShaderProgram.h" />
-    <ClInclude Include="Include\VertexData.h" />
+    <ClInclude Include="Include\Util\VertexData.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Shaders\fragment_shader.fglsl" />

@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\GLTestCube.cpp" />
     <ClCompile Include="Source\GLObject.cpp" />
     <ClCompile Include="Source\VertexData.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="Source\Texture2DController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Camera.h" />
     <ClInclude Include="Include\GLObject\GLTestCube.h" />
     <ClInclude Include="Include\GLObject\GLObject.h" />
     <ClInclude Include="Include\Constants.h" />

@@ -59,16 +59,22 @@
     <ClInclude Include="Include\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GLObject\GLObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Util\VertexData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GLObject\GLTestCube.h">
+    <ClInclude Include="Include\RenderingSystem\RenderingSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Camera.h">
+    <ClInclude Include="Include\Util\Singletone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderingSystem\GLObject\GLObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderingSystem\GLObject\GLTestCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\RenderingSystem\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

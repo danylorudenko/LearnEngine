@@ -129,6 +129,8 @@
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\GLTestCube.cpp" />
     <ClCompile Include="Source\GLObject.cpp" />
+    <ClCompile Include="Source\Program.cpp" />
+    <ClCompile Include="Source\RenderingSystem.cpp" />
     <ClCompile Include="Source\VertexData.cpp" />
     <ClCompile Include="Source\InitUtils.cpp" />
     <ClCompile Include="Source\Input.cpp" />
@@ -137,10 +139,11 @@
     <ClCompile Include="Source\Texture2DController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Program.h" />
     <ClInclude Include="Include\RenderingSystem\Camera.h" />
     <ClInclude Include="Include\RenderingSystem\GLObject\GLTestCube.h" />
     <ClInclude Include="Include\RenderingSystem\GLObject\GLObject.h" />
-    <ClInclude Include="Include\Constants.h" />
+    <ClInclude Include="Include\Util\Constants.h" />
     <ClInclude Include="Include\RenderingSystem\RenderingSystem.h" />
     <ClInclude Include="Include\Texture\Texture2DController.h" />
     <ClInclude Include="Include\Util\InitUtils.h" />

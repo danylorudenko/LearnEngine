@@ -4,30 +4,16 @@
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 
-#include "..\..\Include\Shaders\ShaderProgram.h"
-
-constexpr int SCREEN_WIDTH = 800;
-constexpr int SCREEN_HEIGHT = 600;
-
-// Global startup logic
-int Start();
-
+// Initializing GLFW, setting basic preferences.
+// Returns !0 in case of error.
 int InitGLFW();
 
 // Opening GLFW Window
 // Returns !0 in case of error
-int OpenWindow(GLFWwindow*& window, int*& width, int*& height);
+int OpenWindow_SetContext(GLFWwindow*& window, int width, int height);
 
 // Initializing GLEW.
 // Returns !0 in case of error
 int InitGLEW();
-
-// Setting Viewport for OpenGL to draw in
-void SetViewport(GLFWwindow*& window, int*& width, int*& height);
-
-// Start checking for instruction to close the window.
-// Swapping front and back buffers if there were no instructions.
-// Calls glfwTerminate at the end of the loop.
-void StartGameLoop(GLFWwindow*& window);
 
 #endif

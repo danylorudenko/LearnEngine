@@ -10,11 +10,22 @@
 class RenderingSystem : public Singletone<RenderingSystem>
 {
 public:
+    RenderingSystem                         (int viewport_X, int viewport_Y,
+                                             std::shared_ptr<Camera> main_cam);
+
     void                DrawAll             ();
+    void                Clear               ();
+
+    void                SetMainCamera       (std::shared_ptr<Camera> main_cam);
+    void                SetViewport         (int resolution_X, int resolution_Y);
+    void                AddToDrawList       (std::weak_ptr<GLObject> new_object);
+    void                RemoveFromDrawList  (std::weak_ptr<GLObject> to_remove);
 
 protected:
+    int                                     resolution_X_;
+    int                                     resolution_Y_;
 
-    std::weak_ptr<Camera> main_camera_;
+    std::shared_ptr<Camera>                 main_camera_;
     std::list<std::weak_ptr<GLObject>>      gl_objects_;
 };
 

@@ -1,11 +1,12 @@
-#include "..\Include\Util\InitUtils.h"
+#include "..\Include\Program.h"
 
 #include <iostream>
 
 int main()
 {
-	if (Start() != 0) {
-		return -1;
-	}
+	Program::CreateDefault();
+
+    Program::Instance().StartMainLoop();
+
 	return 0;
 }

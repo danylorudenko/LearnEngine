@@ -15,6 +15,10 @@ public:
 
 
     void            Initialize      ();
+    void            StartMainLoop   ();
+
+
+    void            FrameBufferSizeCallBack(GLFWwindow* window, int width, int height);
 
 public:
     static constexpr unsigned int           default_resolution_X = 800;

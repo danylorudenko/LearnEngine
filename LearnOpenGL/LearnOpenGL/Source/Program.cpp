@@ -1,6 +1,12 @@
 #include "..\Include\Program.h"
+#include <memory>
 
 Program::Program()
+{
+    Initialize();
+}
+
+void Program::Initialize()
 {
     if (InitGLFW() != 0) {
         throw std::runtime_error("Error initializing GLFW");
@@ -18,14 +24,16 @@ Program::Program()
     if (InitGLEW() != 0) {
         throw std::runtime_error("Error initializing GLEW.");
     }
-    
-    // ================
-    
-    RenderingSystem::Instance().Create(default_resolution_X, default_resolution_Y);
 
+    // ================
+
+    auto main_camera = std::make_shared<Camera>(default_resolution_X, default_resolution_Y);
+    RenderingSystem::Instance().Create(default_resolution_X, default_resolution_Y, main_camera);
 }
 
-void Program::Initialize()
+void Program::StartMainLoop()
 {
-
+    while (glfwWindowShouldClose(main_window_)) {
+        RenderingSystem::Instance().Iterate();
+    }
 }

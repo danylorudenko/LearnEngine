@@ -18,7 +18,7 @@ public:
     }
 
     template<typename... Targs>
-    static void Create(Targs... arg)
+    static void Create(Targs&&... arg)
     {
         if (instance_ != nullptr) {
             throw std::logic_error("Logical error: singletone already has an instance. Manualy delete the previous one to create a new..");

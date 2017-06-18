@@ -1,4 +1,5 @@
 #include "..\Include\Shaders\ShaderProgram.h"
+#include <glm\gtc\type_ptr.hpp>
 
 #include <fstream>
 #include <iostream>
@@ -11,7 +12,7 @@ ShaderProgram::ShaderProgram(const GLchar* vertex_source_file, const GLchar* fra
 	GLuint vertex_shader = CompileVertex(vertex_source.c_str());
 	GLuint fragment_shader = CompileFragment(fragment_source.c_str());
 
-	program_ = LinkShaders(vertex_shader, fragment_shader);
+    shader_program_handle_ = LinkShaders(vertex_shader, fragment_shader);
 
 	glDeleteShader(fragment_shader);
 	glDeleteShader(vertex_shader);
@@ -19,24 +20,68 @@ ShaderProgram::ShaderProgram(const GLchar* vertex_source_file, const GLchar* fra
 
 void ShaderProgram::Use()
 {
-	glUseProgram(program_);
+	glUseProgram(shader_program_handle_);
 }
 
 void ShaderProgram::SetIntUniform(const std::string& name, GLint value)
 {
-    GLint uniform_handle = glGetUniformLocation(program_, name.c_str());
+    GLint uniform_handle = glGetUniformLocation(shader_program_handle_, name.c_str());
+    if (uniform_handle == -1) {
+        throw std::logic_error(std::string("No such integer in the shader: ") + name);
+    }
+
     glUniform1i(uniform_handle, value);
 }
 
 void ShaderProgram::SetFloatUniform(const std::string& name, GLfloat value)
 {
-    GLint uniform_handle = glGetUniformLocation(program_, name.c_str());
+    GLint uniform_handle = glGetUniformLocation(shader_program_handle_, name.c_str());
+    if (uniform_handle == -1) {
+        throw std::logic_error(std::string("No such float in the shader: ") + name);
+    }
+
     glUniform1f(uniform_handle, value);
 }
 
-GLuint ShaderProgram::GetProgram()
+void ShaderProgram::SetVec3fUniform(const std::string& name, glm::vec3& value)
 {
-	return program_;
+    GLint uniform_handle = glGetUniformLocation(shader_program_handle_, name.c_str());
+    if (uniform_handle == -1) {
+        throw std::logic_error(std::string("No such vec3 in the shader: ") + name);
+    }
+
+    glUniform3f(uniform_handle, value.x, value.y, value.z);
+}
+
+void ShaderProgram::SetVec4fUniform(const std::string& name, glm::vec4& value)
+{
+    GLint uniform_handle = glGetUniformLocation(shader_program_handle_, name.c_str());
+    if (uniform_handle == -1) {
+        throw std::logic_error(std::string("No such vec4 in the shader: ") + name);
+    }
+
+    glUniform4f(uniform_handle, value.x, value.y, value.z, value.w);
+}
+
+void ShaderProgram::SetMatrix4Uniform(const std::string& name, glm::mat4 & value)
+{
+    GLuint uniform_handle = glGetUniformLocation(shader_program_handle_, name.c_str());
+    glUniformMatrix4fv(uniform_handle, 1, GL_FALSE, glm::value_ptr(value));
+}
+
+void ShaderProgram::SetSampler(const std::string & name, int value)
+{
+    GLuint uniform_handle = glGetUniformLocation(shader_program_handle_, name.c_str());
+    if (uniform_handle == -1) {
+        throw std::logic_error(std::string("No such sampler in the shader: ") + name);
+    }
+
+    glUniform1i(uniform_handle, value);
+}
+
+GLuint ShaderProgram::GetHandle()
+{
+	return shader_program_handle_;
 }
 
 GLuint ShaderProgram::CompileVertex(const GLchar* vertex_source)
@@ -127,5 +172,5 @@ std::string ShaderProgram::ReadFromFile(const GLchar* file_name)
 
 ShaderProgram::~ShaderProgram()
 {
-	glDeleteProgram(program_);
+	glDeleteProgram(shader_program_handle_);
 }

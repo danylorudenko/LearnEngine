@@ -15,7 +15,7 @@ public:
     // ============ Data Management ============
     virtual void        LoadVertexData                  (std::shared_ptr<VertexData> vertex_data) override;
     virtual void        BindToRender                    () override;
-    virtual void        DrawCall                        () override;
+    virtual void        DrawCall                        (std::shared_ptr<Camera> camera, int viewport_width, int viewport_height) override;
     virtual void        DeleteResources                 () override;
 
 protected:

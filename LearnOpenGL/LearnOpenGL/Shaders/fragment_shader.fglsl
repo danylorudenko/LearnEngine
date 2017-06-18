@@ -9,6 +9,5 @@ out vec4 color;
 
 void main()
 {
-	vec4 tempColor = (mix(texture(myTexture1, TexCoord), texture(myTexture2, vec2(TexCoord.x, -TexCoord.y)), 0.2f) * vertexColor);
-	color = tempColor;
+	color = (mix(texture(myTexture1, TexCoord), texture(myTexture2, vec2(TexCoord.x, -TexCoord.y)), 0.2f) * vertexColor);
 }

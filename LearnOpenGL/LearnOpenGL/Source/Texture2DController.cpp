@@ -1,6 +1,6 @@
-#include "..\Include\Texture\Texture2DController.h"
+#include "..\Include\Texture\DoubleTextureController.h"
 
-Texture2DController::Texture2DController(const char* texture_path_1, const char* texture_path_2)
+DoubleTextureController::DoubleTextureController(const char* texture_path_1, const char* texture_path_2)
 {
 	int width1, height1;
 	unsigned char* image_data_1 = SOIL_load_image(texture_path_1, &width1, &height1, 0, SOIL_LOAD_RGB);
@@ -38,12 +38,21 @@ Texture2DController::Texture2DController(const char* texture_path_1, const char*
 	SOIL_free_image_data(image_data_2);
 }
 
-void Texture2DController::Bind1()
+void DoubleTextureController::Bind()
+{
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture1_);
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, texture2_);
+}
+
+void DoubleTextureController::Bind1()
 {
 	glBindTexture(GL_TEXTURE_2D, texture1_);
 }
 
-void Texture2DController::Bind2()
+void DoubleTextureController::Bind2()
 {
 	glBindTexture(GL_TEXTURE_2D, texture2_);
 }

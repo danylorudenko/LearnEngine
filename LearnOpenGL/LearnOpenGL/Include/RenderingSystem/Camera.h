@@ -7,7 +7,7 @@
 class Camera
 {
 public:
-    Camera                                  (const GLfloat width, const GLfloat height, const GLfloat fow = 60);
+    Camera                                  (const GLfloat fow = 60);
                                             
     Camera                                  (const Camera& rhs) = delete;
     Camera          operator=               (const Camera& rhs) = delete;
@@ -20,10 +20,9 @@ public:
 // ========== Public interface ============
 
     glm::mat4       GetViewMatrix           () const;
-    glm::mat4       GetPerspectiveMatrix    () const;
+    glm::mat4       GetPerspectiveMatrix    (int viewport_width, int viewport_height) const;
 
 protected:
-    GLfloat aspect_ratio_;
     GLfloat fow_;
 
     glm::vec3* world_position_;

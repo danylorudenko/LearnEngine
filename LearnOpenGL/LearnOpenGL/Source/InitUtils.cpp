@@ -1,7 +1,7 @@
 #include "..\Include\RenderingSystem\GLObject\GLTestCube.h"
 #include "..\Include\Util\InitUtils.h"
 #include "..\Include\Util\Input.h"
-#include "..\Include\Texture\Texture2DController.h"
+#include "..\Include\Texture\DoubleTextureController.h"
 #include "..\Include\Shaders\ShaderProgram.h"
 
 #include <chrono>
@@ -111,7 +111,7 @@ void StartGameLoop(GLFWwindow*& window)
 
     GLTestCube cube(vertices, shader_program);
 
-	Texture2DController texture("Resources\\container.jpg", "Resources\\awesomeface.png");
+	DoubleTextureController texture("Resources\\container.jpg", "Resources\\awesomeface.png");
 
 
 	//=====================================

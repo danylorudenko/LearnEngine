@@ -48,8 +48,10 @@ void GLTestCube::BindToRender()
     glBindVertexArray(vertex_array_object_);
 }
 
-void GLTestCube::DrawCall()
+void GLTestCube::DrawCall(std::shared_ptr<Camera> camera, int viewport_width, int viewport_height)
 {
+    GLObject::UseShader_SendTransfromData(camera, viewport_width, viewport_height);
+
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 

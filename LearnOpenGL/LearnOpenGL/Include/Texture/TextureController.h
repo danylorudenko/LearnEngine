@@ -18,13 +18,13 @@ public:
     virtual ~TextureController              ();
 
 public:
-    void                    LoadTextureData ();
-    void                    LoadToGL        ();
+    virtual void            Bind            ();
 
-    void                    UnloadFromMemory();
-    void                    UnloadFromGL    ();
+    virtual void            LoadTextureData ();
+    virtual void            LoadToGL        ();
 
-    void                    Bind            ();
+    virtual void            UnloadFromMemory();
+    virtual void            UnloadFromGL    ();
 
 protected:
     std::string             file_path_;

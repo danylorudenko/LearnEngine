@@ -1,22 +1,31 @@
 #ifndef __DOUBLE_TEXTURE_CONTROLLER_H__
 #define __DOUBLE_TEXTURE_CONTROLLER_H__
 
-#include <SOIL\SOIL.h>
-#include <GL\glew.h>
+#include "TextureController.h"
 
-
-class DoubleTextureController
+class DoubleTextureController : public TextureController
 {
 public:
-	DoubleTextureController										(const char* texture_path_1, const char* texture_path_2);
+	DoubleTextureController                                 ();
+    DoubleTextureController                                 (const std::string& file1_path_, const std::string& file2_path_);
 
-    void                        Bind                        ();
-	void						Bind1						();
-	void						Bind2						();
+    virtual void                Bind                        () override;
 
-private:
-	GLuint texture1_;
-	GLuint texture2_;
+    virtual void                LoadTextureData             () override;
+    virtual void                LoadToGL                    () override;
+
+    virtual void                UnloadFromMemory            () override;
+    virtual void                UnloadFromGL                () override;
+
+protected:
+    std::string                 file2_path_;
+
+	GLuint                      texture2_handle_;
+    unsigned char*              image2_data_;
+
+    int                         width2_;
+    int                         height2_;
+	
 };
 
 #endif

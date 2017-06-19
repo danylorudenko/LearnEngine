@@ -41,6 +41,7 @@ void TextureController::LoadToGL()
     
     glGenTextures(1, &texture_handle_);
     
+    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_handle_);
     
     glTextureParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);

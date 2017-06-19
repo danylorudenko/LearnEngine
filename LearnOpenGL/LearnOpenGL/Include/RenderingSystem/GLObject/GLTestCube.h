@@ -9,7 +9,7 @@
 class GLTestCube : public GLObject
 {
 public:
-    GLTestCube                                          (std::shared_ptr<VertexData> vertex_data, std::shared_ptr<ShaderProgram> shader_program);
+    GLTestCube                                          (std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> shader_program);
     virtual ~GLTestCube                                 ();
 
     // ============ Data Management ============

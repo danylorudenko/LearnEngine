@@ -4,8 +4,8 @@
 #include <glm\gtc\matrix_transform.hpp>
 #include "..\Include\RenderingSystem\GLObject\GLTestCube.h"
 
-GLTestCube::GLTestCube(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<ShaderProgram> shader_program) :
-    GLObject(vertex_data, shader_program)
+GLTestCube::GLTestCube(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> material) :
+    GLObject(vertex_data, material)
 {
     //LoadVertexData(vertex_data);
 }
@@ -50,8 +50,11 @@ void GLTestCube::BindToRender()
 
 void GLTestCube::DrawCall(std::shared_ptr<Camera> camera, int viewport_width, int viewport_height)
 {
-    GLObject::UseShader_SendTransfromData(camera, viewport_width, viewport_height);
+    auto material = GLObject::GetMainMaterial();
 
+    material->UseMainShader();
+    material->SendTransformData(camera, this->GetModelMatrix(), viewport_width, viewport_height);
+    
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 

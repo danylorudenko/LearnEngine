@@ -28,7 +28,6 @@ public:
     virtual void                        LoadVertexData           (std::shared_ptr<VertexData> vertex_data) = 0;
     virtual void                        BindToRender             () = 0;
     virtual void                        DrawCall                 (std::shared_ptr<Camera> camera, int viewport_width, int viewport_height) = 0;
-    virtual void                        DeleteResources          () = 0;
 
     virtual std::shared_ptr<Material>   GetMainMaterial          ();
 

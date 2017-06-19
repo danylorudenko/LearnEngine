@@ -10,17 +10,22 @@
 class RenderingSystem : public Singletone<RenderingSystem>
 {
 public:
+    static constexpr int                    DEFAULT_FOW = 60;
+
+public:
     RenderingSystem                         (int viewport_X, int viewport_Y,
                                              std::shared_ptr<Camera> main_cam);
 
-    void                Iterate             ();
-    void                DrawAll             ();
+    void                Iterate             (GLFWwindow* window);
+    void                DrawAll             (GLFWwindow* window);
     void                Clear               ();
 
     void                SetMainCamera       (std::shared_ptr<Camera> main_cam);
     void                SetViewport         (int resolution_X, int resolution_Y);
     void                AddToDrawList       (std::shared_ptr<GLObject> new_object);
     void                RemoveFromDrawList  (std::shared_ptr<GLObject> to_remove);
+
+    void                frame_buffer_size_callback(GLFWwindow* window, int width, int height);
 
 protected:
     int                                     resolution_X_;

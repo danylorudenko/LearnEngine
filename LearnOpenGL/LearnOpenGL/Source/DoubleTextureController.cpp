@@ -14,7 +14,8 @@ DoubleTextureController::DoubleTextureController() :
 DoubleTextureController::DoubleTextureController(const std::string& file1_path, const std::string& file2_path) :
     TextureController(file1_path), file2_path_(file2_path)
 {
-	
+	LoadTextureData();
+    LoadToGL();
 }
 
 void DoubleTextureController::Bind()

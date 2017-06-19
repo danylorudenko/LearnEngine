@@ -13,6 +13,8 @@ public:
     Program                         (Program&& rhs) = delete;
     Program&        operator=       (Program&& rhs) = delete;
 
+    ~Program                        ();
+
 
     void            Initialize      ();
     void            StartMainLoop   ();

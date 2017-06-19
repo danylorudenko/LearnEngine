@@ -43,6 +43,11 @@ void GLObject::SetWorldScale(const glm::vec3 & scale)
     *world_scale_ = scale;
 }
 
+std::shared_ptr<Material> GLObject::GetMainMaterial()
+{
+    return main_material_;
+}
+
 glm::mat4 GLObject::GetModelMatrix()
 {
     glm::mat4 model_matrix;

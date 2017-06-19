@@ -28,14 +28,14 @@ public:
 
 	~ShaderProgram					    ();
 
-private:
+protected:
 	GLuint			CompileVertex	    (const GLchar* vertex_source);
 	GLuint			CompileFragment	    (const GLchar* fragment_source);
 	GLuint			LinkShaders		    (const GLuint vertex_shader, const GLuint fragment_shader);
 
 	std::string		ReadFromFile	    (const GLchar* file_path);
 
-private:
+protected:
 	GLuint			shader_program_handle_;
 };
 

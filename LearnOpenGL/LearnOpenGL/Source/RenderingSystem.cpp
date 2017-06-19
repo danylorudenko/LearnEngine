@@ -1,5 +1,5 @@
-//#include <algorithm>
 #include "..\Include\RenderingSystem\RenderingSystem.h"
+#include <GLFW\glfw3.h>
 
 RenderingSystem::RenderingSystem(int resolution_X, int resolution_Y, std::shared_ptr<Camera> main_cam) :
     resolution_X_(resolution_X), resolution_Y_(resolution_Y), main_camera_(main_cam)
@@ -9,22 +9,24 @@ RenderingSystem::RenderingSystem(int resolution_X, int resolution_Y, std::shared
     glEnable(GL_DEPTH_TEST);
 }
 
-void RenderingSystem::Iterate()
+void RenderingSystem::Iterate(GLFWwindow* window)
 {
     Clear();
-    DrawAll();
+    DrawAll(window);
 }
 
-void RenderingSystem::DrawAll()
+void RenderingSystem::DrawAll(GLFWwindow* window)
 {
     for (auto glObjectPtr : gl_objects_) {
         if (!glObjectPtr.expired()) {
             auto valid_gl_Object = glObjectPtr.lock();
 
             valid_gl_Object->BindToRender();
-            valid_gl_Object->DrawCall(main_camera_);
+            valid_gl_Object->DrawCall(main_camera_, resolution_X_, resolution_Y_);
         }
     }
+
+    glfwSwapBuffers(window);
 }
 
 void RenderingSystem::Clear()
@@ -53,4 +55,9 @@ void RenderingSystem::AddToDrawList(std::shared_ptr<GLObject> new_object)
 void RenderingSystem::RemoveFromDrawList(std::shared_ptr<GLObject> to_remove)
 {
     gl_objects_.remove(to_remove);
+}
+
+void RenderingSystem::frame_buffer_size_callback(GLFWwindow * window, int width, int height)
+{
+    SetViewport(width, height);
 }

@@ -23,7 +23,7 @@ public:
         if (instance_ != nullptr) {
             throw std::logic_error("Logical error: singletone already has an instance. Manualy delete the previous one to create a new..");
         }
-        instance_ = new T(std::forward(arg...));
+        instance_ = new T(std::forward<Targs>(arg)...);
     }
 
     static bool IsPresent()

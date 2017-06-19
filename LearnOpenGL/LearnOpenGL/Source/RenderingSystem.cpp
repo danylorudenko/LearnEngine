@@ -1,5 +1,4 @@
 #include "..\Include\RenderingSystem\RenderingSystem.h"
-#include <GLFW\glfw3.h>
 
 RenderingSystem::RenderingSystem(int resolution_X, int resolution_Y, std::shared_ptr<Camera> main_cam) :
     resolution_X_(resolution_X), resolution_Y_(resolution_Y), main_camera_(main_cam)
@@ -18,12 +17,8 @@ void RenderingSystem::Iterate(GLFWwindow* window)
 void RenderingSystem::DrawAll(GLFWwindow* window)
 {
     for (auto glObjectPtr : gl_objects_) {
-        if (!glObjectPtr.expired()) {
-            auto valid_gl_Object = glObjectPtr.lock();
-
-            valid_gl_Object->BindToRender();
-            valid_gl_Object->DrawCall(main_camera_, resolution_X_, resolution_Y_);
-        }
+        glObjectPtr->BindToRender();
+        glObjectPtr->DrawCall(main_camera_, resolution_X_, resolution_Y_);
     }
 
     glfwSwapBuffers(window);
@@ -59,5 +54,5 @@ void RenderingSystem::RemoveFromDrawList(std::shared_ptr<GLObject> to_remove)
 
 void RenderingSystem::frame_buffer_size_callback(GLFWwindow * window, int width, int height)
 {
-    SetViewport(width, height);
+    RenderingSystem::Instance().SetViewport(width, height);
 }

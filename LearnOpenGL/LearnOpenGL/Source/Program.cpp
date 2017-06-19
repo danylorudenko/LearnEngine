@@ -35,7 +35,7 @@ void Program::Initialize()
 
     // Callbacks
     glfwSetKeyCallback(main_window_, key_callback);
-    glfwSetFramebufferSizeCallback(main_window_, RenderingSystem::Instance().frame_buffer_size_callback);
+    glfwSetFramebufferSizeCallback(main_window_, &RenderingSystem::frame_buffer_size_callback);
 
     // ================
 

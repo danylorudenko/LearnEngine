@@ -5,34 +5,36 @@
 #include "GLObject\GLObject.h"
 #include "..\Util\Singletone.h"
 
+#include <GLFW\glfw3.h>
+
 #include <list>
 
 class RenderingSystem : public Singletone<RenderingSystem>
 {
 public:
-    static constexpr int                    DEFAULT_FOW = 60;
+    static constexpr GLfloat                        DEFAULT_FOW = 60.0f;
 
 public:
-    RenderingSystem                         (int viewport_X, int viewport_Y,
-                                             std::shared_ptr<Camera> main_cam);
+    RenderingSystem                                 (int viewport_X, int viewport_Y,
+                                                     std::shared_ptr<Camera> main_cam);
 
-    void                Iterate             (GLFWwindow* window);
-    void                DrawAll             (GLFWwindow* window);
-    void                Clear               ();
+    void                Iterate                     (GLFWwindow* window);
+    void                DrawAll                     (GLFWwindow* window);
+    void                Clear                       ();
 
-    void                SetMainCamera       (std::shared_ptr<Camera> main_cam);
-    void                SetViewport         (int resolution_X, int resolution_Y);
-    void                AddToDrawList       (std::shared_ptr<GLObject> new_object);
-    void                RemoveFromDrawList  (std::shared_ptr<GLObject> to_remove);
+    void                SetMainCamera               (std::shared_ptr<Camera> main_cam);
+    void                SetViewport                 (int resolution_X, int resolution_Y);
+    void                AddToDrawList               (std::shared_ptr<GLObject> new_object);
+    void                RemoveFromDrawList          (std::shared_ptr<GLObject> to_remove);
 
-    void                frame_buffer_size_callback(GLFWwindow* window, int width, int height);
+    static void         frame_buffer_size_callback  (GLFWwindow* window, int width, int height);
 
 protected:
     int                                     resolution_X_;
     int                                     resolution_Y_;
 
     std::shared_ptr<Camera>                 main_camera_;
-    std::list<std::weak_ptr<GLObject>>      gl_objects_;
+    std::list<std::shared_ptr<GLObject>>    gl_objects_;
 };
 
 #endif

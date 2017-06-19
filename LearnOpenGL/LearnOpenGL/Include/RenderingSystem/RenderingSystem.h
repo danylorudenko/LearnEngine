@@ -37,4 +37,6 @@ protected:
     std::list<std::shared_ptr<GLObject>>    gl_objects_;
 };
 
+template class Singletone<RenderingSystem>;
+
 #endif

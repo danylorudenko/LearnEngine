@@ -4,9 +4,11 @@
 
 int main()
 {
-	Program::CreateDefault();
+	Program::Create();
 
     Program::Instance().StartMainLoop();
+
+    Program::Delete();
 
 	return 0;
 }

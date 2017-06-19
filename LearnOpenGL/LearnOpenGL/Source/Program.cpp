@@ -89,9 +89,6 @@ void Program::Initialize()
     }, value_count);
 
 
-    auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
-    RenderingSystem::Instance().Create(default_resolution_X, default_resolution_Y, main_camera);
-
     auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vglsl", "Shaders\\fragment_shader.fglsl");
     auto test_cube_texture = std::make_shared<DoubleTextureController>("Resources\\container.jpg", "Resources\\awesomeface.png");
 
@@ -99,6 +96,10 @@ void Program::Initialize()
     test_cube_material->SetMainTexture(test_cube_texture);
 
     auto test_cube = std::make_shared<GLTestCube>(vertex_data, test_cube_material);
+
+
+    auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
+    RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
 
     RenderingSystem::Instance().AddToDrawList(test_cube);
 }

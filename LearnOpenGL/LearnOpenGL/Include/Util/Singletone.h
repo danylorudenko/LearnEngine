@@ -12,11 +12,6 @@ public:
         return *instance_;
     }
 
-    static void CreateDefault()
-    {
-        instance_ = new T();
-    }
-
     template<typename... Targs>
     static void Create(Targs&&... arg)
     {

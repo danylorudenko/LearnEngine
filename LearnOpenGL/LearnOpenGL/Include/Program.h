@@ -30,6 +30,4 @@ protected:
     GLFWwindow* main_window_;
 };
 
-template class Singletone<Program>;
-
 #endif

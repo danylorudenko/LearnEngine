@@ -21,7 +21,7 @@ public:
         instance_ = new T(std::forward<Targs>(arg)...);
     }
 
-    static bool IsPresent()
+    static bool IsCreated()
     {
         return instance_ != nullptr;
     }
@@ -35,5 +35,8 @@ public:
 protected:
     static T* instance_;
 };
+
+template<typename T>
+T* Singletone<T>::instance_ = nullptr;
 
 #endif

@@ -1,4 +1,5 @@
 #include "..\Include\Shaders\ShaderProgram.h"
+#include "..\Include\Util\Debugging\DebugTools.h"
 #include <glm\gtc\type_ptr.hpp>
 
 #include <fstream>
@@ -14,8 +15,10 @@ ShaderProgram::ShaderProgram(const GLchar* vertex_source_file, const GLchar* fra
 
     shader_program_handle_ = LinkShaders(vertex_shader, fragment_shader);
 
+	display_gl_errors();
 	glDeleteShader(fragment_shader);
 	glDeleteShader(vertex_shader);
+	display_gl_errors();
 }
 
 void ShaderProgram::Use()
@@ -91,6 +94,7 @@ GLuint ShaderProgram::CompileVertex(const GLchar* vertex_source)
 
 	glShaderSource(vertex_shader, 1, &vertex_source, nullptr);
 	glCompileShader(vertex_shader);
+	display_gl_errors();
 
 	GLint success;
 	GLchar infolog[512];
@@ -111,6 +115,7 @@ GLuint ShaderProgram::CompileFragment(const GLchar* fragment_source)
 
 	glShaderSource(fragment_shader, 1, &fragment_source, nullptr);
 	glCompileShader(fragment_shader);
+	display_gl_errors();
 
 	GLint success;
 	GLchar infolog[512];
@@ -132,16 +137,18 @@ GLuint ShaderProgram::LinkShaders(const GLuint vertex_shader, const GLuint fragm
 	glAttachShader(shader_program, vertex_shader);
 	glAttachShader(shader_program, fragment_shader);
 	glLinkProgram(shader_program);
+	display_gl_errors();
 
 	GLint success;
 	GLchar infolog[512];
-	glGetShaderiv(shader_program, GL_LINK_STATUS, &success);
+	glGetProgramiv(shader_program, GL_LINK_STATUS, &success);
 
 	if (!success) {
-		glGetShaderInfoLog(shader_program, sizeof(infolog), NULL, infolog);
+		glGetProgramInfoLog(shader_program, sizeof(infolog), NULL, infolog);
 		std::cerr << "ERROR::SHADER_PROGRAM::LINK_FAILED\n" << infolog << std::endl;
 	}
 
+	display_gl_errors();
 	return shader_program;
 }
 

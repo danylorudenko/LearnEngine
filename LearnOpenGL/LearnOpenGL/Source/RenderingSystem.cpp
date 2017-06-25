@@ -1,4 +1,5 @@
 #include "..\Include\RenderingSystem\RenderingSystem.h"
+#include "..\Include\Util\Debugging\DebugTools.h"
 
 RenderingSystem::RenderingSystem(int resolution_X, int resolution_Y, std::shared_ptr<Camera> main_cam) :
     resolution_X_(resolution_X), resolution_Y_(resolution_Y), main_camera_(main_cam)

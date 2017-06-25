@@ -28,3 +28,13 @@ glm::mat4 Camera::GetPerspectiveMatrix(int viewport_width, int viewport_height) 
     float aspect_ratio = static_cast<float>(viewport_width) / static_cast<float>(viewport_height);
     return glm::perspective(glm::radians(fow_), aspect_ratio, 0.1f, 100.0f);
 }
+
+void Camera::SetWorldPosition(glm::vec3 & pos)
+{
+	*world_position_ = pos;
+}
+
+void Camera::SetViewDirection(glm::vec3 & dir)
+{
+	*view_direction_ = dir;
+}

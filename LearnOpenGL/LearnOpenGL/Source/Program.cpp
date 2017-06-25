@@ -2,6 +2,9 @@
 #include "..\Include\Texture\DoubleTextureController.h"
 #include "..\Include\RenderingSystem\GLObject\GLTestCube.h"
 #include "..\Include\Util\Input.h"
+#include "..\Include\Util\Debugging\DebugTools.h"
+
+#include <glm\vec3.hpp>
 #include <memory>
 
 Program::Program()
@@ -38,9 +41,6 @@ void Program::Initialize()
     glfwSetFramebufferSizeCallback(main_window_, &RenderingSystem::frame_buffer_size_callback);
 
     // ================
-
-
-    // √Œ¬Õﬂ -√Œ¬Õﬂ -»Õ»÷»¿À»«¿÷»ﬂ
 
     const int value_count = 180;
 
@@ -86,19 +86,19 @@ void Program::Initialize()
          0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
         -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-    }, value_count);
-
+    }, value_count * sizeof(GLfloat));
 
     auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vglsl", "Shaders\\fragment_shader.fglsl");
     auto test_cube_texture = std::make_shared<DoubleTextureController>("Resources\\container.jpg", "Resources\\awesomeface.png");
-
+	
     auto test_cube_material = std::make_shared<Material>(test_cube_shader);
     test_cube_material->SetMainTexture(test_cube_texture);
 
     auto test_cube = std::make_shared<GLTestCube>(vertex_data, test_cube_material);
-
-
     auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
+
+	main_camera->SetWorldPosition(glm::vec3(0.0f, 0.0f, 15.0f));
+
     RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
 
     RenderingSystem::Instance().AddToDrawList(test_cube);
@@ -106,7 +106,9 @@ void Program::Initialize()
 
 void Program::StartMainLoop()
 {
-    while (glfwWindowShouldClose(main_window_)) {
+    while (!glfwWindowShouldClose(main_window_)) {
+		glfwPollEvents();
+
         RenderingSystem::Instance().Iterate(main_window_);
     }
 }

@@ -33,6 +33,11 @@ std::shared_ptr<ShaderProgram> Material::GetMainShader()
     return main_shader_;
 }
 
+std::shared_ptr<TextureController> Material::GetMainTexture()
+{
+	return main_texture_;
+}
+
 void Material::UseMainShader()
 {
     main_shader_->Use();

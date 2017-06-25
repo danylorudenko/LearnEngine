@@ -23,6 +23,8 @@ public:
     void                                SetMainTexture          (std::shared_ptr<TextureController> texture);
 
     std::shared_ptr<ShaderProgram>      GetMainShader           ();
+	std::shared_ptr<TextureController>	GetMainTexture			();
+
     virtual void                        UseMainShader();
     void                                SendTransformData       (std::shared_ptr<Camera> camera, glm::mat4& model_matrix, int viewport_width, int viewport_height);
 

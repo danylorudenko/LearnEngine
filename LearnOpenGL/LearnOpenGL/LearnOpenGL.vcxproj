@@ -127,6 +127,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\DebugTools.cpp" />
     <ClCompile Include="Source\GLTestCube.cpp" />
     <ClCompile Include="Source\GLObject.cpp" />
     <ClCompile Include="Source\Material.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Include\Util\Constants.h" />
     <ClInclude Include="Include\RenderingSystem\RenderingSystem.h" />
     <ClInclude Include="Include\Texture\DoubleTextureController.h" />
+    <ClInclude Include="Include\Util\Debugging\DebugTools.h" />
     <ClInclude Include="Include\Util\InitUtils.h" />
     <ClInclude Include="Include\Util\Input.h" />
     <ClInclude Include="Include\Shaders\ShaderProgram.h" />
@@ -157,6 +159,7 @@
     <ClInclude Include="Include\Util\VertexData.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="debug_log.txt" />
     <Text Include="Shaders\fragment_shader.fglsl" />
     <Text Include="Shaders\vertex_shader.vglsl" />
   </ItemGroup>

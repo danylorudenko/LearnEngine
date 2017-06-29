@@ -20,7 +20,7 @@ Camera::~Camera()
 
 glm::mat4 Camera::GetViewMatrix() const
 {
-    return glm::lookAt(*view_direction_, *world_position_, glm::vec3(1.0f, 0.0f, 0.0f));
+    return glm::lookAt(*world_position_, glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 glm::mat4 Camera::GetPerspectiveMatrix(int viewport_width, int viewport_height) const

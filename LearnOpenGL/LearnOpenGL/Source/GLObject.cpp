@@ -8,7 +8,7 @@ GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Mate
     main_material_  (main_material),
     world_position_ (new glm::vec3(0.0f)),
     world_euler_    (new glm::vec3(0.0f)),
-    world_scale_    (new glm::vec3(0.0f))
+    world_scale_    (new glm::vec3(1.0f))
 {
 
 }

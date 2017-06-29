@@ -115,7 +115,6 @@ GLuint ShaderProgram::CompileFragment(const GLchar* fragment_source)
 
 	glShaderSource(fragment_shader, 1, &fragment_source, nullptr);
 	glCompileShader(fragment_shader);
-	display_gl_errors();
 
 	GLint success;
 	GLchar infolog[512];
@@ -137,7 +136,6 @@ GLuint ShaderProgram::LinkShaders(const GLuint vertex_shader, const GLuint fragm
 	glAttachShader(shader_program, vertex_shader);
 	glAttachShader(shader_program, fragment_shader);
 	glLinkProgram(shader_program);
-	display_gl_errors();
 
 	GLint success;
 	GLchar infolog[512];
@@ -148,7 +146,6 @@ GLuint ShaderProgram::LinkShaders(const GLuint vertex_shader, const GLuint fragm
 		std::cerr << "ERROR::SHADER_PROGRAM::LINK_FAILED\n" << infolog << std::endl;
 	}
 
-	display_gl_errors();
 	return shader_program;
 }
 

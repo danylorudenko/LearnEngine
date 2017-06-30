@@ -30,8 +30,8 @@ public:
     static void         frame_buffer_size_callback  (GLFWwindow* window, int width, int height);
 
 protected:
-    int                                     resolution_X_;
-    int                                     resolution_Y_;
+    int                                     screen_width_;
+    int                                     screen_height_;
 
     std::shared_ptr<Camera>                 main_camera_;
     std::list<std::shared_ptr<GLObject>>    gl_objects_;

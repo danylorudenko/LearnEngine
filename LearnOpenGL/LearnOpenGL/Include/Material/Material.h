@@ -22,11 +22,13 @@ public:
     void                                SetMainShader           (std::shared_ptr<ShaderProgram> shader);
     void                                SetMainTexture          (std::shared_ptr<TextureController> texture);
 
-    std::shared_ptr<ShaderProgram>      GetMainShader           ();
-	std::shared_ptr<TextureController>	GetMainTexture			();
+    ShaderProgram&                      GetMainShader           ();
+    TextureController&                  GetMainTexture          ();
 
-    virtual void                        UseMainShader();
-    void                                SendTransformData       (std::shared_ptr<Camera> camera, glm::mat4& model_matrix, int viewport_width, int viewport_height);
+    void                                SendTransformData       (glm::mat4& model_matrix, 
+                                                                 glm::mat4& view_matrix, 
+                                                                 glm::mat4& perspective_matrix);
+    virtual void                        PrepareToDraw           ();
 
 protected:
     std::shared_ptr<ShaderProgram>              main_shader_;

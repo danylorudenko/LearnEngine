@@ -28,24 +28,29 @@ void Material::SetMainTexture(std::shared_ptr<TextureController> texture)
     main_texture_ = texture;
 }
 
-std::shared_ptr<ShaderProgram> Material::GetMainShader()
+ShaderProgram& Material::GetMainShader()
 {
-    return main_shader_;
+    return *main_shader_;
 }
 
-std::shared_ptr<TextureController> Material::GetMainTexture()
+TextureController& Material::GetMainTexture()
 {
-	return main_texture_;
+    return *main_texture_;
 }
 
-void Material::UseMainShader()
-{
-    main_shader_->Use();
-}
-
-void Material::SendTransformData(std::shared_ptr<Camera> camera, glm::mat4& model_matrix, int viewport_width, int viewport_height)
+void Material::SendTransformData(glm::mat4& model_matrix,
+                                 glm::mat4& view_matrix,
+                                 glm::mat4& perspective_matrix)
 {
     main_shader_->SetMatrix4Uniform(ShaderProgram::MODEL_MATRIX_NAME, model_matrix);
-    main_shader_->SetMatrix4Uniform(ShaderProgram::VIEW_MATRIX_NAME, camera->GetViewMatrix());
-    main_shader_->SetMatrix4Uniform(ShaderProgram::PERSPECTIVE_MATRIX_NAME, camera->GetPerspectiveMatrix(viewport_width, viewport_height));
+    main_shader_->SetMatrix4Uniform(ShaderProgram::VIEW_MATRIX_NAME, view_matrix);
+    main_shader_->SetMatrix4Uniform(ShaderProgram::PERSPECTIVE_MATRIX_NAME, perspective_matrix);
+}
+
+void Material::PrepareToDraw()
+{
+    GetMainShader().Use();
+    GetMainTexture().Bind();
+
+    GetMainShader().SetSampler("myTexture1", 0);
 }

@@ -14,8 +14,10 @@ public:
 
     // ============ Data Management ============
     virtual void        LoadVertexData                  (std::shared_ptr<VertexData> vertex_data) override;
-    virtual void        BindToRender                    () override;
-    virtual void        DrawCall                        (std::shared_ptr<Camera> camera, int viewport_width, int viewport_height) override;
+    virtual void        BindToRender                    (glm::mat4& view_matrix,
+                                                         glm::mat4& perspective_matrix) override;
+
+    virtual void        DrawCall                        () override;
 
 protected:
 

@@ -15,7 +15,6 @@ ShaderProgram::ShaderProgram(const GLchar* vertex_source_file, const GLchar* fra
 
     shader_program_handle_ = LinkShaders(vertex_shader, fragment_shader);
 
-	display_gl_errors();
 	glDeleteShader(fragment_shader);
 	glDeleteShader(vertex_shader);
 	display_gl_errors();

@@ -95,25 +95,15 @@ void Program::Initialize()
     test_cube_material->SetMainTexture(test_cube_texture);
 
     auto test_cube = std::make_shared<GLTestCube>(vertex_data, test_cube_material);
-	auto test_cube2 = std::make_shared<GLTestCube>(vertex_data, test_cube_material);
-	auto test_cube3 = std::make_shared<GLTestCube>(vertex_data, test_cube_material);
-	auto test_cube4 = std::make_shared<GLTestCube>(vertex_data, test_cube_material);
     auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
 
 	main_camera->SetWorldPosition(glm::vec3(3.3f, 2.0f, 5.0f));
 
-	test_cube2->SetWorldPosition(glm::vec3(1.0f, 0.0f, 0.0f));
-	test_cube3->SetWorldPosition(glm::vec3(-3.0f, 2.0f, 0.0f));
-	test_cube4->SetWorldPosition(glm::vec3(0.0f, 0.0f, 3.0f));
-
-	test_cube2->SetWorldRotation(glm::vec3(45.0f, 0.0f, 0.0f));
+	test_cube->SetWorldRotation(glm::vec3(45.0f, 15.0f, 45.0f));
 
     RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
 
     RenderingSystem::Instance().AddToDrawList(test_cube);
-	RenderingSystem::Instance().AddToDrawList(test_cube2);
-	RenderingSystem::Instance().AddToDrawList(test_cube3);
-	RenderingSystem::Instance().AddToDrawList(test_cube4);
 }
 
 void Program::StartMainLoop()

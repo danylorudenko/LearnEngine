@@ -26,10 +26,12 @@ public:
     // ========== GL API ==========
 
     virtual void                        LoadVertexData           (std::shared_ptr<VertexData> vertex_data) = 0;
-    virtual void                        BindToRender             () = 0;
-    virtual void                        DrawCall                 (std::shared_ptr<Camera> camera, int viewport_width, int viewport_height) = 0;
+    virtual void                        BindToRender             (glm::mat4& view_matrix,
+                                                                  glm::mat4& perspective_matrix) = 0;
 
-    virtual std::shared_ptr<Material>   GetMainMaterial          ();
+    virtual void                        DrawCall                 () = 0;
+
+    virtual Material&                   GetMainMaterial          ();
 
 protected:
     std::shared_ptr<Material>           main_material_;

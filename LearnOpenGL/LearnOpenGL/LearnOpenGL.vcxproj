@@ -128,6 +128,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\DebugTools.cpp" />
+    <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\GLTestCube.cpp" />
     <ClCompile Include="Source\GLObject.cpp" />
     <ClCompile Include="Source\Material.cpp" />
@@ -142,11 +143,14 @@
     <ClCompile Include="Source\DoubleTextureController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Component\Component.h" />
+    <ClInclude Include="Include\Entity\Entity.h" />
     <ClInclude Include="Include\Material\Material.h" />
     <ClInclude Include="Include\Program.h" />
     <ClInclude Include="Include\RenderingSystem\Camera.h" />
-    <ClInclude Include="Include\RenderingSystem\GLObject\GLTestCube.h" />
-    <ClInclude Include="Include\RenderingSystem\GLObject\GLObject.h" />
+    <ClInclude Include="Include\Component\GLObject\GLTestCube.h" />
+    <ClInclude Include="Include\Component\GLObject\GLObject.h" />
+    <ClInclude Include="Include\Script\Script.h" />
     <ClInclude Include="Include\Texture\TextureController.h" />
     <ClInclude Include="Include\Util\Constants.h" />
     <ClInclude Include="Include\RenderingSystem\RenderingSystem.h" />

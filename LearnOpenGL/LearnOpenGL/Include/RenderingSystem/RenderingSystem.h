@@ -2,7 +2,7 @@
 #define __RENDERING_SYSTEM_H__
 
 #include "Camera.h"
-#include "GLObject\GLObject.h"
+#include "..\Component\GLObject\GLObject.h"
 #include "..\Util\Singletone.h"
 
 #include <GLFW\glfw3.h>

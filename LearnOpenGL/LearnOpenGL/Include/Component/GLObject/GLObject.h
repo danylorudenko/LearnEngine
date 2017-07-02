@@ -4,11 +4,11 @@
 #include <memory>
 #include <glm\fwd.hpp>
 
-#include "..\Camera.h"
+#include "..\Component.h"
 #include "..\..\Material\Material.h"
 #include "..\..\Util\VertexData.h"
 
-class GLObject
+class GLObject : public Component
 {
 public:
     // ========== Construction and operators ==========

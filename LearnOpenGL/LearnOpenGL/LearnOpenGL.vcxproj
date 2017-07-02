@@ -127,6 +127,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Camera.cpp" />
+    <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\DebugTools.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\GLTestCube.cpp" />

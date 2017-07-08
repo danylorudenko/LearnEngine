@@ -128,6 +128,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Component.cpp" />
+    <ClCompile Include="Source\ComponentRegistrationAttorney.cpp" />
     <ClCompile Include="Source\DebugTools.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\GLTestCube.cpp" />
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Component\Component.h" />
+    <ClInclude Include="Include\Component\ComponentRegistrationAttorney.h" />
     <ClInclude Include="Include\Entity\Entity.h" />
     <ClInclude Include="Include\Material\Material.h" />
     <ClInclude Include="Include\Program.h" />

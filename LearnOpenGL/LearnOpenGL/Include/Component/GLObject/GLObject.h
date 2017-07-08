@@ -16,9 +16,9 @@ public:
     GLObject                                     (std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material);
     GLObject                                     (const GLObject& rhs);
 
-    GLObject&                operator=           (const GLObject& rhs) = delete;
-    GLObject                                     (GLObject&& rhs) = delete;
-    GLObject&                operator=           (GLObject&& rhs) = delete;
+    GLObject&                operator=           (const GLObject& rhs);
+    GLObject                                     (GLObject&& rhs);
+    GLObject&                operator=           (GLObject&& rhs);
 
     virtual ~GLObject();
 

@@ -11,53 +11,39 @@ class Entity;
 class Component
 {
 public:
-    virtual Component&  operator=           (const Component& rhs) = 0;
-
-private:
+    // Default component setup, no owner, no system.
     Component                               ();
+
+    // Copy-construcion is allowed, but without owners and without registration.
+    // Owner is set no nullptr.
     Component                               (const Component& rhs);
+
+    // Copying is allowed, but without owners and registration.
+    Component&          operator=           (const Component& rhs);
+    
+    // Move-construction is only allowed, when the component is not registered in engine systems.
+    // Owner is set to nullptr.
     Component                               (Component&& rhs);
 
-public:
+    // Move-assignment is only allowed, when the component is not registered in engine systems. 
+    Component&          operator=           (Component&& rhs);
+
+    virtual ~Component                      ();
+
+
     Entity&             GetOwner            ();
 
 protected:
-    void                SetOwner            (Entity* owner);
+    void                SetOwner            (Entity& owner);
+    virtual void        RegisterInSystem    () = 0;
+    virtual void        UnregisterFromSystem() = 0;
+
 
 protected:
     Entity* owner_;
+    bool    in_system_;
 
-    friend class ComponentOwnerAttorney;
-};
-
-/* 
-    Attorney class to access initializaton 
-    and constuction of componets from the entities.
-*/
-class ComponentOwnerAttorney
-{
-private:
-    static void  SetComponentOwner(Component& instance, Entity* owner)
-    {
-        instance.SetOwner(owner);
-    }
-
-    static Component CreateComponent()
-    {
-        return Component();
-    }
-
-    static Component CopyComponent(const Component& rhs)
-    {
-        return Component(rhs);
-    }
-
-    static Component CopyComponent(Component&& rhs)
-    {
-        return Component(std::move(rhs));
-    }
-
-    friend class Entity;
+    friend class ComponentRegistrationAttorney;
 };
 
 #endif

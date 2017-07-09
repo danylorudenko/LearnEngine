@@ -14,11 +14,6 @@ GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Mate
     
 }
 
-GLObject::~GLObject()
-{
-
-}
-
 GLObject::GLObject(const GLObject& rhs) : 
     Component(rhs),
     vertex_data_    (rhs.vertex_data_), 
@@ -28,6 +23,27 @@ GLObject::GLObject(const GLObject& rhs) :
     world_scale_    (new glm::vec3(*rhs.world_scale_))
 {
     
+}
+
+GLObject& GLObject::operator=(const GLObject& rhs)
+{
+    Component::operator=(rhs);
+}
+
+GLObject::GLObject(GLObject&& rhs) :
+    Component(std::move(rhs))
+{
+
+}
+
+GLObject& GLObject::operator=(GLObject&& rhs)
+{
+    Component::operator=(std::move(rhs));
+}
+
+GLObject::~GLObject()
+{
+
 }
 
 void GLObject::SetWorldPosition(const glm::vec3 & position)
@@ -50,7 +66,7 @@ Material& GLObject::GetMainMaterial()
     return *main_material_;
 }
 
-glm::mat4 GLObject::GetModelMatrix()
+glm::mat4 GLObject::GetModelMatrix() const
 {
     glm::mat4 model_matrix;
     model_matrix = glm::scale(model_matrix, *world_scale_);

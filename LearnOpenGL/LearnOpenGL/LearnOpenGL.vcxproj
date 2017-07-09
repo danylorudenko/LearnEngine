@@ -126,6 +126,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ITransformable.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\ComponentRegistrationAttorney.cpp" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Component\Component.h" />
     <ClInclude Include="Include\Component\ComponentRegistrationAttorney.h" />
+    <ClInclude Include="Include\Component\GLObject\GLTransformation\ITransformable.h" />
     <ClInclude Include="Include\Entity\Entity.h" />
     <ClInclude Include="Include\Material\Material.h" />
     <ClInclude Include="Include\Program.h" />

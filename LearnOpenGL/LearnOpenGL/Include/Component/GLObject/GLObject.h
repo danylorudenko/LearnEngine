@@ -40,7 +40,7 @@ protected:
 
     // ========== Transformations ==========
 public:
-    virtual glm::mat4   GetModelMatrix                     ();
+    virtual glm::mat4   GetModelMatrix                     () const;
 
     virtual void        SetWorldPosition                   (const glm::vec3& position);
     virtual void        SetWorldRotation                   (const glm::vec3& euler_angles);

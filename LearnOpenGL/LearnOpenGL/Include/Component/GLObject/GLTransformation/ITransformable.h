@@ -2,7 +2,7 @@
 #define __I_TRANSFORMABLE_H__
 
 #include <GL\glew.h>
-#include <glm\fwd.hpp>
+#include <glm\vec3.hpp>
 
 // Represents ready-to use transformation interface.
 // Stores transformation data on GPU buffer throught the uniform buffer.
@@ -12,13 +12,17 @@ public:
     static constexpr unsigned int TRANSFORM_BLOCK_BINDING_INDEX = 0;
 
 private:
-    static constexpr unsigned int POSITION_OFFSET   = 0 * sizeof(GLfloat);
-    static constexpr unsigned int ROTATION_OFFSET   = 3 * sizeof(GLfloat);
-    static constexpr unsigned int SCALE_OFFSET      = 6 * sizeof(GLfloat);
-    static constexpr unsigned int BUFFER_SIZE       = 9 * sizeof(GLfloat);
+    static constexpr unsigned int POSITION_OFFSET   = 0 * sizeof(glm::vec3);
+    static constexpr unsigned int ROTATION_OFFSET   = 1 * sizeof(glm::vec3);
+    static constexpr unsigned int SCALE_OFFSET      = 2 * sizeof(glm::vec3);
+    static constexpr unsigned int BUFFER_SIZE       = 3 * sizeof(glm::vec3);
 
 public:
     void*                       GetModelMatrix      ();
+
+    glm::vec3                   GetPosition         () const;
+    glm::vec3                   GetRotation         () const;
+    glm::vec3                   GetScale            () const;
 
     void                        SetPosition         (glm::vec3& world_position);
     void                        SetPosition         (float x, float y, float z);

@@ -144,6 +144,7 @@
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
     <ClCompile Include="Source\DoubleTextureController.cpp" />
+    <ClCompile Include="Tests\sizeofTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Component\Component.h" />

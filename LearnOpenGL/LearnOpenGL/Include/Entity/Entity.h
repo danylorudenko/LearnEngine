@@ -26,7 +26,7 @@ public:
     std::weak_ptr<TComponent>       GetComponent                ()
     {
         for (auto component : components_) {
-            if (auto casted_component = std::dynamic_pointer_cast<TComponent>(component) {
+            if (auto casted_component = std::dynamic_pointer_cast<TComponent>(component)) {
                 return casted_component;
             }
         }

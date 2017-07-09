@@ -1,6 +1,6 @@
 #include "..\Include\Program.h"
 #include "..\Include\Texture\DoubleTextureController.h"
-#include "..\Include\RenderingSystem\GLObject\GLTestCube.h"
+#include "..\Include\Component\GLObject\GLTestCube.h"
 #include "..\Include\Util\Input.h"
 #include "..\Include\Util\Debugging\DebugTools.h"
 

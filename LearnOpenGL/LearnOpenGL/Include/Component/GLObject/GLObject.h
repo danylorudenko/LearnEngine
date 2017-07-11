@@ -48,17 +48,6 @@ protected:
     std::shared_ptr<Material>           main_material_;
     std::shared_ptr<VertexData>         vertex_data_;
 
-
-    // ========== Transformations ==========
-public:
-    glm::mat4           GetModelMatrix                      () const;
-
-protected:
-    void                AllocateTransformStorage            ();
-    void                SetTransfromDefaults                ();
-
-protected:
-    GLfloat*            transfrom_data_;
 };
 
 #endif

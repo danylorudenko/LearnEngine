@@ -117,5 +117,5 @@ void IGLTransformable::SetScale(GLfloat x, GLfloat y, GLfloat z)
 
 void IGLTransformable::SetScaleParam(SCALE p_name, GLfloat param)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_SCALE_OFFSET, sizeof(GLfloat), &param);
+    glNamedBufferSubData(uniform_buffer_handle_, GPU_SCALE_OFFSET + static_cast<unsigned int>(p_name), sizeof(GLfloat), &param);
 }

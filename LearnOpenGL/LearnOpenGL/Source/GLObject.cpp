@@ -6,8 +6,7 @@
 GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material) :
     Component(),
     vertex_data_    (vertex_data), 
-    main_material_  (main_material),
-    transfrom_data_(nullptr)
+    main_material_  (main_material)
 {
     
 }
@@ -15,8 +14,7 @@ GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Mate
 GLObject::GLObject(const GLObject& rhs) : 
     Component(rhs),
     vertex_data_    (rhs.vertex_data_), 
-    main_material_  (rhs.main_material_),
-    transfrom_data_(nullptr)
+    main_material_  (rhs.main_material_)
 {
     
 }
@@ -40,18 +38,6 @@ GLObject& GLObject::operator=(GLObject&& rhs)
 GLObject::~GLObject()
 {
 
-}
-
-void GLObject::AllocateTransformStorage()
-{
-    transfrom_data_ = new GLfloat[TRANSFORM_BUFFER_SIZE];
-}
-
-void GLObject::SetTransfromDefaults()
-{
-                               // |   Position      |   Rotation      |   Scale
-    const GLfloat default_data[] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, };
-    std::memcpy(transfrom_data_, default_data, TRANSFORM_BUFFER_SIZE);
 }
 
 Material& GLObject::GetMainMaterial()

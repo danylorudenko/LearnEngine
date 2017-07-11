@@ -14,10 +14,11 @@ public:
     static constexpr unsigned int TRANSFORM_BLOCK_BINDING_INDEX = 0;
 
 private:
-    static constexpr unsigned int POSITION_OFFSET   = 0 * sizeof(glm::vec3);
-    static constexpr unsigned int ROTATION_OFFSET   = 1 * sizeof(glm::vec3);
-    static constexpr unsigned int SCALE_OFFSET      = 2 * sizeof(glm::vec3);
-    static constexpr unsigned int BUFFER_SIZE       = 3 * sizeof(glm::vec3);
+    static constexpr unsigned int GPU_BUFFER_SIZE       = 3 * sizeof(glm::vec3);
+
+    static constexpr unsigned int GPU_POSITION_OFFSET   = 0 * sizeof(glm::vec3);
+    static constexpr unsigned int GPU_ROTATION_OFFSET   = 1 * sizeof(glm::vec3);
+    static constexpr unsigned int GPU_SCALE_OFFSET      = 2 * sizeof(glm::vec3);
 
 public:
     // Binding contents of the internal buffer to the conventional binding index (0).
@@ -61,8 +62,8 @@ protected:
 private:
     // Allocating GPU buffer with appropriate size to hold transformation data.
     // Now buffer size is (3 * sizeof(glm::vec3).
-    void                        AllocateBuffer      ();
-    void                        FillBuffer          ();
+    void                        AllocateGPUBuffer     ();
+    void                        FillGPUBuffer         ();
 
 
 private:

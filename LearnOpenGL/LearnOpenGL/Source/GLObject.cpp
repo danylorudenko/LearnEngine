@@ -7,9 +7,8 @@ GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Mate
     Component(),
     vertex_data_    (vertex_data), 
     main_material_  (main_material),
-    world_position_ (new glm::vec3(0.0f)),
-    world_euler_    (new glm::vec3(0.0f)),
-    world_scale_    (new glm::vec3(1.0f))
+    transfrom_data_(nullptr),
+    GPU_transfrom_(false)
 {
     
 }
@@ -18,9 +17,8 @@ GLObject::GLObject(const GLObject& rhs) :
     Component(rhs),
     vertex_data_    (rhs.vertex_data_), 
     main_material_  (rhs.main_material_),
-    world_position_ (new glm::vec3(*rhs.world_position_)),
-    world_euler_    (new glm::vec3(*rhs.world_euler_)),
-    world_scale_    (new glm::vec3(*rhs.world_scale_))
+    transfrom_data_(nullptr),
+    GPU_transfrom_(false)
 {
     
 }
@@ -46,17 +44,29 @@ GLObject::~GLObject()
 
 }
 
-void GLObject::SetWorldPosition(const glm::vec3 & position)
+void GLObject::AllocateTransformStorage()
+{
+    transfrom_data_ = new GLfloat[TRANSFORM_BUFFER_SIZE];
+}
+
+void GLObject::SetTransfromDefaults()
+{
+                               // |   Position      |   Rotation      |   Scale
+    const GLfloat default_data[] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, };
+    std::memcpy(transfrom_data_, default_data, TRANSFORM_BUFFER_SIZE);
+}
+
+void GLObject::SetPosition(const glm::vec3 & position)
 {
     *world_position_ = position;
 }
 
-void GLObject::SetWorldRotation(const glm::vec3 & euler_angles)
+void GLObject::SetRotation(const glm::vec3 & euler_angles)
 {
     *world_euler_ = euler_angles;
 }
 
-void GLObject::SetWorldScale(const glm::vec3 & scale)
+void GLObject::SetScale(const glm::vec3 & scale)
 {
     *world_scale_ = scale;
 }

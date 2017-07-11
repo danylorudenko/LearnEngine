@@ -7,7 +7,7 @@
 // Represents ready-to use transformation interface.
 // Stores transformation data on GPU buffer.
 // Can bind internal GPU buffer to the conventional uniform binding index.
-class ITransformable
+class IGLTransformable
 {
 public:
     // Conventional transfrom data uniform binding index.
@@ -37,26 +37,26 @@ public:
     glm::vec3                   GetScale            () const;
 
 
-    void                        SetPosition         (glm::vec3& world_position);
+    void                        SetPosition         (const glm::vec3& world_position);
     void                        SetPosition         (float x, float y, float z);
 
-    void                        SetScale            (glm::vec3& world_scale);
+    void                        SetScale            (const glm::vec3& world_scale);
     void                        SetScale            (float x, float y, float z);
 
-    void                        SetRotation         (glm::vec3& world_rotation_euler);
+    void                        SetRotation         (const glm::vec3& world_rotation_euler);
     void                        SetRotation         (float x, float y, float z);
 
 protected:
-    ITransformable                                  (const ITransformable& rhs) = delete;
-    ITransformable                                  (ITransformable&& rhs) = delete;
-    ITransformable&             operator=           (ITransformable&& rhs) = delete;
+    IGLTransformable                                  (const IGLTransformable& rhs) = delete;
+    IGLTransformable                                  (IGLTransformable&& rhs) = delete;
+    IGLTransformable&             operator=           (IGLTransformable&& rhs) = delete;
 
     // Default constuctor must be called in all inheriteng classes. It provides allocation of memory
     // on the GPU and some other setup.
-    ITransformable                                  ();
+    IGLTransformable                                  ();
 
     // Performs full copy of the GPU buffer to the instance.
-    ITransformable&             operator=           (const ITransformable& rhs);
+    IGLTransformable&             operator=           (const IGLTransformable& rhs);
 
 private:
     // Allocating GPU buffer with appropriate size to hold transformation data.

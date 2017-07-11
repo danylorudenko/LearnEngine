@@ -1,7 +1,7 @@
 #include <glm\vec3.hpp>
 #include <iostream>
 
-int sizemain()
+int main()
 {
     std::cout << sizeof(glm::vec3) << std::endl;
 

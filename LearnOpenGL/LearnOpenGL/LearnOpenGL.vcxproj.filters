@@ -33,9 +33,6 @@
     <ClCompile Include="Source\GLObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GLTestCube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -66,10 +63,7 @@
     <ClCompile Include="Source\ComponentRegistrationAttorney.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ITransformable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Tests\sizeofTest.cpp">
+    <ClCompile Include="Source\IGLTransformable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -125,13 +119,10 @@
     <ClInclude Include="Include\Component\GLObject\GLObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Component\GLObject\GLTestCube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Include\Component\ComponentRegistrationAttorney.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Component\GLObject\GLTransformation\ITransformable.h">
+    <ClInclude Include="Include\Component\GLObject\GLTransformation\IGLTransformable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

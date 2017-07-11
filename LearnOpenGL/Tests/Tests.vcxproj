@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D934C8BB-0836-4D1E-A6BE-6AFEE8FA988D}</ProjectGuid>
-    <RootNamespace>LearnOpenGL</RootNamespace>
+    <ProjectGuid>{0E91A14F-4BCB-4B97-B111-2512F94A2A0F}</ProjectGuid>
+    <RootNamespace>Tests</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -69,25 +69,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>D:\Git_local\LearnOpenGL\_Libs;$(LibraryPath)</LibraryPath>
     <IncludePath>D:\Git_local\LearnOpenGL\_Headers;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>F:\Git_local\LearnOpenGL\_Headers;$(IncludePath)</IncludePath>
-    <LibraryPath>F:\Git_local\LearnOpenGL\_Libs;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\Git_local\LearnOpenGL\_Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalOptions>/NODEFAULTLIB:LIBCMT %(AdditionalOptions)</AdditionalOptions>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -95,9 +85,6 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
-    <Link>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -126,53 +113,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\IGLTransformable.cpp" />
-    <ClCompile Include="Source\Camera.cpp" />
-    <ClCompile Include="Source\Component.cpp" />
-    <ClCompile Include="Source\ComponentRegistrationAttorney.cpp" />
-    <ClCompile Include="Source\DebugTools.cpp" />
-    <ClCompile Include="Source\Entity.cpp" />
-    <ClCompile Include="Source\GLObject.cpp" />
-    <ClCompile Include="Source\Material.cpp" />
-    <ClCompile Include="Source\Program.cpp" />
-    <ClCompile Include="Source\RenderingSystem.cpp" />
-    <ClCompile Include="Source\TextureController.cpp" />
-    <ClCompile Include="Source\VertexData.cpp" />
-    <ClCompile Include="Source\InitUtils.cpp" />
-    <ClCompile Include="Source\Input.cpp" />
-    <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\ShaderProgram.cpp" />
-    <ClCompile Include="Source\DoubleTextureController.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Include\Component\Component.h" />
-    <ClInclude Include="Include\Component\ComponentRegistrationAttorney.h" />
-    <ClInclude Include="Include\Component\GLObject\GLTransformation\IGLTransformable.h" />
-    <ClInclude Include="Include\Entity\Entity.h" />
-    <ClInclude Include="Include\Material\Material.h" />
-    <ClInclude Include="Include\Program.h" />
-    <ClInclude Include="Include\RenderingSystem\Camera.h" />
-    <ClInclude Include="Include\Component\GLObject\GLObject.h" />
-    <ClInclude Include="Include\Script\Script.h" />
-    <ClInclude Include="Include\Texture\TextureController.h" />
-    <ClInclude Include="Include\Util\Constants.h" />
-    <ClInclude Include="Include\RenderingSystem\RenderingSystem.h" />
-    <ClInclude Include="Include\Texture\DoubleTextureController.h" />
-    <ClInclude Include="Include\Util\Debugging\DebugTools.h" />
-    <ClInclude Include="Include\Util\InitUtils.h" />
-    <ClInclude Include="Include\Util\Input.h" />
-    <ClInclude Include="Include\Shaders\ShaderProgram.h" />
-    <ClInclude Include="Include\Util\Singletone.h" />
-    <ClInclude Include="Include\Util\VertexData.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="debug_log.txt" />
-    <Text Include="Shaders\fragment_shader.fglsl" />
-    <Text Include="Shaders\vertex_shader.vglsl" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resources\awesomeface.png" />
-    <Image Include="Resources\container.jpg" />
+    <ClCompile Include="Tests\sizeofTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

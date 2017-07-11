@@ -5,10 +5,14 @@
 #include <glm\fwd.hpp>
 
 #include "..\Component.h"
+#include ".\GLTransformation\IGLTransformable.h"
 #include "..\..\Material\Material.h"
 #include "..\..\Util\VertexData.h"
 
-class GLObject : public Component
+// Represents component that allows entity to be drawn in the scene.
+// Supports GPU uniform transformation buffer.
+// Can override transformation logic of the owner entity.
+class GLObject : public Component, public IGLTransformable
 {
 public:
     // ========== Construction and operators ==========
@@ -29,7 +33,7 @@ public:
     virtual void                        BindToRender             (glm::mat4& view_matrix,
                                                                   glm::mat4& perspective_matrix) = 0;
 
-    virtual void                        DrawCall                 () = 0;
+    virtual void                        DrawCall                 ();
 
     virtual Material&                   GetMainMaterial          ();
 

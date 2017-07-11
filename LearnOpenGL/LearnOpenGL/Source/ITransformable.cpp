@@ -27,7 +27,7 @@ void ITransformable::AllocateBuffer()
 void ITransformable::FillBuffer()
 {
     const float default_data = 0.0f;
-    glClearNamedBufferSubData(uniform_buffer_handle_, GL_RGB32F, 0, BUFFER_SIZE, GL_R32F, GL_FLOAT, &default_data);
+    glClearNamedBufferSubData(uniform_buffer_handle_, GL_RGB32F, 0, BUFFER_SIZE, GL_RGB32F, GL_FLOAT, &default_data);
 }
 
 void ITransformable::BindUniformBuffer()
@@ -42,7 +42,10 @@ glm::vec3 ITransformable::GetPosition() const
             glMapNamedBufferRange(uniform_buffer_handle_, POSITION_OFFSET, sizeof(glm::vec3), GL_MAP_READ_BIT)
             );
 
-    return glm::vec3(position_data[0], position_data[1], position_data[2]);
+    glm::vec3 position(position_data[0], position_data[1], position_data[2]);
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    return position;
 }
 
 glm::vec3 ITransformable::GetRotation() const
@@ -52,7 +55,10 @@ glm::vec3 ITransformable::GetRotation() const
             glMapNamedBufferRange(uniform_buffer_handle_, ROTATION_OFFSET, sizeof(glm::vec3), GL_MAP_READ_BIT)
             );
 
-    return glm::vec3(rotation_data[0], rotation_data[1], rotation_data[2]);
+    glm::vec3 rotation(rotation_data[0], rotation_data[1], rotation_data[2]);
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    return rotation;
 }
 
 glm::vec3 ITransformable::GetScale() const
@@ -62,7 +68,10 @@ glm::vec3 ITransformable::GetScale() const
             glMapNamedBufferRange(uniform_buffer_handle_, SCALE_OFFSET, sizeof(glm::vec3), GL_MAP_READ_BIT)
             );
 
-    return glm::vec3(scale_data[0], scale_data[1], scale_data[2]);
+    glm::vec3 scale(scale_data[0], scale_data[1], scale_data[2]);
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    return scale;
 }
 
 void ITransformable::SetPosition(glm::vec3& world_position)

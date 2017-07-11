@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\Git_local\LearnOpenGL\_Headers;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Git_local\LearnOpenGL\_Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\..\_Headers;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\..\_Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

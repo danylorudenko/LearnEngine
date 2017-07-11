@@ -2,7 +2,7 @@
 #define __GL_OBJECT__
 
 #include <memory>
-#include <glm\fwd.hpp>
+#include <glm\vec3.hpp>
 
 #include "..\Component.h"
 #include ".\GLTransformation\IGLTransformable.h"
@@ -15,26 +15,31 @@
 class GLObject : public Component, public IGLTransformable
 {
 public:
-    static constexpr unsigned int TRANSFORM_BUFFER_SIZE     = 3 * sizeof(glm::vec3);
+    // ========== Component interface =============
+    virtual void            RegisterInSystem        () override;
+    virtual void            UnregisterFromSystem    () override;
 
-    static constexpr unsigned int POSITION_OFFSET           = 0 * sizeof(glm::vec3);
-    static constexpr unsigned int ROTATION_OFFSET           = 1 * sizeof(glm::vec3);
-    static constexpr unsigned int SCALE_OFFSET              = 2 * sizeof(glm::vec3);
 
 public:
     // ========== Construction and operators ==========
 
-    GLObject                                     (std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material);
-    GLObject                                     (const GLObject& rhs);
-
-    GLObject&                operator=           (const GLObject& rhs);
-    GLObject                                     (GLObject&& rhs);
-    GLObject&                operator=           (GLObject&& rhs);
+    GLObject                                        (std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material);
+    GLObject                                        (const GLObject& rhs);
+                                                    
+    GLObject&                operator=              (const GLObject& rhs);
+    GLObject                                        (GLObject&& rhs);
+    GLObject&                operator=              (GLObject&& rhs);
 
     virtual ~GLObject();
 
 
     // ========== GL API ==========
+
+    static constexpr unsigned int TRANSFORM_BUFFER_SIZE = 3 * sizeof(glm::vec3);
+
+    static constexpr unsigned int       POSITION_OFFSET     = 0 * sizeof(glm::vec3);
+    static constexpr unsigned int       ROTATION_OFFSET     = 1 * sizeof(glm::vec3);
+    static constexpr unsigned int       SCALE_OFFSET        = 2 * sizeof(glm::vec3);
 
     virtual void                        LoadVertexData           (std::shared_ptr<VertexData> vertex_data) = 0;
     virtual void                        BindToRender             (glm::mat4& view_matrix,

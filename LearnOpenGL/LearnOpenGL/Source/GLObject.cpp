@@ -1,7 +1,7 @@
-#include <glm\vec3.hpp>
 #include <glm\mat4x4.hpp>
 #include <glm\gtc\matrix_transform.hpp>
 #include "..\Include\Component\GLObject\GLObject.h"
+#include "..\Include\RenderingSystem\RenderingSystem.h"
 
 GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material) :
     Component(),
@@ -38,6 +38,11 @@ GLObject& GLObject::operator=(GLObject&& rhs)
 GLObject::~GLObject()
 {
 
+}
+
+void GLObject::RegisterInSystem()
+{
+    RenderingSystem::Instance().AddToDrawList();
 }
 
 Material& GLObject::GetMainMaterial()

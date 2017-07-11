@@ -7,8 +7,7 @@ GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Mate
     Component(),
     vertex_data_    (vertex_data), 
     main_material_  (main_material),
-    transfrom_data_(nullptr),
-    GPU_transfrom_(false)
+    transfrom_data_(nullptr)
 {
     
 }
@@ -17,8 +16,7 @@ GLObject::GLObject(const GLObject& rhs) :
     Component(rhs),
     vertex_data_    (rhs.vertex_data_), 
     main_material_  (rhs.main_material_),
-    transfrom_data_(nullptr),
-    GPU_transfrom_(false)
+    transfrom_data_(nullptr)
 {
     
 }
@@ -56,37 +54,22 @@ void GLObject::SetTransfromDefaults()
     std::memcpy(transfrom_data_, default_data, TRANSFORM_BUFFER_SIZE);
 }
 
-void GLObject::SetPosition(const glm::vec3 & position)
-{
-    *world_position_ = position;
-}
-
-void GLObject::SetRotation(const glm::vec3 & euler_angles)
-{
-    *world_euler_ = euler_angles;
-}
-
-void GLObject::SetScale(const glm::vec3 & scale)
-{
-    *world_scale_ = scale;
-}
-
 Material& GLObject::GetMainMaterial()
 {
     return *main_material_;
 }
-
-glm::mat4 GLObject::GetModelMatrix() const
-{
-    glm::mat4 model_matrix;
-    model_matrix = glm::scale(model_matrix, *world_scale_);
-
-    // Rotate around every axis.
-    model_matrix = glm::rotate(model_matrix, glm::radians(world_euler_->x), glm::vec3(1.0f, 0.0f, 0.0f));
-    model_matrix = glm::rotate(model_matrix, glm::radians(world_euler_->y), glm::vec3(0.0f, 1.0f, 0.0f));
-    model_matrix = glm::rotate(model_matrix, glm::radians(world_euler_->z), glm::vec3(0.0f, 0.0f, 1.0f));
-
-    model_matrix = glm::translate(model_matrix, *world_position_);
-
-    return model_matrix;
-}
+//
+//glm::mat4 GLObject::GetModelMatrix() const
+//{
+//    glm::mat4 model_matrix;
+//    model_matrix = glm::scale(model_matrix, *world_scale_);
+//
+//    // Rotate around every axis.
+//    model_matrix = glm::rotate(model_matrix, glm::radians(world_euler_->x), glm::vec3(1.0f, 0.0f, 0.0f));
+//    model_matrix = glm::rotate(model_matrix, glm::radians(world_euler_->y), glm::vec3(0.0f, 1.0f, 0.0f));
+//    model_matrix = glm::rotate(model_matrix, glm::radians(world_euler_->z), glm::vec3(0.0f, 0.0f, 1.0f));
+//
+//    model_matrix = glm::translate(model_matrix, *world_position_);
+//
+//    return model_matrix;
+//}

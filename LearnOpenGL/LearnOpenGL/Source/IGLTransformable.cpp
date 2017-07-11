@@ -77,30 +77,45 @@ glm::vec3 IGLTransformable::GetScale() const
 
 void IGLTransformable::SetPosition(const glm::vec3& world_position)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_POSITION_OFFSET, sizeof(world_position), glm::value_ptr(world_position));
+    glNamedBufferSubData(uniform_buffer_handle_, GPU_POSITION_OFFSET, sizeof(glm::vec3), glm::value_ptr(world_position));
 }
 
-void IGLTransformable::SetPosition(float x, float y, float z)
+void IGLTransformable::SetPosition(GLfloat x, GLfloat y, GLfloat z)
 {
     SetPosition(glm::vec3(x, y, z));
 }
 
-void IGLTransformable::SetRotation(const glm::vec3& world_rotation)
+void IGLTransformable::SetPosParam(POS p_name, GLfloat param)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_ROTATION_OFFSET, sizeof(world_rotation), glm::value_ptr(world_rotation));
+    glNamedBufferSubData(uniform_buffer_handle_, GPU_POSITION_OFFSET + static_cast<unsigned int>(p_name), sizeof(GLfloat), &param);
 }
 
-void IGLTransformable::SetRotation(float x, float y, float z)
+void IGLTransformable::SetRotation(const glm::vec3& world_rotation)
+{
+    glNamedBufferSubData(uniform_buffer_handle_, GPU_ROTATION_OFFSET, sizeof(glm::vec3), glm::value_ptr(world_rotation));
+}
+
+void IGLTransformable::SetRotation(GLfloat x, GLfloat y, GLfloat z)
 {
     SetRotation(glm::vec3(x, y, z));
 }
 
-void IGLTransformable::SetScale(const glm::vec3& world_scale)
+void IGLTransformable::SetRotParam(ROT p_name, GLfloat param)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_SCALE_OFFSET, sizeof(world_scale), glm::value_ptr(world_scale));
+    glNamedBufferSubData(uniform_buffer_handle_, GPU_ROTATION_OFFSET + static_cast<unsigned int>(p_name), sizeof(GLfloat), &param);
 }
 
-void IGLTransformable::SetScale(float x, float y, float z)
+void IGLTransformable::SetScale(const glm::vec3& world_scale)
+{
+    glNamedBufferSubData(uniform_buffer_handle_, GPU_SCALE_OFFSET, sizeof(glm::vec3), glm::value_ptr(world_scale));
+}
+
+void IGLTransformable::SetScale(GLfloat x, GLfloat y, GLfloat z)
 {
     SetScale(glm::vec3(x, y, z));
+}
+
+void IGLTransformable::SetScaleParam(SCALE p_name, GLfloat param)
+{
+    glNamedBufferSubData(uniform_buffer_handle_, GPU_SCALE_OFFSET, sizeof(GLfloat), &param);
 }

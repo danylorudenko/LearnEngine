@@ -51,16 +51,7 @@ protected:
 
     // ========== Transformations ==========
 public:
-    virtual glm::mat4   GetModelMatrix                      () const;
-
-    void                SetPosition                         (const glm::vec3& position);
-    void                SetPosParam                         (const POS p_name, const GLfloat param);
-
-    void                SetRotation                         (const glm::vec3& euler_angles);
-    void                SetRotParam                         (const ROT p_name, const GLfloat param);
-
-    void                SetScale                            (const glm::vec3& scale);
-    void                SetScaleParam                       (const SCALE p_name, const GLfloat param);
+    glm::mat4           GetModelMatrix                      () const;
 
 protected:
     void                AllocateTransformStorage            ();
@@ -68,28 +59,6 @@ protected:
 
 protected:
     GLfloat*            transfrom_data_;
-    GLboolean           GPU_transfrom_;
-};
-
-enum struct POS
-{
-    X = 0 * sizeof(GLfloat),
-    Y = 1 * sizeof(GLfloat),
-    Z = 2 * sizeof(GLfloat)
-};
-
-enum struct ROT
-{
-    X = 0 * sizeof(GLfloat),
-    Y = 1 * sizeof(GLfloat),
-    Z = 2 * sizeof(GLfloat),
-};
-
-enum struct SCALE
-{
-    X = 0 * sizeof(GLfloat),
-    Y = 1 * sizeof(GLfloat),
-    Z = 2 * sizeof(GLfloat),
 };
 
 #endif

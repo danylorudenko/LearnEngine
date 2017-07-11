@@ -4,6 +4,29 @@
 #include <GL\glew.h>
 #include <glm\vec3.hpp>
 
+
+enum struct POS
+{
+    X = 0 * sizeof(GLfloat),
+    Y = 1 * sizeof(GLfloat),
+    Z = 2 * sizeof(GLfloat)
+};
+
+enum struct ROT
+{
+    X = 0 * sizeof(GLfloat),
+    Y = 1 * sizeof(GLfloat),
+    Z = 2 * sizeof(GLfloat),
+};
+
+enum struct SCALE
+{
+    X = 0 * sizeof(GLfloat),
+    Y = 1 * sizeof(GLfloat),
+    Z = 2 * sizeof(GLfloat),
+};
+
+
 // Represents ready-to use transformation interface.
 // Stores transformation data on GPU buffer.
 // Can bind internal GPU buffer to the conventional uniform binding index.
@@ -39,31 +62,34 @@ public:
 
 
     void                        SetPosition         (const glm::vec3& world_position);
-    void                        SetPosition         (float x, float y, float z);
-
-    void                        SetScale            (const glm::vec3& world_scale);
-    void                        SetScale            (float x, float y, float z);
+    void                        SetPosition         (GLfloat x, GLfloat y, GLfloat z);
+    void                        SetPosParam         (POS p_name, GLfloat param);
 
     void                        SetRotation         (const glm::vec3& world_rotation_euler);
-    void                        SetRotation         (float x, float y, float z);
+    void                        SetRotation         (GLfloat x, GLfloat y, GLfloat z);
+    void                        SetRotParam         (ROT p_name, const GLfloat param);
+
+    void                        SetScale            (const glm::vec3& world_scale);
+    void                        SetScale            (GLfloat x, GLfloat y, GLfloat z);
+    void                        SetScaleParam       (SCALE p_name, GLfloat param);
 
 protected:
-    IGLTransformable                                  (const IGLTransformable& rhs) = delete;
-    IGLTransformable                                  (IGLTransformable&& rhs) = delete;
-    IGLTransformable&             operator=           (IGLTransformable&& rhs) = delete;
+    IGLTransformable                                (const IGLTransformable& rhs) = delete;
+    IGLTransformable                                (IGLTransformable&& rhs) = delete;
+    IGLTransformable&           operator=           (IGLTransformable&& rhs) = delete;
 
     // Default constuctor must be called in all inheriteng classes. It provides allocation of memory
     // on the GPU and some other setup.
-    IGLTransformable                                  ();
+    IGLTransformable                                ();
 
     // Performs full copy of the GPU buffer to the instance.
-    IGLTransformable&             operator=           (const IGLTransformable& rhs);
+    IGLTransformable&           operator=           (const IGLTransformable& rhs);
 
 private:
     // Allocating GPU buffer with appropriate size to hold transformation data.
     // Now buffer size is (3 * sizeof(glm::vec3).
-    void                        AllocateGPUBuffer     ();
-    void                        FillGPUBuffer         ();
+    void                        AllocateGPUBuffer   ();
+    void                        FillGPUBuffer       ();
 
 
 private:

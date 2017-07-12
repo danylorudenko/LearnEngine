@@ -35,19 +35,18 @@ public:
 
     // ========== GL API ==========
 
-    static constexpr unsigned int TRANSFORM_BUFFER_SIZE = 3 * sizeof(glm::vec3);
+    static constexpr unsigned int       TRANSFORM_BUFFER_SIZE       = 3 * sizeof(glm::vec3);
 
-    static constexpr unsigned int       POSITION_OFFSET     = 0 * sizeof(glm::vec3);
-    static constexpr unsigned int       ROTATION_OFFSET     = 1 * sizeof(glm::vec3);
-    static constexpr unsigned int       SCALE_OFFSET        = 2 * sizeof(glm::vec3);
+    static constexpr unsigned int       POSITION_OFFSET             = 0 * sizeof(glm::vec3);
+    static constexpr unsigned int       ROTATION_OFFSET             = 1 * sizeof(glm::vec3);
+    static constexpr unsigned int       SCALE_OFFSET                = 2 * sizeof(glm::vec3);
 
-    virtual void                        LoadVertexData           (std::shared_ptr<VertexData> vertex_data) = 0;
-    virtual void                        BindToRender             (glm::mat4& view_matrix,
-                                                                  glm::mat4& perspective_matrix) = 0;
+    virtual void                        LoadVertexData              (std::shared_ptr<VertexData> vertex_data) = 0;
+    virtual void                        BindToRender                (glm::mat4& view_matrix,
+                                                                     glm::mat4& perspective_matrix) = 0;
 
-    virtual void                        DrawCall                 ();
-
-    virtual Material&                   GetMainMaterial          ();
+    virtual std::shared_ptr<Material>   GetMainMaterialShared       ();
+    virtual Material&                   GetMainMaterial             ();
 
 protected:
     std::shared_ptr<Material>           main_material_;

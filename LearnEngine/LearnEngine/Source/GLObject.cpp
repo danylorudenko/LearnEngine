@@ -42,12 +42,22 @@ GLObject::~GLObject()
 
 void GLObject::RegisterInSystem()
 {
-    RenderingSystem::Instance().AddToDrawList();
+    RenderingSystem::Instance().AddToDrawList(this);
+}
+
+void GLObject::UnregisterFromSystem()
+{
+    RenderingSystem::Instance().RemoveFromDrawList(this);
 }
 
 Material& GLObject::GetMainMaterial()
 {
     return *main_material_;
+}
+
+std::shared_ptr<Material> GLObject::GetMainMaterialShared()
+{
+    return main_material_;
 }
 //
 //glm::mat4 GLObject::GetModelMatrix() const

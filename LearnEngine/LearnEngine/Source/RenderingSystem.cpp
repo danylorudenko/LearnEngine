@@ -2,6 +2,8 @@
 #include "..\Include\Util\Debugging\DebugTools.h"
 #include <glm\mat4x4.hpp>
 
+#include <algorithm>
+
 RenderingSystem::RenderingSystem(int resolution_X, int resolution_Y, std::shared_ptr<Camera> main_cam) :
     screen_width_(resolution_X), screen_height_(resolution_Y), main_camera_(main_cam)
 {
@@ -18,11 +20,13 @@ void RenderingSystem::Iterate(GLFWwindow* window)
 
 void RenderingSystem::DrawAll(GLFWwindow* window)
 {
-    for (auto glObjectPtr : gl_objects_) {
-        glObjectPtr->BindToRender(main_camera_->GetViewMatrix(), 
-                                  main_camera_->GetPerspectiveMatrix(screen_width_, screen_height_));
+    int count = rendering_list_.size();
 
-        glObjectPtr->DrawCall();
+    auto view_matrix = main_camera_->GetViewMatrix();
+    auto perspective_matrix = main_camera_->GetPerspectiveMatrix(screen_width_, screen_height_);
+    for (int i = 0; i < count; ++i) {
+        rendering_list_[i]->BindToRender(view_matrix, perspective_matrix);
+        rendering_list_[i]->DrawCall();
     }
 
     glfwSwapBuffers(window);
@@ -46,14 +50,15 @@ void RenderingSystem::SetViewport(int resolution_X, int resolution_Y)
     glViewport(0, 0, screen_width_, screen_width_);
 }
 
-void RenderingSystem::AddToDrawList(std::shared_ptr<GLObject> new_object)
+void RenderingSystem::AddToDrawList(GLObject* to_add)
 {
-    gl_objects_.push_back(new_object);
+    rendering_list_.push_back(to_add);
 }
 
-void RenderingSystem::RemoveFromDrawList(std::shared_ptr<GLObject> to_remove)
+void RenderingSystem::RemoveFromDrawList(GLObject* to_remove)
 {
-    gl_objects_.remove(to_remove);
+    std::remove_if(rendering_list_.begin(), rendering_list_.end(),
+        [to_remove](GLObject* candidate) { candidate == to_remove; });
 }
 
 void RenderingSystem::frame_buffer_size_callback(GLFWwindow * window, int width, int height)

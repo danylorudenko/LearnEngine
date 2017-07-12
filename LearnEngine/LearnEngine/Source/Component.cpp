@@ -40,9 +40,9 @@ Entity& Component::GetOwner()
     return *owner_;
 }
 
-void Component::SetOwner(Entity& owner)
+void Component::SetOwner(Entity* owner)
 {
-    owner_ = &owner;
+    owner_ = owner;
 }
 
 void Component::RegisterInSystem()

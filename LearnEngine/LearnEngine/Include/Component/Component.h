@@ -34,7 +34,7 @@ public:
     Entity&             GetOwner            ();
 
 protected:
-    void                SetOwner            (Entity& owner);
+    void                SetOwner            (Entity* owner);
     virtual void        RegisterInSystem    () = 0;
     virtual void        UnregisterFromSystem() = 0;
 

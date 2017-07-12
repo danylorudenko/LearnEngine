@@ -1,6 +1,6 @@
 #include "..\Include\Component\ComponentRegistrationAttorney.h"
 
-void ComponentRegistrationAttorney::SetComponentOwner(std::shared_ptr<Component> component, Entity & owner)
+void ComponentRegistrationAttorney::SetComponentOwner(std::shared_ptr<Component> component, Entity* owner)
 {
     component->SetOwner(owner);
 }

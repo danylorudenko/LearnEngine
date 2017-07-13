@@ -49,7 +49,7 @@ public:
     void                            RemoveAllComponents         ();
 
 protected:
-    ComponentList           components_;
+    ComponentList                   components_;
 };
 
 #endif

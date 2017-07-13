@@ -12,7 +12,7 @@
 
 class RenderingSystem : public Singletone<RenderingSystem>
 {
-    using RenderingListContainter   = std::vector<GLObject*>;
+    using RenderingListContainter                   = std::vector<GLObject*>;
 
 public:
     static constexpr GLfloat                        DEFAULT_FOW = 60.0f;
@@ -20,6 +20,12 @@ public:
 public:
     RenderingSystem                                 (int viewport_X, int viewport_Y,
                                                      std::shared_ptr<Camera> main_cam);
+
+    RenderingSystem                                 (const RenderingSystem& rhs) = delete;
+    RenderingSystem                                 (RenderingSystem&& rhs) = delete;
+    
+    RenderingSystem&    operator=                   (const RenderingSystem& rhs) = delete;
+    RenderingSystem&    operator=                   (RenderingSystem&& rhs) = delete;
 
     void                Iterate                     (GLFWwindow* window);
     void                DrawAll                     (GLFWwindow* window);

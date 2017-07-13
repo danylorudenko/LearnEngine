@@ -26,7 +26,7 @@ void RenderingSystem::DrawAll(GLFWwindow* window)
     auto perspective_matrix = main_camera_->GetPerspectiveMatrix(screen_width_, screen_height_);
     for (int i = 0; i < count; ++i) {
         rendering_list_[i]->BindToRender(view_matrix, perspective_matrix);
-        rendering_list_[i]->DrawCall();
+        
     }
 
     glfwSwapBuffers(window);

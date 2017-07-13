@@ -16,7 +16,7 @@ Component& Component::operator=(const Component& rhs)
 
 }
 
-Component::Component(Component&& rhs) : owner_(nullptr)
+Component::Component(Component&& rhs) : owner_(nullptr), in_system_(false)
 {
     if (rhs.in_system_) {
         throw std::logic_error("Can't move components which are used in engine systems.");

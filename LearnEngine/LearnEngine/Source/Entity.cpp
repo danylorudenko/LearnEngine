@@ -26,6 +26,11 @@ Entity& Entity::operator=(Entity&& rhs)
     components_ = std::move(rhs.components_);
 }
 
+Entity::~Entity()
+{
+    RemoveAllComponents();
+}
+
 void Entity::AddComponent(std::shared_ptr<Component>& component)
 {
     components_.push_back(component);
@@ -35,6 +40,7 @@ void Entity::AddComponent(std::shared_ptr<Component>& component)
 
 void Entity::RemoveComponent(std::weak_ptr<Component> component)
 {
+    // If locked std::shared_ptr is not nullptr..
     if (auto to_remove = component.lock()) {
         ComponentRegistrationAttorney::UnregisterFromSystem(to_remove);
         

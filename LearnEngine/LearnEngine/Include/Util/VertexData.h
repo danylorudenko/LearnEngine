@@ -6,16 +6,17 @@ class VertexData
 public:
     VertexData                              (void* data, int size);
 
-    int                  GetDataSize        ();
-    void*                GetRawData         ();
+    GLuint                  GetDataSize         ();
+    GLuint                  GetDataCount        ();
+    void*                   GetRawData          ();
 
-    VertexData                              (const VertexData& rhs);
-    VertexData&          operator=          (const VertexData& rhs) = delete;
+    VertexData                                  (const VertexData& rhs);
+    VertexData&             operator=           (const VertexData& rhs) = delete;
 
-    VertexData                              (VertexData&& rhs);
-    VertexData&          operator=          (VertexData&& rhs) = delete;
+    VertexData                                  (VertexData&& rhs);
+    VertexData&             operator=           (VertexData&& rhs) = delete;
 
-    ~VertexData                             ();
+    ~VertexData                                 ();
 
 private:
     void* vertex_data_;

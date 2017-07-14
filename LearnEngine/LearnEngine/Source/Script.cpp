@@ -19,6 +19,7 @@ Script::Script(Script&& rhs) : Component(rhs), enable_ticking_(rhs.enable_tickin
 Script& Script::operator=(const Script& rhs)
 {
     Component::operator=(rhs);
+    return *this;
 }
 
 Script& Script::operator=(Script&& rhs)
@@ -26,6 +27,8 @@ Script& Script::operator=(Script&& rhs)
     Component::operator=(std::move(rhs));
     enable_ticking_ = rhs.enable_ticking_;
     rhs.enable_ticking_ = false;
+
+    return *this;
 }
 
 void Script::RegisterInSystem()

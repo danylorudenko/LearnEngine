@@ -43,7 +43,7 @@ void Program::Initialize()
 
     const int value_count = 180;
 
-    auto vertex_data = std::make_shared<VertexData>(new GLfloat[value_count]{
+    /*auto vertex_data = std::make_shared<VertexData>(new GLfloat[value_count]{
         -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
          0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
          0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -86,7 +86,7 @@ void Program::Initialize()
         -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     }, value_count * sizeof(GLfloat));
-
+*/
     //auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vglsl", "Shaders\\fragment_shader.fglsl");
     //auto test_cube_texture = std::make_shared<TextureController>("Resources\\container.jpg");
 	//

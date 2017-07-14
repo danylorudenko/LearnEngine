@@ -1,4 +1,3 @@
-#include "..\Include\RenderingSystem\GLObject\GLTestCube.h"
 #include "..\Include\Util\InitUtils.h"
 #include "..\Include\Util\Input.h"
 #include "..\Include\Texture\DoubleTextureController.h"

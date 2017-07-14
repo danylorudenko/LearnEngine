@@ -23,9 +23,7 @@ VertexData::VertexData(const VertexData & rhs) :
 
     // Copying of all bytes to the newly allocated memory.
     // Pointer arythmetic can't be done with void*, so casting to char* is necessary.
-    for (int i = 0; i < data_size_; i++) {
-        *(reinterpret_cast<char*>(vertex_data_) + i) = *(reinterpret_cast<char*>(rhs.vertex_data_) + i);
-    }
+    std::memcpy(vertex_data_, rhs.vertex_data_, data_size_);
 }
 
 VertexData::VertexData(VertexData && rhs) : 

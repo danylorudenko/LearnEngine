@@ -17,7 +17,6 @@ public:
     GLuint                          offset_;
     GLubyte                         attrib_size_;
     GLubyte                         element_count_;
-    
 };
 
 #endif

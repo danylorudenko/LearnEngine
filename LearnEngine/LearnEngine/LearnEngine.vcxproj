@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir\..\_Libs;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\..\_Libs;$(LibraryPath)</LibraryPath>
     <IncludePath>$(SolutionDir)\..\_Headers;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -135,9 +135,11 @@
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\GLObject.cpp" />
     <ClCompile Include="Source\Material.cpp" />
+    <ClCompile Include="Source\not_implemented_exc.cpp" />
     <ClCompile Include="Source\Program.cpp" />
     <ClCompile Include="Source\RenderingSystem.cpp" />
     <ClCompile Include="Source\Script.cpp" />
+    <ClCompile Include="Source\ScriptingSystem.cpp" />
     <ClCompile Include="Source\TextureController.cpp" />
     <ClCompile Include="Source\VertexAttribData.cpp" />
     <ClCompile Include="Source\VertexData.cpp" />
@@ -158,11 +160,11 @@
     <ClInclude Include="Include\RenderingSystem\Camera.h" />
     <ClInclude Include="Include\Component\GLObject\GLObject.h" />
     <ClInclude Include="Include\ScriptingSystem\ScriptingSystem.h" />
-    <ClInclude Include="Include\Script\Script.h" />
     <ClInclude Include="Include\Texture\TextureController.h" />
     <ClInclude Include="Include\Util\Constants.h" />
     <ClInclude Include="Include\RenderingSystem\RenderingSystem.h" />
     <ClInclude Include="Include\Texture\DoubleTextureController.h" />
+    <ClInclude Include="Include\Util\CustomException\not_implemented_exc.h" />
     <ClInclude Include="Include\Util\Debugging\DebugTools.h" />
     <ClInclude Include="Include\Util\InitUtils.h" />
     <ClInclude Include="Include\Util\Input.h" />

@@ -16,6 +16,8 @@ IGLTransformable& IGLTransformable::operator=(const IGLTransformable& rhs)
         0,
         GPU_BUFFER_SIZE
     );
+    
+    return *this;
 }
 
 void IGLTransformable::AllocateGPUBuffer()

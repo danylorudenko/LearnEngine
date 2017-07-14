@@ -8,29 +8,30 @@
 
 class ScriptingSystem : public Singletone<ScriptingSystem>
 {
-    using TickCallback                                  = void(Script::*)();
-    using TickCallbackList                              = std::vector<Script*>;
+    using TickCallback                                      = void(Script::*)();
+    using TickCallbackList                                  = std::vector<Script*>;
 
 public:
-    ScriptingSystem                                     ();
-    ScriptingSystem                                     (const ScriptingSystem& rhs) = delete;
-    ScriptingSystem                                     (ScriptingSystem&& rhs) = delete;
+    ScriptingSystem                                         ();
+    ScriptingSystem                                         (const ScriptingSystem& rhs) = delete;
+    ScriptingSystem                                         (ScriptingSystem&& rhs) = delete;
 
-    ScriptingSystem             operator=               (const ScriptingSystem& rhs) = delete;
-    ScriptingSystem             operator=               (ScriptingSystem&& rhs) = delete;
+    ScriptingSystem                 operator=               (const ScriptingSystem& rhs) = delete;
+    ScriptingSystem                 operator=               (ScriptingSystem&& rhs) = delete;
 
 public:
-    void                        Iterate                 ();
+    void                            Iterate                 ();
 
-    void                        RegisterTickCallback    (Script* script);
-    void                        UnregisterTickCallback  (Script* script);
+    void                            RegisterTickCallback    (Script* script);
+    void                            UnregisterTickCallback  (Script* script);
     
 
 protected:
-    void                        TickAll                 ();
+    void                            TickAll                 ();
+    static constexpr TickCallback   s_tick_callback_        = ScriptingSystemCallbackAttorney::s_standard_tick_callback;
 
 protected:
-    TickCallbackList            ticking_scripts_;
+    TickCallbackList                ticking_scripts_;
 };
 
 #endif

@@ -19,11 +19,13 @@ Entity::Entity(Entity&& rhs) : components_(std::move(rhs.components_))
 Entity& Entity::operator=(const Entity& rhs)
 {
     components_ = rhs.components_;
+    return *this;
 }
 
 Entity& Entity::operator=(Entity&& rhs)
 {
     components_ = std::move(rhs.components_);
+    return *this;
 }
 
 Entity::~Entity()

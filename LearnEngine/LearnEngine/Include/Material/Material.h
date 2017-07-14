@@ -9,13 +9,13 @@
 class Material
 {
 public:
-    Material                                    (std::shared_ptr<ShaderProgram> shader);
-    Material                                    (const Material& rhs);
+    Material                                                    (std::shared_ptr<ShaderProgram> shader);
+    Material                                                    (const Material& rhs);
 
-    Material                                    (Material&& rhs) = delete;
-    Material            operator=               (Material&& rhs) = delete;
+    Material                                                    (Material&& rhs) = delete;
+    Material                            operator=               (Material&& rhs) = delete;
 
-    virtual ~Material                           ();
+    virtual ~Material                                           ();
 
 
 public:
@@ -31,8 +31,8 @@ public:
     virtual void                        PrepareToDraw           ();
 
 protected:
-    std::shared_ptr<ShaderProgram>              main_shader_;
-    std::shared_ptr<TextureController>          main_texture_;
+    std::shared_ptr<ShaderProgram>      main_shader_;
+    std::shared_ptr<TextureController>  main_texture_;
 };
 
 #endif

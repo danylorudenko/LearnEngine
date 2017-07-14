@@ -8,7 +8,7 @@
 #include "..\Component.h"
 #include ".\GLTransformation\IGLTransformable.h"
 #include "..\..\Material\Material.h"
-#include "..\..\Util\VertexData.h"
+#include "..\..\VertexData\VertexData.h"
 
 // Represents component that allows entity to be drawn in the scene.
 // Supports GPU uniform transformation buffer.
@@ -44,7 +44,7 @@ public:
     static constexpr unsigned int       SCALE_OFFSET                = 2 * sizeof(glm::vec3);
 
 
-    virtual void                        SetVertexData              (std::shared_ptr<VertexData> vertex_data);
+    virtual void                        SetVertexData               (std::shared_ptr<VertexData>& vertex_data);
     virtual void                        BindToRender                (glm::mat4& view_matrix,
                                                                      glm::mat4& perspective_matrix);
 
@@ -52,8 +52,12 @@ public:
     virtual Material&                   GetMainMaterial             ();
 
 protected:
-    virtual void                        BindTransformData           ();
-    virtual void                        BindTextureSamplers         ();
+    // Binding data for the standartized shader uniform block.
+    // Conventional standard uniform block contains:
+    //      - common data from rendering system (camera position);
+    //      - transformation data;
+    //      - sampler2D (main texture);
+    virtual void                        BindStandardUnifromBlocks   ();
 
     virtual std::tuple<GLuint, GLuint>  GetDrawRange                ();
 

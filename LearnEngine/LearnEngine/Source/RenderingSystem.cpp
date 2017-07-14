@@ -58,7 +58,7 @@ void RenderingSystem::AddToDrawList(GLObject* to_add)
 void RenderingSystem::RemoveFromDrawList(GLObject* to_remove)
 {
     std::remove_if(rendering_list_.begin(), rendering_list_.end(),
-        [to_remove](GLObject* candidate) { candidate == to_remove; });
+        [to_remove](GLObject* candidate) { return candidate == to_remove; });
 }
 
 void RenderingSystem::frame_buffer_size_callback(GLFWwindow * window, int width, int height)

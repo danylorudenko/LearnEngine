@@ -139,6 +139,7 @@
     <ClCompile Include="Source\RenderingSystem.cpp" />
     <ClCompile Include="Source\Script.cpp" />
     <ClCompile Include="Source\TextureController.cpp" />
+    <ClCompile Include="Source\VertexAttribData.cpp" />
     <ClCompile Include="Source\VertexData.cpp" />
     <ClCompile Include="Source\InitUtils.cpp" />
     <ClCompile Include="Source\Input.cpp" />
@@ -167,7 +168,8 @@
     <ClInclude Include="Include\Util\Input.h" />
     <ClInclude Include="Include\Shaders\ShaderProgram.h" />
     <ClInclude Include="Include\Util\Singletone.h" />
-    <ClInclude Include="Include\Util\VertexData.h" />
+    <ClInclude Include="Include\VertexData\VertexAttribData.h" />
+    <ClInclude Include="Include\VertexData\VertexData.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="debug_log.txt" />

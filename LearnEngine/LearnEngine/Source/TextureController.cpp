@@ -5,7 +5,8 @@
 #include <stdexcept>
 
 TextureController::TextureController() : 
-    texture_handle_(0), 
+    texture_handle_(0),
+    sampler_handle_(0),
     image_data_(nullptr),
     width_(0),
     height_(0)
@@ -40,8 +41,8 @@ void TextureController::LoadToGL()
         throw std::runtime_error("Can't load texture to the GL. No data in RAM.");
     }
     
-    glGenTextures(1, &texture_handle_);
-    
+    glCreateTextures(GL_TEXTURE_2D, 1, &texture_handle_);
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_handle_);
 	display_gl_errors();
@@ -66,13 +67,34 @@ void TextureController::UnloadFromGL()
     texture_handle_ = 0;
 }
 
-void TextureController::Bind()
-{
-    glBindTexture(GL_TEXTURE_2D, texture_handle_);
-}
-
 TextureController::~TextureController()
 {
     UnloadFromGL();
     UnloadFromMemory();
+}
+
+GLuint TextureController::GetTextureHandle()
+{
+    return texture_handle_;
+}
+
+GLuint TextureController::GetSamplerHandle()
+{
+    return sampler_handle_;
+}
+
+void TextureController::BindToUnit(GLuint texture_unit)
+{
+    BindSamplerToUnit(texture_unit);
+    BindTextureToUnit(texture_unit);
+}
+
+void TextureController::BindSamplerToUnit(GLuint texture_unit)
+{
+    glBindSampler(texture_unit, sampler_handle_);
+}
+
+void TextureController::BindTextureToUnit(GLuint texture_unit)
+{
+    glBindTextureUnit(texture_unit, texture_handle_);
 }

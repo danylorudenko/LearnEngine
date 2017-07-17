@@ -7,28 +7,41 @@
 class TextureController
 {
 public:
-    TextureController                       ();
-    TextureController                       (const std::string& file_path);
+    TextureController                           ();
+    TextureController                           (const std::string& file_path);
 
-    TextureController                       (const TextureController& rhs) = delete;
-    TextureController&      operator=       (const TextureController& rhs) = delete;
-    TextureController                       (TextureController&& rhs) = delete;
-    TextureController&      operator=       (TextureController&& rhs) = delete;
+    TextureController                           (const TextureController& rhs) = delete;
+    TextureController&      operator=           (const TextureController& rhs) = delete;
+    TextureController                           (TextureController&& rhs) = delete;
+    TextureController&      operator=           (TextureController&& rhs) = delete;
 
-    virtual ~TextureController              ();
+    virtual ~TextureController                  ();
 
 public:
-    virtual void            Bind            ();
+    GLuint                  GetTextureHandle    ();
+    GLuint                  GetSamplerHandle    ();
 
-    virtual void            LoadTextureData ();
-    virtual void            LoadToGL        ();
+    void                    BindToUnit          (GLuint texture_unit);
+    void                    BindTextureToUnit   (GLuint texture_unit);
+    void                    BindSamplerToUnit   (GLuint texture_unit);
 
-    virtual void            UnloadFromMemory();
-    virtual void            UnloadFromGL    ();
+    void                    SetSamplerParam     (GLenum p_name, GLint param);
+    void                    SetSamplerParam     (GLenum p_name, GLfloat param);
+
+    virtual void            LoadTextureData     ();
+    virtual void            LoadToGL            ();
+
+    virtual void            UnloadFromMemory    ();
+    virtual void            UnloadFromGL        ();
+
+protected:
+    void                    SetupDefaultSamler  ();
 
 protected:
     std::string             file_path_;
+
     GLuint                  texture_handle_;
+    GLuint                  sampler_handle_;
 
     unsigned char*          image_data_;
     int                     width_;

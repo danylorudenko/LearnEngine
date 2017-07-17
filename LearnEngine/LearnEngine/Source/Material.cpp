@@ -23,11 +23,6 @@ void Material::SetMainShader(std::shared_ptr<ShaderProgram> shader)
     main_shader_ = shader;
 }
 
-void Material::SetMainTexture(std::shared_ptr<TextureController> texture)
-{
-    main_texture_ = texture;
-}
-
 ShaderProgram& Material::GetMainShader()
 {
     return *main_shader_;
@@ -38,16 +33,7 @@ TextureController& Material::GetMainTexture()
     return *main_texture_;
 }
 
-void Material::SendTransformData(glm::mat4& model_matrix,
-                                 glm::mat4& view_matrix,
-                                 glm::mat4& perspective_matrix)
-{
-    main_shader_->SetMatrix4Uniform(ShaderProgram::MODEL_MATRIX_NAME, model_matrix);
-    main_shader_->SetMatrix4Uniform(ShaderProgram::VIEW_MATRIX_NAME, view_matrix);
-    main_shader_->SetMatrix4Uniform(ShaderProgram::PERSPECTIVE_MATRIX_NAME, perspective_matrix);
-}
-
-void Material::PrepareToDraw()
+void Material::Bind()
 {
     GetMainShader().Use();
     GetMainTexture().Bind();

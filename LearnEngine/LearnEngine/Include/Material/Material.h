@@ -11,24 +11,24 @@ class Material
 public:
     Material                                                    (std::shared_ptr<ShaderProgram> shader);
     Material                                                    (const Material& rhs);
+    Material                            operator=               (const Material& rhs);
 
     Material                                                    (Material&& rhs) = delete;
-    Material                            operator=               (Material&& rhs) = delete;
+    Material&                           operator=               (Material&& rhs) = delete;
 
     virtual ~Material                                           ();
 
 
 public:
     void                                SetMainShader           (std::shared_ptr<ShaderProgram> shader);
-    void                                SetMainTexture          (std::shared_ptr<TextureController> texture);
 
     ShaderProgram&                      GetMainShader           ();
     TextureController&                  GetMainTexture          ();
 
-    void                                SendTransformData       (glm::mat4& model_matrix, 
-                                                                 glm::mat4& view_matrix, 
-                                                                 glm::mat4& perspective_matrix);
-    virtual void                        PrepareToDraw           ();
+    virtual void                        Bind                    ();
+
+protected:
+    virtual void                        BindTransformBlock      ();
 
 protected:
     std::shared_ptr<ShaderProgram>      main_shader_;

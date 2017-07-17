@@ -7,8 +7,8 @@
 
 ShaderProgram::ShaderProgram(const GLchar* vertex_source_file, const GLchar* fragment_source_file)
 {
-	std::string vertex_source = ReadFromFile(vertex_source_file);
-	std::string fragment_source = ReadFromFile(fragment_source_file);
+	std::string vertex_source = ReadFile(vertex_source_file);
+	std::string fragment_source = ReadFile(fragment_source_file);
 
 	GLuint vertex_shader = CompileVertex(vertex_source.c_str());
 	GLuint fragment_shader = CompileFragment(fragment_source.c_str());
@@ -148,7 +148,7 @@ GLuint ShaderProgram::LinkShaders(const GLuint vertex_shader, const GLuint fragm
 	return shader_program;
 }
 
-std::string ShaderProgram::ReadFromFile(const GLchar* file_name)
+std::string ShaderProgram::ReadFile(const GLchar* file_name)
 {
 	std::ifstream in_stream(file_name, std::ios_base::in);
 

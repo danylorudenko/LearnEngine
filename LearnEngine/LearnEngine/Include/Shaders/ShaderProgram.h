@@ -8,9 +8,10 @@
 class ShaderProgram
 {
 public:
-    static constexpr char*      MODEL_MATRIX_NAME           = "modelMatrix";
-    static constexpr char*      VIEW_MATRIX_NAME            = "viewMatrix";
-    static constexpr char*      PERSPECTIVE_MATRIX_NAME     = "perspectiveMatrix";
+    // Conventional indicies of standard uniform blocks.
+    static constexpr GLint REND_SYSTEM_BIND_INDEX   = 0;
+    static constexpr GLint MODEL_BLOCK_BIND_INDEX   = 1;
+    static constexpr GLint TEXT_BLOCK_BIND_INDEX    = 2;
 
 public:
 	ShaderProgram					    (const GLchar* vertex_cource, const GLchar* fragment_source);
@@ -33,7 +34,7 @@ protected:
 	GLuint			CompileFragment	    (const GLchar* fragment_source);
 	GLuint			LinkShaders		    (const GLuint vertex_shader, const GLuint fragment_shader);
 
-	std::string		ReadFromFile	    (const GLchar* file_path);
+	std::string		ReadFile	        (const GLchar* file_path);
 
 protected:
 	GLuint			shader_program_handle_;

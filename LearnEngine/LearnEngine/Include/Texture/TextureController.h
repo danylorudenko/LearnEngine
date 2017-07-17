@@ -21,12 +21,15 @@ public:
     GLuint                  GetTextureHandle    ();
     GLuint                  GetSamplerHandle    ();
 
-    void                    BindToUnit          (GLuint texture_unit);
-    void                    BindTextureToUnit   (GLuint texture_unit);
-    void                    BindSamplerToUnit   (GLuint texture_unit);
+    void                    BindAllToUnit       (GLuint texture_unit) const;
+    void                    BindTextureToUnit   (GLuint texture_unit) const;
+    void                    BindSamplerToUnit   (GLuint texture_unit) const;
 
     void                    SetSamplerParam     (GLenum p_name, GLint param);
     void                    SetSamplerParam     (GLenum p_name, GLfloat param);
+
+    bool                    IsInMemory          () const;
+    bool                    IsOnGPU             () const;
 
     virtual void            LoadTextureData     ();
     virtual void            LoadToGL            ();
@@ -46,6 +49,9 @@ protected:
     unsigned char*          image_data_;
     int                     width_;
     int                     height_;
+
+    bool                    is_in_memory_;
+    bool                    is_on_GPU_;
 };
 
 #endif

@@ -45,8 +45,7 @@ public:
 
 
     virtual void                        SetVertexData               (std::shared_ptr<VertexData>& vertex_data);
-    virtual void                        BindToRender                (glm::mat4& view_matrix,
-                                                                     glm::mat4& perspective_matrix);
+    virtual void                        BindToRender                () const;
 
     virtual std::shared_ptr<Material>   GetMainMaterialShared       ();
     virtual Material&                   GetMainMaterial             ();

@@ -9,13 +9,16 @@ TextureController::TextureController() :
     sampler_handle_(0),
     image_data_(nullptr),
     width_(0),
-    height_(0)
+    height_(0),
+    is_in_memory_(false),
+    is_on_GPU_(false)
 {
-
+    SetupDefaultSamler();
 }
 
 TextureController::TextureController(const std::string& file_path) : file_path_(file_path)
 {
+    SetupDefaultSamler();
     LoadTextureData();
     LoadToGL();
 }
@@ -27,12 +30,15 @@ void TextureController::LoadTextureData()
     if (image_data_ == nullptr) {
         throw std::runtime_error(std::string("Error loading texture at path: ") + file_path_);
     }
+
+    is_in_memory_ = true;
 }
 
 void TextureController::UnloadFromMemory()
 {
     SOIL_free_image_data(image_data_);
     image_data_ = nullptr;
+    is_in_memory_ = false;
 }
 
 void TextureController::LoadToGL()
@@ -43,21 +49,27 @@ void TextureController::LoadToGL()
     
     glCreateTextures(GL_TEXTURE_2D, 1, &texture_handle_);
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture_handle_);
-	display_gl_errors();
+    // Allocating storage.
+    glTextureStorage2D(
+        texture_handle_,
+        3, // Mipmaps
+        GL_RGB,
+        width_,
+        height_
+    );
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	display_gl_errors();
+    glTextureSubImage2D(
+        texture_handle_,
+        3, // Mipmaps
+        0, 0,
+        width_, height_,
+        GL_RGB,
+        GL_FLOAT,
+        image_data_
+    );
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	display_gl_errors();
+    is_on_GPU_ = true;
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width_, height_, 0, GL_RGB, GL_UNSIGNED_BYTE, image_data_);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D, 0);
 	display_gl_errors();
 }
 
@@ -65,12 +77,14 @@ void TextureController::UnloadFromGL()
 {
     glDeleteTextures(1, &texture_handle_);
     texture_handle_ = 0;
+    is_on_GPU_ = false;
 }
 
 TextureController::~TextureController()
 {
     UnloadFromGL();
     UnloadFromMemory();
+    glDeleteSamplers(1, &sampler_handle_);
 }
 
 GLuint TextureController::GetTextureHandle()
@@ -83,18 +97,50 @@ GLuint TextureController::GetSamplerHandle()
     return sampler_handle_;
 }
 
-void TextureController::BindToUnit(GLuint texture_unit)
+void TextureController::BindAllToUnit(GLuint texture_unit) const
 {
     BindSamplerToUnit(texture_unit);
     BindTextureToUnit(texture_unit);
 }
 
-void TextureController::BindSamplerToUnit(GLuint texture_unit)
+void TextureController::BindSamplerToUnit(GLuint texture_unit) const
 {
     glBindSampler(texture_unit, sampler_handle_);
 }
 
-void TextureController::BindTextureToUnit(GLuint texture_unit)
+void TextureController::BindTextureToUnit(GLuint texture_unit) const
 {
     glBindTextureUnit(texture_unit, texture_handle_);
+}
+
+void TextureController::SetupDefaultSamler()
+{
+    glCreateSamplers(1, &sampler_handle_);
+    SetSamplerParam(GL_TEXTURE_WRAP_S, GL_REPEAT);
+    SetSamplerParam(GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+    SetSamplerParam(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    SetSamplerParam(GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+
+    display_gl_errors();
+}
+
+void TextureController::SetSamplerParam(GLenum p_name, GLint param)
+{
+    glSamplerParameteri(sampler_handle_, p_name, param);
+}
+
+void TextureController::SetSamplerParam(GLenum p_name, GLfloat param)
+{
+    glSamplerParameterf(sampler_handle_, p_name, param);
+}
+
+bool TextureController::IsInMemory() const
+{
+    return is_in_memory_;
+}
+
+bool TextureController::IsOnGPU() const
+{
+    return is_on_GPU_;
 }

@@ -76,7 +76,7 @@ void GLObject::SetVertexData(std::shared_ptr<VertexData>& vertex_data)
     vertex_data_ = vertex_data;
 }
 
-void GLObject::BindToRender(glm::mat4 & view_matrix, glm::mat4 & perspective_matrix)
+void GLObject::BindToRender() const
 {
     throw not_implemented_exc("GLOjbect::BindToRender was not implemented.");
 }

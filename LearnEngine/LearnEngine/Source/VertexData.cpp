@@ -7,7 +7,8 @@ VertexData::VertexData(void* data, GLuint vertex_count, GLsizei size, GLuint off
     vertex_count_(vertex_count),
     data_size_(size),
     vertex_data_offset_(offset),
-    stride_(0)
+    stride_(0),
+    vertex_array_object_(0)
 {
     
 }
@@ -17,7 +18,7 @@ VertexData::VertexData(const VertexData & rhs) :
     vertex_attributes_(rhs.vertex_attributes_),
     vertex_count_(rhs.vertex_count_),
     vertex_data_offset_(rhs.vertex_data_offset_),
-    stride_(rhs.stride_)
+    stride_(rhs.stride_)asdfwer  // need VAO copy
 {
     vertex_data_ = std::malloc(data_size_);
 

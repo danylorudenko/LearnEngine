@@ -147,7 +147,6 @@
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
-    <ClCompile Include="Source\DoubleTextureController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\Component\Component.h" />
@@ -163,7 +162,6 @@
     <ClInclude Include="Include\Texture\TextureController.h" />
     <ClInclude Include="Include\Util\Constants.h" />
     <ClInclude Include="Include\RenderingSystem\RenderingSystem.h" />
-    <ClInclude Include="Include\Texture\DoubleTextureController.h" />
     <ClInclude Include="Include\Util\CustomException\not_implemented_exc.h" />
     <ClInclude Include="Include\Util\Debugging\DebugTools.h" />
     <ClInclude Include="Include\Util\InitUtils.h" />

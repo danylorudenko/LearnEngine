@@ -7,10 +7,15 @@ Material::Material(std::shared_ptr<ShaderProgram> shader) : main_shader_(shader)
 }
 
 Material::Material(const Material& rhs) :
-    main_shader_(rhs.main_shader_),
-    main_texture_(rhs.main_texture_)
+    main_shader_(rhs.main_shader_)
 {
 
+}
+
+Material& Material::operator=(const Material& rhs)
+{
+    main_shader_ = rhs.main_shader_;
+    return *this;
 }
 
 Material::~Material()
@@ -18,25 +23,31 @@ Material::~Material()
 
 }
 
-void Material::SetMainShader(std::shared_ptr<ShaderProgram> shader)
+void Material::SetShader(std::shared_ptr<ShaderProgram> shader)
 {
     main_shader_ = shader;
 }
 
-ShaderProgram& Material::GetMainShader()
+ShaderProgram& Material::GetShader()
 {
     return *main_shader_;
 }
 
-TextureController& Material::GetMainTexture()
+void Material::AddTexture(GLuint unit, std::shared_ptr<TextureController>& texture)
 {
-    return *main_texture_;
+    textures_.push_back(UnitTexturePair(unit, texture));
 }
 
-void Material::Bind()
+std::shared_ptr<ShaderProgram> Material::GetShaderShared()
 {
-    GetMainShader().Use();
-    GetMainTexture().Bind();
+    return main_shader_;
+}
 
-    GetMainShader().SetSampler("myTexture1", 0);
+void Material::BindAllTextures()
+{
+    int size = textures_.size();
+    for (int i = 0; i < size; i++)
+    {
+        std::get<1>(textures_[i])->BindAllToUnit(std::get<0>(textures_[i]));
+    }
 }

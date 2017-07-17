@@ -27,7 +27,7 @@ public:
     void*                               RawData             () const;
     GLuint                              VertexCount         () const;
 
-    // Offset of the vertex data in the internal arrray.
+    // Offset of the vertex data in the internal array.
     GLuint                              Offset              () const; 
 
     // Stride between vertices in the internal array.
@@ -73,6 +73,7 @@ protected:
     GLuint                                                  vertex_count_;
     GLuint                                                  vertex_data_offset_;
     
+    GLuint                                                  vertex_array_object_;
     VertexAttribDataContainer                               vertex_attributes_;
 };
 

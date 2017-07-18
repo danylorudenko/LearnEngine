@@ -2,47 +2,98 @@
 
 #include <cstdlib>
 
-VertexData::VertexData(void* data, GLuint vertex_count, GLsizei size, GLuint offset) : 
+VertexData::VertexData(void* data, GLuint vertex_count, GLsizei size, GLsizei stride, GLuint offset) : 
     vertex_data_(data), 
-    vertex_count_(vertex_count),
     data_size_(size),
+    stride_(stride),
+    vertex_count_(vertex_count),
     vertex_data_offset_(offset),
-    stride_(0),
+    vertex_buffer_object_(0),
     vertex_array_object_(0)
 {
-    
-}
-
-VertexData::VertexData(const VertexData & rhs) : 
-    data_size_(rhs.data_size_),
-    vertex_attributes_(rhs.vertex_attributes_),
-    vertex_count_(rhs.vertex_count_),
-    vertex_data_offset_(rhs.vertex_data_offset_),
-    stride_(rhs.stride_)asdfwer  // need VAO copy
-{
-    vertex_data_ = std::malloc(data_size_);
-
-    // Copying of all bytes to the newly allocated memory.
-    // Pointer arythmetic can't be done with void*, so casting to char* is necessary.
-    std::memcpy(vertex_data_, rhs.vertex_data_, data_size_);
+    CreateAndFillVertexBuffer();
+    CreateVAO();
 }
 
 VertexData::VertexData(VertexData && rhs) : 
-    data_size_(rhs.data_size_), 
     vertex_data_(rhs.vertex_data_),
+    data_size_(rhs.data_size_), 
+    stride_(rhs.stride_),
     vertex_count_(rhs.vertex_count_),
     vertex_data_offset_(rhs.vertex_data_offset_),
-    vertex_attributes_(std::move(vertex_attributes_)),
-    stride_(rhs.stride_)
+    vertex_buffer_object_(rhs.vertex_buffer_object_),
+    vertex_array_object_(rhs.vertex_array_object_)
 {
+    vertex_array_object_ = 0;
     rhs.data_size_ = 0;
     rhs.vertex_data_ = nullptr;
-    rhs.ClearAttribData();
 }
 
 VertexData::~VertexData()
 {
+    DeleteVertexBuffer();
+    DeleteVAO();
     std::free(vertex_data_);
+}
+
+void VertexData::CreateVAO()
+{
+    glCreateVertexArrays(1, &vertex_array_object_);
+}
+
+void VertexData::DeleteVAO()
+{
+    glDeleteVertexArrays(1, &vertex_array_object_);
+}
+
+void VertexData::CreateAndFillVertexBuffer()
+{
+    glCreateBuffers(1, &vertex_buffer_object_);
+    glNamedBufferStorage(vertex_buffer_object_, data_size_, vertex_data_, 0);
+}
+
+void VertexData::DeleteVertexBuffer()
+{
+    glDeleteBuffers(1, &vertex_buffer_object_);
+}
+
+void VertexData::BindVAO() const
+{
+    glBindVertexArray(vertex_array_object_);
+}
+
+void VertexData::AddVAOVertexAttrib(const VertexAttribData& data)
+{
+    // NEED REFERENCE ABOUT ALL THAT BINDING INDICIES STUFF
+    asdiuyethaiewljofgy
+
+    glVertexArrayAttribFormat(
+        vertex_array_object_,
+        data.attrib_index_,
+        data.attrib_size_,
+        data.attrib_gl_format_,
+        data.normalized_,
+        data.offset_
+        );
+
+    glVertexArrayAttribBinding(
+        vertex_array_object_,
+        data.attrib_index_,
+        data.binding_index_
+    );
+
+    glVertexArrayVertexBuffer(
+        vertex_array_object_,
+        data.binding_index_,
+        vertex_buffer_object_,
+        0,
+        stride_
+    );
+
+    glEnableVertexArrayAttrib(
+        vertex_array_object_,
+        data.attrib_index_
+    );
 }
 
 GLsizei VertexData::DataRawSize() const
@@ -68,15 +119,4 @@ GLuint VertexData::Offset() const
 GLsizei VertexData::Stride() const
 {
     return stride_;
-}
-
-const VertexData::VertexAttribDataContainer& VertexData::AttribDataCollection() const
-{
-    return vertex_attributes_;
-}
-
-void VertexData::ClearAttribData()
-{
-    vertex_attributes_.clear();
-
 }

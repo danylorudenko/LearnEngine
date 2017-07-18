@@ -2,10 +2,10 @@
 #define __GL_OBJECT__
 
 #include <memory>
-#include <tuple>
 #include <glm\vec3.hpp>
 
 #include "..\Component.h"
+#include "DrawArraysIndirectCommand.h"
 #include ".\GLTransformation\IGLTransformable.h"
 #include "..\..\Material\Material.h"
 #include "..\..\VertexData\VertexData.h"
@@ -25,24 +25,17 @@ public:
     // ========== Construction and operators ==========
 
     GLObject                                        (std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material);
-    GLObject                                        (const GLObject& rhs);
+    GLObject                                        (const GLObject& rhs) = delete;
                                                     
-    GLObject&                operator=              (const GLObject& rhs);
-    GLObject                                        (GLObject&& rhs);
-    GLObject&                operator=              (GLObject&& rhs);
+    GLObject&                operator=              (const GLObject& rhs) = delete;
+    GLObject                                        (GLObject&& rhs) = delete;
+    GLObject&                operator=              (GLObject&& rhs) = delete;
 
     virtual ~GLObject();
 
 
     // ========== GL API ==========
 public:
-
-    static constexpr unsigned int       TRANSFORM_BUFFER_SIZE       = 3 * sizeof(glm::vec3);
-
-    static constexpr unsigned int       POSITION_OFFSET             = 0 * sizeof(glm::vec3);
-    static constexpr unsigned int       ROTATION_OFFSET             = 1 * sizeof(glm::vec3);
-    static constexpr unsigned int       SCALE_OFFSET                = 2 * sizeof(glm::vec3);
-
 
     virtual void                        SetVertexData               (std::shared_ptr<VertexData>& vertex_data);
     virtual void                        BindToRender                () const;
@@ -58,11 +51,10 @@ protected:
     //      - sampler2D (main texture);
     virtual void                        BindStandardUnifromBlocks   ();
 
-    virtual std::tuple<GLuint, GLuint>  GetDrawRange                ();
-
 protected:
     std::shared_ptr<Material>           main_material_;
     std::shared_ptr<VertexData>         vertex_data_;
+    DrawArraysIndirectCommand           draw_arrays_command_;
 
 };
 

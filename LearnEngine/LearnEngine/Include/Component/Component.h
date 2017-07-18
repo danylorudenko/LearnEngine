@@ -14,19 +14,10 @@ public:
     // Default component setup, no owner, no system.
     Component                               ();
 
-    // Copy-construcion is allowed, but without owners and without registration.
-    // Owner is set no nullptr.
-    Component                               (const Component& rhs);
-
-    // Copying is allowed, but without owners and registration.
-    Component&          operator=           (const Component& rhs);
-    
-    // Move-construction is only allowed, when the component is not registered in engine systems.
-    // Owner is set to nullptr.
-    Component                               (Component&& rhs);
-
-    // Move-assignment is only allowed, when the component is not registered in engine systems. 
-    Component&          operator=           (Component&& rhs);
+    Component                               (const Component& rhs) = delete;
+    Component&          operator=           (const Component& rhs) = delete;
+    Component                               (Component&& rhs) = delete;
+    Component&          operator=           (Component&& rhs) = delete;
 
     virtual ~Component                      ();
 

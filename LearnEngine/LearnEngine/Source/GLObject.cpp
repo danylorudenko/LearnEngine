@@ -12,34 +12,6 @@ GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Mate
     
 }
 
-GLObject::GLObject(const GLObject& rhs) : 
-    Component(rhs),
-    vertex_data_    (rhs.vertex_data_), 
-    main_material_  (rhs.main_material_)
-{
-    
-}
-
-GLObject& GLObject::operator=(const GLObject& rhs)
-{
-    Component::operator=(rhs);
-    
-    return *this;
-}
-
-GLObject::GLObject(GLObject&& rhs) :
-    Component(std::move(rhs))
-{
-
-}
-
-GLObject& GLObject::operator=(GLObject&& rhs)
-{
-    Component::operator=(std::move(rhs));
-
-    return *this;
-}
-
 GLObject::~GLObject()
 {
 
@@ -65,20 +37,23 @@ void GLObject::BindStandardUnifromBlocks()
     throw not_implemented_exc("GLObject::BindStandardUniformBlocks was not implemented.");
 }
 
-std::tuple<GLuint, GLuint> GLObject::GetDrawRange()
-{
-    // Not sure if it is right.
-    return std::tuple<GLuint, GLuint>(0, vertex_data_->VertexCount());
-}
-
 void GLObject::SetVertexData(std::shared_ptr<VertexData>& vertex_data)
 {
     vertex_data_ = vertex_data;
+
+    void* indirect_buffer = draw_arrays_command_.MapWrite();
+
+    *((GLuint*)indirect_buffer + DrawArraysIndirectCommand::VERTEX_COUNT_OFFSET) = vertex_data_->VertexCount();
 }
 
 void GLObject::BindToRender() const
 {
     throw not_implemented_exc("GLOjbect::BindToRender was not implemented.");
+
+    main_material_->GetShader().Use();
+    main_material_->BindAllTextures();
+
+    sakhgacjlwemcgfnuk
 }
 
 std::shared_ptr<Material> GLObject::GetMainMaterialShared()

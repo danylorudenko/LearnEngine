@@ -6,25 +6,23 @@ Script::Script() : Component(), enable_ticking_(false)
 
 }
 
-Script::Script(const Script& rhs) : Component(rhs), enable_ticking_(rhs.enable_ticking_)
+Script::Script(const Script& rhs) : enable_ticking_(rhs.enable_ticking_)
 {
 
 }
 
-Script::Script(Script&& rhs) : Component(rhs), enable_ticking_(rhs.enable_ticking_)
+Script::Script(Script&& rhs) : enable_ticking_(rhs.enable_ticking_)
 {
     rhs.enable_ticking_ = false;
 }
 
 Script& Script::operator=(const Script& rhs)
 {
-    Component::operator=(rhs);
     return *this;
 }
 
 Script& Script::operator=(Script&& rhs)
 {
-    Component::operator=(std::move(rhs));
     enable_ticking_ = rhs.enable_ticking_;
     rhs.enable_ticking_ = false;
 

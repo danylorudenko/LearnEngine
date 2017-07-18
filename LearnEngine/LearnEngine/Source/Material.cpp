@@ -23,7 +23,7 @@ Material::~Material()
 
 }
 
-void Material::SetShader(std::shared_ptr<ShaderProgram> shader)
+void Material::SetShader(std::shared_ptr<ShaderProgram>& shader)
 {
     main_shader_ = shader;
 }

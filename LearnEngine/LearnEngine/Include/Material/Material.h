@@ -26,13 +26,12 @@ public:
 
 
 public:
-    void                                SetShader               (std::shared_ptr<ShaderProgram> shader);
+    void                                SetShader               (std::shared_ptr<ShaderProgram>& shader);
     void                                AddTexture              (GLuint unit, std::shared_ptr<TextureController>& texture);
 
     ShaderProgram&                      GetShader               ();
     std::shared_ptr<ShaderProgram>      GetShaderShared         ();
 
-protected:
     void                                BindAllTextures         ();
 
 protected:

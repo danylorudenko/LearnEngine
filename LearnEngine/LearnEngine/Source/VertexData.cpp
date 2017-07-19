@@ -15,20 +15,6 @@ VertexData::VertexData(void* data, GLuint vertex_count, GLsizei size, GLsizei st
     CreateVAO();
 }
 
-VertexData::VertexData(VertexData && rhs) : 
-    vertex_data_(rhs.vertex_data_),
-    data_size_(rhs.data_size_), 
-    stride_(rhs.stride_),
-    vertex_count_(rhs.vertex_count_),
-    vertex_data_offset_(rhs.vertex_data_offset_),
-    vertex_buffer_object_(rhs.vertex_buffer_object_),
-    vertex_array_object_(rhs.vertex_array_object_)
-{
-    vertex_array_object_ = 0;
-    rhs.data_size_ = 0;
-    rhs.vertex_data_ = nullptr;
-}
-
 VertexData::~VertexData()
 {
     DeleteVertexBuffer();
@@ -57,6 +43,27 @@ void VertexData::DeleteVertexBuffer()
     glDeleteBuffers(1, &vertex_buffer_object_);
 }
 
+void VertexData::SetDrawCommand(const DrawArraysIndirectCommand & command)
+{
+    draw_arrays_command_ = command;
+}
+
+void VertexData::SetDrawCommand(DrawArraysIndirectCommand && command)
+{
+    draw_arrays_command_ = std::move(command);
+}
+
+void VertexData::Bind() const
+{
+    BindVAO();
+    BindDrawCommand();
+}
+
+void VertexData::BindDrawCommand() const
+{
+    draw_arrays_command_.Bind();
+}
+
 void VertexData::BindVAO() const
 {
     glBindVertexArray(vertex_array_object_);
@@ -64,9 +71,6 @@ void VertexData::BindVAO() const
 
 void VertexData::AddVAOVertexAttrib(const VertexAttribData& data)
 {
-    // NEED REFERENCE ABOUT ALL THAT BINDING INDICIES STUFF
-    asdiuyethaiewljofgy
-
     glVertexArrayAttribFormat(
         vertex_array_object_,
         data.attrib_index_,
@@ -76,18 +80,18 @@ void VertexData::AddVAOVertexAttrib(const VertexAttribData& data)
         data.offset_
         );
 
-    glVertexArrayAttribBinding(
-        vertex_array_object_,
-        data.attrib_index_,
-        data.binding_index_
-    );
-
     glVertexArrayVertexBuffer(
         vertex_array_object_,
         data.binding_index_,
         vertex_buffer_object_,
-        0,
+        vertex_data_offset_,
         stride_
+    );
+
+    glVertexArrayAttribBinding(
+        vertex_array_object_,
+        data.attrib_index_,
+        data.binding_index_
     );
 
     glEnableVertexArrayAttrib(

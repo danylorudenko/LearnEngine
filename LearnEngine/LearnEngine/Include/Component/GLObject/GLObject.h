@@ -49,12 +49,11 @@ protected:
     //      - common data from rendering system (camera position);
     //      - transformation data;
     //      - sampler2D (main texture);
-    virtual void                        BindStandardUnifromBlocks   ();
+    virtual void                        BindStandardUnifromBlocks   () const;
 
 protected:
     std::shared_ptr<Material>           main_material_;
     std::shared_ptr<VertexData>         vertex_data_;
-    DrawArraysIndirectCommand           draw_arrays_command_;
 
 };
 

@@ -32,28 +32,26 @@ Material& GLObject::GetMainMaterial()
     return *main_material_;
 }
 
-void GLObject::BindStandardUnifromBlocks()
+void GLObject::BindStandardUnifromBlocks() const
 {
     throw not_implemented_exc("GLObject::BindStandardUniformBlocks was not implemented.");
+
+    awekfcuayi
 }
 
 void GLObject::SetVertexData(std::shared_ptr<VertexData>& vertex_data)
 {
     vertex_data_ = vertex_data;
-
-    void* indirect_buffer = draw_arrays_command_.MapWrite();
-
-    *((GLuint*)indirect_buffer + DrawArraysIndirectCommand::VERTEX_COUNT_OFFSET) = vertex_data_->VertexCount();
 }
 
 void GLObject::BindToRender() const
 {
-    throw not_implemented_exc("GLOjbect::BindToRender was not implemented.");
-
     main_material_->GetShader().Use();
     main_material_->BindAllTextures();
 
-    sakhgacjlwemcgfnuk
+    BindStandardUnifromBlocks();
+
+    vertex_data_->Bind();
 }
 
 std::shared_ptr<Material> GLObject::GetMainMaterialShared()

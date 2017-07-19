@@ -20,10 +20,10 @@ public:
     DrawArraysIndirectCommand               ();
     ~DrawArraysIndirectCommand              ();
 
-    DrawArraysIndirectCommand               (const DrawArraysIndirectCommand& rhs) = delete;
-    DrawArraysIndirectCommand&  operator=   (const DrawArraysIndirectCommand& rhs) = delete;
-    DrawArraysIndirectCommand               (DrawArraysIndirectCommand&& rhs) = delete;
-    DrawArraysIndirectCommand&  operator=   (DrawArraysIndirectCommand&& rhs) = delete;
+    DrawArraysIndirectCommand               (const DrawArraysIndirectCommand& rhs);
+    DrawArraysIndirectCommand&  operator=   (const DrawArraysIndirectCommand& rhs);
+    DrawArraysIndirectCommand               (DrawArraysIndirectCommand&& rhs);
+    DrawArraysIndirectCommand&  operator=   (DrawArraysIndirectCommand&& rhs);
 
 
 
@@ -31,10 +31,10 @@ public:
     void    Deallocate  ();
     void    Bind        () const;
 
-    void*   MapRead     ();
+    void*   MapRead     () const;
     void*   MapWrite    ();
     void*   MapReadWrite();
-    void    Unmap       ();
+    void    Unmap       () const;
 
 
 protected:

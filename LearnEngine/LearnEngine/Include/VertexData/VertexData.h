@@ -4,6 +4,7 @@
 #include <vector>
 
 #include <gl\glew.h>
+#include "..\Component\GLObject\DrawArraysIndirectCommand.h"
 #include "VertexAttribData.h"
 
 class VertexData
@@ -16,12 +17,16 @@ public:
     VertexData                                              (const VertexData& rhs) = delete;
     VertexData&                         operator=           (const VertexData& rhs) = delete;
 
-    VertexData                                              (VertexData&& rhs);
+    VertexData                                              (VertexData&& rhs) = delete;
     VertexData&                         operator=           (VertexData&& rhs) = delete;
 
+    void                                SetDrawCommand      (const DrawArraysIndirectCommand& command);
+    void                                SetDrawCommand      (DrawArraysIndirectCommand&& command);
 
     // ================ General ==================
 
+    void                                Bind                () const;
+    void                                BindDrawCommand     () const;
     void                                BindVAO             () const;
 
     // Size of internal data array in bytes.
@@ -53,13 +58,22 @@ protected:
 
 protected:
     void*                                                   vertex_data_;
+
+    // ========= Discriptional general data ==========
+
     GLsizei                                                 data_size_;
     GLsizei                                                 stride_;
     GLuint                                                  vertex_count_;
     GLuint                                                  vertex_data_offset_;
     
+    // ========= GL objects =============
+
     GLuint                                                  vertex_buffer_object_;
     GLuint                                                  vertex_array_object_;
+    
+    // ========= DrawInfoDescription ===========
+
+    DrawArraysIndirectCommand                               draw_arrays_command_;
 };
 
 #endif

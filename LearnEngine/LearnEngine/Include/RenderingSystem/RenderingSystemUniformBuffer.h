@@ -11,19 +11,28 @@ class RenderingSystemUniformBuffer : public Singletone<RenderingSystemUniformBuf
 public:
     static constexpr GLuint     RENDERING_SYSTEM_UNIFORM_BINDING_IDNEX = 0;
 protected:
-    static constexpr GLsizei    BUFFER_SIZE             = sizeof(glm::mat4) 
-                                                        + sizeof(glm::mat4)
-                                                        + sizeof(glm::vec3);
+    static constexpr GLsizei    BUFFER_SIZE             = sizeof(glm::mat4)  // viewMatrix
+                                                        + sizeof(glm::mat4)  // perspectiveMatrix
+                                                        + sizeof(glm::vec3)  // cameraPos
+                                                        + sizeof(glm::vec3); // cameraRot
 
+public:
     RenderingSystemUniformBuffer                        ();
     RenderingSystemUniformBuffer                        (const RenderingSystemUniformBuffer& rhs) = delete;
     RenderingSystemUniformBuffer                        (RenderingSystemUniformBuffer&& rhs) = delete;
     RenderingSystemUniformBuffer        operator=       (const RenderingSystemUniformBuffer& rhs) = delete;
     RenderingSystemUniformBuffer        operator=       (RenderingSystemUniformBuffer&& rhs) = delete;
 
+    void            Bind                        () const;
+    void            UpdateCameraData            (glm::vec3& position, 
+                                                 glm::vec3& rotation,
+                                                 GLfloat aspect_ratio,
+                                                 GLfloat fow,
+                                                 GLfloat near_plane, GLfloat far_plane);
 
 protected:
     void            AllocateGPUBuffer           ();
+    
 
 protected:
     GLuint          uniform_buffer_handle_;

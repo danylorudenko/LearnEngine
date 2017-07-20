@@ -8,6 +8,7 @@ layout (std140, binding - 0) uniform RenderingSystemData {
 	mat4 viewMatrix;
 	mat4 perspectiveMatrix;
 	vec3 cameraPos;
+	vec3 cameraRot;
 } systemData;
 
 layout (std140, binding = 1) uniform ModelData { 

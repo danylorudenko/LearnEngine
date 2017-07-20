@@ -1,9 +1,7 @@
 #include "..\Include\Program.h"
 #include "..\Include\Util\Input.h"
 #include "..\Include\Util\Debugging\DebugTools.h"
-
-#include <glm\vec3.hpp>
-#include <memory>
+#include "..\Include\Entity\Entity.h"
 
 Program::Program()
 {
@@ -40,68 +38,91 @@ void Program::Initialize()
 
     // ================
 
-    const int value_count = 180;
+    auto vertex_data = std::shared_ptr<VertexData>(
+        new VertexData(
+            new GLfloat[] {
+                    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+                     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+                     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+                     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+                    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+                    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
-    /*auto vertex_data = std::make_shared<VertexData>(new GLfloat[value_count]{
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+                    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+                     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+                     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+                     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+                    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+                    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
 
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+                    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+                    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+                    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+                    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+                    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+                    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+                     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+                     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+                     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+                     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+                     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+                     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+                    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+                     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+                     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+                     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+                    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+                    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
 
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+                    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+                     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+                     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+                     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+                    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+                    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+                },
+            36,
+            sizeof(GLfloat) * 5 * 36,
+            sizeof(GLfloat) * 5,
+            0
+            )
+        );
 
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-    }, value_count * sizeof(GLfloat));
-*/
-    //auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vglsl", "Shaders\\fragment_shader.fglsl");
-    //auto test_cube_texture = std::make_shared<TextureController>("Resources\\container.jpg");
-	//
-    //auto test_cube_material = std::make_shared<Material>(test_cube_shader);
-    //test_cube_material->SetMainTexture(test_cube_texture);
-    //
-    //auto test_cube = std::make_shared<GLTestCube>(vertex_data, test_cube_material);
+    VertexAttribData pos_attrib_data(
+        0,
+        0,
+        GL_FLOAT,
+        0,
+        GL_FALSE,
+        sizeof(GLfloat) * 3,
+        3
+    );
+    VertexAttribData uv_attrib_data(
+        1,
+        1,
+        GL_FLOAT,
+        sizeof(GLfloat) * 3,
+        GL_FALSE,
+        sizeof(GLfloat) * 2,
+        2
+    );
+
+    vertex_data->AddVAOVertexAttrib(pos_attrib_data);
+    vertex_data->AddVAOVertexAttrib(uv_attrib_data);
+    
+    auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vglsl", "Shaders\\fragment_shader.fglsl");
+    auto material = std::shared_ptr<Material>(new Material(test_cube_shader));
+
+    auto gl_object = std::shared_ptr<GLObject>(new GLObject(vertex_data, material));
+
+    auto entity = std::shared_ptr<Entity>(new Entity());
+    entity->AddComponent(gl_object);
+
     auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
-    //
-	//main_camera->SetWorldPosition(glm::vec3(3.3f, 2.0f, 5.0f));
-    //
-	//test_cube->SetWorldRotation(glm::vec3(45.0f, 15.0f, 45.0f));
-
     RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
 
-    //RenderingSystem::Instance().AddToDrawList(test_cube);
 }
 
 void Program::StartMainLoop()

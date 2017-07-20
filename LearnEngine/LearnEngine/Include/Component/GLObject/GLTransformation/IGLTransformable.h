@@ -16,10 +16,10 @@ class IGLTransformable
 {
 public:
     // Conventional transfrom data uniform binding index.
-    static constexpr unsigned int TRANSFORM_BLOCK_BINDING_INDEX = 0;
-
-private:
-    static constexpr unsigned int GPU_BUFFER_SIZE           = sizeof(glm::mat4);
+    static constexpr GLuint     TRANSFORM_BLOCK_BINDING_INDEX   = 1;
+                     
+private:             
+    static constexpr GLsizei    GPU_BUFFER_SIZE                 = sizeof(glm::mat4);
 
 public:
     // Binding contents of the internal buffer to the conventional binding index (0).

@@ -35,8 +35,6 @@ Material& GLObject::GetMainMaterial()
 
 void GLObject::BindStandardUnifromBlocks() const
 {
-    throw not_implemented_exc("GLObject::BindStandardUniformBlocks was not implemented.");
-
     IGLTransformable::BindTransformUniformBuffer();
 }
 

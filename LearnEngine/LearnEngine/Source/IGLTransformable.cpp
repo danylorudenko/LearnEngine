@@ -110,9 +110,9 @@ void IGLTransformable::SetRotation(const glm::vec3& new_rotation)
     static const glm::vec3 Y_AXIS(0.0f, 1.0f, 0.0f);
     static const glm::vec3 Z_AXIS(0.0f, 0.0f, 1.0f);
 
-    glm::rotate(*buffer_data, rotation_delta.x, X_AXIS);
-    glm::rotate(*buffer_data, rotation_delta.y, Y_AXIS);
-    glm::rotate(*buffer_data, rotation_delta.z, Z_AXIS);
+    glm::rotate(*buffer_data, glm::radians(rotation_delta.x), X_AXIS);
+    glm::rotate(*buffer_data, glm::radians(rotation_delta.y), Y_AXIS);
+    glm::rotate(*buffer_data, glm::radians(rotation_delta.z), Z_AXIS);
     glUnmapNamedBuffer(uniform_buffer_handle_);
 
     rotation_ = new_rotation;
@@ -130,7 +130,7 @@ void IGLTransformable::SetRotParam(x_type, GLfloat param)
     GLfloat rotation_delta = param - rotation_.x;
 
     static const glm::vec3 X_AXIS(1.0f, 0.0f, 0.0f);
-    glm::rotate(*buffer_data, rotation_delta, X_AXIS);
+    glm::rotate(*buffer_data, glm::radians(rotation_delta), X_AXIS);
     glUnmapNamedBuffer(uniform_buffer_handle_);
 
     rotation_.x = param;
@@ -143,7 +143,7 @@ void IGLTransformable::SetRotParam(y_type, GLfloat param)
     GLfloat rotation_delta = param - rotation_.y;
 
     static const glm::vec3 Y_AXIS(0.0f, 1.0f, 0.0f);
-    glm::rotate(*buffer_data, rotation_delta, Y_AXIS);
+    glm::rotate(*buffer_data, glm::radians(rotation_delta), Y_AXIS);
     glUnmapNamedBuffer(uniform_buffer_handle_);
 }
 
@@ -154,7 +154,7 @@ void IGLTransformable::SetRotParam(z_type, GLfloat param)
     GLfloat rotation_delta = param - rotation_.z;
 
     static const glm::vec3 Z_AXIS(0.0f, 0.0f, 1.0f);
-    glm::rotate(*buffer_data, rotation_delta, Z_AXIS);
+    glm::rotate(*buffer_data, glm::radians(rotation_delta), Z_AXIS);
     glUnmapNamedBuffer(uniform_buffer_handle_);
 }
 

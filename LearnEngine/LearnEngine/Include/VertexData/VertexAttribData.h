@@ -1,7 +1,7 @@
 #ifndef __VERTEX_ATTRIB_DATA_H__
 #define __VERTEX_ATTRIB_DATA_H__
 
-#include <gl\glew.h>
+#include <GL\glew.h>
 
 class VertexAttribData
 {

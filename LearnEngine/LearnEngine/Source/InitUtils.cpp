@@ -1,6 +1,5 @@
 #include "..\Include\Util\InitUtils.h"
 #include "..\Include\Util\Input.h"
-#include "..\Include\Texture\DoubleTextureController.h"
 #include "..\Include\Shaders\ShaderProgram.h"
 
 #include <chrono>

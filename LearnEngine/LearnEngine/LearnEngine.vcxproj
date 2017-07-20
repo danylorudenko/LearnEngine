@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Include\RenderingSystem\RenderingSystemUniformBuffer.cpp" />
     <ClCompile Include="Source\DrawArraysIndirectCommand.cpp" />
     <ClCompile Include="Source\IGLTransformable.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Include\Program.h" />
     <ClInclude Include="Include\RenderingSystem\Camera.h" />
     <ClInclude Include="Include\Component\GLObject\GLObject.h" />
+    <ClInclude Include="Include\RenderingSystem\RenderingSystemUniformBuffer.h" />
     <ClInclude Include="Include\ScriptingSystem\ScriptingSystem.h" />
     <ClInclude Include="Include\Texture\TextureController.h" />
     <ClInclude Include="Include\Util\Constants.h" />

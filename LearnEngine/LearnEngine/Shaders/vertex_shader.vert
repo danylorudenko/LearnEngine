@@ -3,17 +3,17 @@
 layout (location = 0) in vec3 _position;
 layout (location = 1) in vec2 _texCoord;
 
-uniform RenderingSystemData (std140, binding = 0) {
+layout (std140, binding - 0) uniform RenderingSystemData {
 	mat4 viewMatrix;
 	mat4 perspectiveMatrix;
 	vec3 cameraPos;
 } systemData;
 
-uniform ModelData (std140, binding = 1) { 
+layout (std140, binding = 1) uniform ModelData { 
 	mat4 modelMatrix;
 } modelData;
 
-uniform TextureData (std140, binding = 2) {
+layout (std140, binding = 2) uniform TextureData {
 	sampler2D mainTexture;
 } textureData;
 

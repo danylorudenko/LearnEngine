@@ -1,4 +1,5 @@
 #include "..\Include\Component\GLObject\GLTransformation\IGLTransformable.h"
+#include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
 IGLTransformable::IGLTransformable()
@@ -23,63 +24,48 @@ IGLTransformable& IGLTransformable::operator=(const IGLTransformable& rhs)
 void IGLTransformable::AllocateGPUBuffer()
 {
     glCreateBuffers(1, &uniform_buffer_handle_);
-    glNamedBufferStorage(uniform_buffer_handle_, GPU_BUFFER_SIZE, nullptr, GL_DYNAMIC_STORAGE_BIT | GL_MAP_READ_BIT);
+    glNamedBufferStorage(uniform_buffer_handle_, GPU_BUFFER_SIZE, nullptr, GL_DYNAMIC_STORAGE_BIT | GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
 }
 
 void IGLTransformable::FillGPUBuffer()
 {
-                               // |   Position      |   Rotation      |   Scale
-    const float default_data[] = { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, };
-    glNamedBufferSubData(uniform_buffer_handle_, 0, GPU_BUFFER_SIZE, default_data);
+    static const glm::mat4 identity_matrix(
+        glm::vec4(1.0f, 0.0f, 0.0f, 0.0f),
+        glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
+        glm::vec4(0.0f, 0.0f, 1.0f, 0.0f),
+        glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)
+    );
+
+    glNamedBufferSubData(uniform_buffer_handle_, 0, GPU_BUFFER_SIZE, glm::value_ptr(identity_matrix));
 }
 
-void IGLTransformable::BindUniformBuffer()
+void IGLTransformable::BindTransformUniformBuffer() const
 {
     glBindBufferBase(GL_UNIFORM_BUFFER, TRANSFORM_BLOCK_BINDING_INDEX, uniform_buffer_handle_);
 }
 
 glm::vec3 IGLTransformable::GetPosition() const
 {
-    float* position_data 
-        = reinterpret_cast<float*>(
-            glMapNamedBufferRange(uniform_buffer_handle_, GPU_POSITION_OFFSET, sizeof(glm::vec3), GL_MAP_READ_BIT)
-            );
-
-    glm::vec3 position(position_data[0], position_data[1], position_data[2]);
-    glUnmapNamedBuffer(uniform_buffer_handle_);
-
-    return position;
+    return position_;
 }
 
 glm::vec3 IGLTransformable::GetRotation() const
 {
-    float* rotation_data
-        = reinterpret_cast<float*>(
-            glMapNamedBufferRange(uniform_buffer_handle_, GPU_ROTATION_OFFSET, sizeof(glm::vec3), GL_MAP_READ_BIT)
-            );
-
-    glm::vec3 rotation(rotation_data[0], rotation_data[1], rotation_data[2]);
-    glUnmapNamedBuffer(uniform_buffer_handle_);
-
-    return rotation;
+    return rotation_;
 }
 
 glm::vec3 IGLTransformable::GetScale() const
 {
-    float* scale_data
-        = reinterpret_cast<float*>(
-            glMapNamedBufferRange(uniform_buffer_handle_, GPU_SCALE_OFFSET, sizeof(glm::vec3), GL_MAP_READ_BIT)
-            );
-
-    glm::vec3 scale(scale_data[0], scale_data[1], scale_data[2]);
-    glUnmapNamedBuffer(uniform_buffer_handle_);
-
-    return scale;
+    return scale_;
 }
 
-void IGLTransformable::SetPosition(const glm::vec3& world_position)
+void IGLTransformable::SetPosition(const glm::vec3& new_position)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_POSITION_OFFSET, sizeof(glm::vec3), glm::value_ptr(world_position));
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    glm::translate(*buffer_data, new_position - position_);
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    position_ = new_position;
 }
 
 void IGLTransformable::SetPosition(GLfloat x, GLfloat y, GLfloat z)
@@ -87,14 +73,49 @@ void IGLTransformable::SetPosition(GLfloat x, GLfloat y, GLfloat z)
     SetPosition(glm::vec3(x, y, z));
 }
 
-void IGLTransformable::SetPosParam(POS p_name, GLfloat param)
+void IGLTransformable::SetPosParam(x_type, GLfloat param)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_POSITION_OFFSET + static_cast<unsigned int>(p_name), sizeof(GLfloat), &param);
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    glm::translate(*buffer_data, glm::vec3(param, 0.0f, 0.0f));
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    position_.x = param;
 }
 
-void IGLTransformable::SetRotation(const glm::vec3& world_rotation)
+void IGLTransformable::SetPosParam(y_type, GLfloat param)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_ROTATION_OFFSET, sizeof(glm::vec3), glm::value_ptr(world_rotation));
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    glm::translate(*buffer_data, glm::vec3(0.0f, param, 0.0f));
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    position_.y = param;
+}
+
+void IGLTransformable::SetPosParam(z_type, GLfloat param)
+{
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    glm::translate(*buffer_data, glm::vec3(0.0f, 0.0f, param));
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    position_.z = param;
+}
+
+void IGLTransformable::SetRotation(const glm::vec3& new_rotation)
+{
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    
+    glm::vec3 rotation_delta = new_rotation - rotation_;
+
+    static const glm::vec3 X_AXIS(1.0f, 0.0f, 0.0f);
+    static const glm::vec3 Y_AXIS(0.0f, 1.0f, 0.0f);
+    static const glm::vec3 Z_AXIS(0.0f, 0.0f, 1.0f);
+
+    glm::rotate(*buffer_data, rotation_delta.x, X_AXIS);
+    glm::rotate(*buffer_data, rotation_delta.y, Y_AXIS);
+    glm::rotate(*buffer_data, rotation_delta.z, Z_AXIS);
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    rotation_ = new_rotation;
 }
 
 void IGLTransformable::SetRotation(GLfloat x, GLfloat y, GLfloat z)
@@ -102,14 +123,48 @@ void IGLTransformable::SetRotation(GLfloat x, GLfloat y, GLfloat z)
     SetRotation(glm::vec3(x, y, z));
 }
 
-void IGLTransformable::SetRotParam(ROT p_name, GLfloat param)
+void IGLTransformable::SetRotParam(x_type, GLfloat param)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_ROTATION_OFFSET + static_cast<unsigned int>(p_name), sizeof(GLfloat), &param);
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+
+    GLfloat rotation_delta = param - rotation_.x;
+
+    static const glm::vec3 X_AXIS(1.0f, 0.0f, 0.0f);
+    glm::rotate(*buffer_data, rotation_delta, X_AXIS);
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    rotation_.x = param;
 }
 
-void IGLTransformable::SetScale(const glm::vec3& world_scale)
+void IGLTransformable::SetRotParam(y_type, GLfloat param)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_SCALE_OFFSET, sizeof(glm::vec3), glm::value_ptr(world_scale));
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+
+    GLfloat rotation_delta = param - rotation_.y;
+
+    static const glm::vec3 Y_AXIS(0.0f, 1.0f, 0.0f);
+    glm::rotate(*buffer_data, rotation_delta, Y_AXIS);
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+}
+
+void IGLTransformable::SetRotParam(z_type, GLfloat param)
+{
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+
+    GLfloat rotation_delta = param - rotation_.z;
+
+    static const glm::vec3 Z_AXIS(0.0f, 0.0f, 1.0f);
+    glm::rotate(*buffer_data, rotation_delta, Z_AXIS);
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+}
+
+void IGLTransformable::SetScale(const glm::vec3& new_scale)
+{
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    glm::scale(*buffer_data, new_scale - scale_);
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    scale_ = new_scale;
 }
 
 void IGLTransformable::SetScale(GLfloat x, GLfloat y, GLfloat z)
@@ -117,7 +172,29 @@ void IGLTransformable::SetScale(GLfloat x, GLfloat y, GLfloat z)
     SetScale(glm::vec3(x, y, z));
 }
 
-void IGLTransformable::SetScaleParam(SCALE p_name, GLfloat param)
+void IGLTransformable::SetScaleParam(x_type, GLfloat param)
 {
-    glNamedBufferSubData(uniform_buffer_handle_, GPU_SCALE_OFFSET + static_cast<unsigned int>(p_name), sizeof(GLfloat), &param);
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    glm::scale(*buffer_data, glm::vec3(param - scale_.x, scale_.y, scale_.z));
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    scale_.x = param;
+}
+
+void IGLTransformable::SetScaleParam(y_type, GLfloat param)
+{
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    glm::scale(*buffer_data, glm::vec3(scale_.x, param - scale_.y, scale_.z));
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    scale_.y = param;
+}
+
+void IGLTransformable::SetScaleParam(z_type, GLfloat param)
+{
+    glm::mat4* buffer_data = (glm::mat4*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    glm::scale(*buffer_data, glm::vec3(scale_.x, scale_.y, param - scale_.z));
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+
+    scale_.z = param;
 }

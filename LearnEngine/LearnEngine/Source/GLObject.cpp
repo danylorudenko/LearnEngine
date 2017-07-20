@@ -6,6 +6,7 @@
 
 GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material) :
     Component(),
+    IGLTransformable(),
     vertex_data_    (vertex_data), 
     main_material_  (main_material)
 {
@@ -36,7 +37,7 @@ void GLObject::BindStandardUnifromBlocks() const
 {
     throw not_implemented_exc("GLObject::BindStandardUniformBlocks was not implemented.");
 
-    awekfcuayi
+    IGLTransformable::BindTransformUniformBuffer();
 }
 
 void GLObject::SetVertexData(std::shared_ptr<VertexData>& vertex_data)

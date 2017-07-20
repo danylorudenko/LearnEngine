@@ -6,31 +6,31 @@ Component::Component() : owner_(nullptr), in_system_(false)
 
 }
 
-Component::Component(const Component& rhs) : owner_(nullptr), in_system_(false)
-{
-
-}
-
-Component& Component::operator=(const Component& rhs)
-{
-    return *this;
-}
-
-Component::Component(Component&& rhs) : owner_(nullptr), in_system_(false)
-{
-    if (rhs.in_system_) {
-        throw std::logic_error("Can't move components which are used in engine systems.");
-    }
-}
-
-Component& Component::operator=(Component&& rhs)
-{
-    if (rhs.in_system_) {
-        throw std::logic_error("Can't move-assign components which are used in engine systems.");
-    }
-
-    return *this;
-}
+//Component::Component(const Component& rhs) : owner_(nullptr), in_system_(false)
+//{
+//
+//}
+//
+//Component& Component::operator=(const Component& rhs)
+//{
+//    return *this;
+//}
+//
+//Component::Component(Component&& rhs) : owner_(nullptr), in_system_(false)
+//{
+//    if (rhs.in_system_) {
+//        throw std::logic_error("Can't move components which are used in engine systems.");
+//    }
+//}
+//
+//Component& Component::operator=(Component&& rhs)
+//{
+//    if (rhs.in_system_) {
+//        throw std::logic_error("Can't move-assign components which are used in engine systems.");
+//    }
+//
+//    return *this;
+//}
 
 Component::~Component()
 {

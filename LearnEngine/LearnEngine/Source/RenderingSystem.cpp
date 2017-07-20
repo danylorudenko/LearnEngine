@@ -15,18 +15,27 @@ RenderingSystem::RenderingSystem(int resolution_X, int resolution_Y, std::shared
 void RenderingSystem::Iterate(GLFWwindow* window)
 {
     Clear();
+
+    uniform_buffer_.UpdateCameraData(
+        main_camera_->GetWorldPosition(),
+        main_camera_->GetViewDirection(),
+        static_cast<GLfloat>(screen_width_) / static_cast<GLfloat>(screen_height_),
+        DEFAULT_FOW,
+        main_camera_->GetClippingPlanes()[0], main_camera_->GetClippingPlanes()[1]
+    );
+    uniform_buffer_.Bind();
+
     DrawAll(window);
 }
 
 void RenderingSystem::DrawAll(GLFWwindow* window)
 {
-    int count = rendering_list_.size();
+    int count = static_cast<int>(rendering_list_.size());
 
     auto view_matrix = main_camera_->GetViewMatrix();
     auto perspective_matrix = main_camera_->GetPerspectiveMatrix(screen_width_, screen_height_);
     for (int i = 0; i < count; ++i) {
-        rendering_list_[i]->BindToRender(view_matrix, perspective_matrix);
-        
+        rendering_list_[i]->BindToRender();
     }
 
     glfwSwapBuffers(window);

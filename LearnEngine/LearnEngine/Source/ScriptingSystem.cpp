@@ -13,7 +13,7 @@ void ScriptingSystem::Iterate()
 
 void ScriptingSystem::TickAll()
 {
-    int count = ticking_scripts_.size();
+    int count = static_cast<int>(ticking_scripts_.size());
     for (int i = 0; i < count; i++)
     {
         // Nice syntax.

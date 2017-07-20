@@ -25,11 +25,21 @@ public:
 	void			SetWorldPosition		(glm::vec3& pos);
 	void			SetViewDirection		(glm::vec3& dir);
 
-protected:
-    GLfloat fow_;
+    glm::vec3       GetWorldPosition        () const;
+    glm::vec3       GetViewDirection        () const;
 
-    glm::vec3* world_position_;
-    glm::vec3* view_direction_;
+    GLfloat         GetFOW                  () const;
+
+    GLfloat*        GetClippingPlanes       () const;
+
+
+protected:
+    GLfloat     fow_;
+
+    GLfloat     clipping_planes_[2];
+
+    glm::vec3*  world_position_;
+    glm::vec3*  view_direction_;
 };
 
 #endif

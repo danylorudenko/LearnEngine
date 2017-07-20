@@ -45,7 +45,7 @@ std::shared_ptr<ShaderProgram> Material::GetShaderShared()
 
 void Material::BindAllTextures()
 {
-    int size = textures_.size();
+    int size = static_cast<int>(textures_.size());
     for (int i = 0; i < size; i++)
     {
         std::get<1>(textures_[i])->BindAllToUnit(std::get<0>(textures_[i]));

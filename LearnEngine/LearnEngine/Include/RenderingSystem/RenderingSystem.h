@@ -3,6 +3,7 @@
 
 #include "Camera.h"
 #include "..\Component\GLObject\GLObject.h"
+#include "RenderingSystemUniformBuffer.h"
 #include "..\Util\Singletone.h"
 
 #include <GLFW\glfw3.h>
@@ -45,6 +46,8 @@ protected:
 
     std::shared_ptr<Camera>                 main_camera_;
     RenderingListContainter                 rendering_list_;
+
+    RenderingSystemUniformBuffer            uniform_buffer_;
 };
 
 #endif

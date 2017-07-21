@@ -32,7 +32,7 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     glm::mat4 view_matrix = glm::lookAt(position, direction + position, glm::vec3(0.0f, 1.0f, 0.0f));
     glm::mat4 perspective_matrix = glm::perspective(fow, aspect_ratio, near_plane, far_plane);
 
-    GLubyte* buffer_data = (GLubyte*)glMapNamedBuffer(uniform_buffer_handle_, GL_MAP_WRITE_BIT);
+    GLubyte* buffer_data = (GLubyte*)glMapNamedBuffer(uniform_buffer_handle_, GL_WRITE_ONLY);
 
     std::memcpy(buffer_data, &view_matrix, sizeof(view_matrix));
     buffer_data += sizeof(view_matrix);
@@ -44,6 +44,8 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     buffer_data += sizeof(position);
 
     std::memcpy(buffer_data, &rotation, sizeof(rotation));
+
+    glUnmapNamedBuffer(uniform_buffer_handle_);
 }
 
 void RenderingSystemUniformBuffer::AllocateGPUBuffer()

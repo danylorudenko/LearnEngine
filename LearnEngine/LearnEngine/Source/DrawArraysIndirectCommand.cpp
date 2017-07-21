@@ -78,17 +78,17 @@ void DrawArraysIndirectCommand::Bind() const
 
 void* DrawArraysIndirectCommand::MapRead() const
 {
-    return glMapNamedBuffer(buffer_handle_, GL_MAP_READ_BIT);
+    return glMapNamedBuffer(buffer_handle_, GL_READ_ONLY);
 }
 
 void* DrawArraysIndirectCommand::MapWrite()
 {
-    return glMapNamedBuffer(buffer_handle_, GL_MAP_WRITE_BIT);
+    return glMapNamedBuffer(buffer_handle_, GL_WRITE_ONLY);
 }
 
 void* DrawArraysIndirectCommand::MapReadWrite()
 {
-    return glMapNamedBuffer(buffer_handle_, GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    return glMapNamedBuffer(buffer_handle_, GL_READ_WRITE);
 }
 
 void DrawArraysIndirectCommand::Unmap() const

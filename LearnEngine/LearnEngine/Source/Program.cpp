@@ -42,7 +42,7 @@ void Program::Initialize()
     RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
     main_camera->SetWorldPosition(glm::vec3(0.0f, 0.5f, -3.0f));
 
-    auto vertex_data = std::shared_ptr<VertexData>(
+    /*auto vertex_data = std::shared_ptr<VertexData>(
         new VertexData(
             new GLfloat[180] {
                     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -124,7 +124,7 @@ void Program::Initialize()
     auto gl_object = std::shared_ptr<GLObject>(new GLObject(vertex_data, material));
 
     auto entity = std::shared_ptr<Entity>(new Entity());
-    entity->AddComponent(gl_object);
+    entity->AddComponent(gl_object);*/
 
 }
 

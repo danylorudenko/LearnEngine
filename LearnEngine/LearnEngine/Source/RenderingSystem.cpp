@@ -31,9 +31,6 @@ void RenderingSystem::Iterate(GLFWwindow* window)
 void RenderingSystem::DrawAll(GLFWwindow* window)
 {
     int count = static_cast<int>(rendering_list_.size());
-
-    auto view_matrix = main_camera_->GetViewMatrix();
-    auto perspective_matrix = main_camera_->GetPerspectiveMatrix(screen_width_, screen_height_);
     for (int i = 0; i < count; ++i) {
         rendering_list_[i]->BindToRender();
     }

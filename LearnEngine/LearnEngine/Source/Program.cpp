@@ -38,9 +38,13 @@ void Program::Initialize()
 
     // ================
 
+    auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
+    RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
+    main_camera->SetWorldPosition(glm::vec3(0.0f, 0.5f, -3.0f));
+
     auto vertex_data = std::shared_ptr<VertexData>(
         new VertexData(
-            new GLfloat[] {
+            new GLfloat[180] {
                     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
                      0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
                      0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
@@ -112,16 +116,15 @@ void Program::Initialize()
     vertex_data->AddVAOVertexAttrib(pos_attrib_data);
     vertex_data->AddVAOVertexAttrib(uv_attrib_data);
     
-    auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vglsl", "Shaders\\fragment_shader.fglsl");
+    auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vert", "Shaders\\fragment_shader.frag");
+    auto texture_controller = std::shared_ptr<TextureController>(new TextureController("Resources\\container.jpg"));
     auto material = std::shared_ptr<Material>(new Material(test_cube_shader));
+    material->AddTexture(0, texture_controller);
 
     auto gl_object = std::shared_ptr<GLObject>(new GLObject(vertex_data, material));
 
     auto entity = std::shared_ptr<Entity>(new Entity());
     entity->AddComponent(gl_object);
-
-    auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
-    RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
 
 }
 

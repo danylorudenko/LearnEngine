@@ -38,7 +38,7 @@ public:
 
     // Adds component to the internal list and sets its owner to self.
     // Performs registration of the component in the contolling system, if needed.
-    void                            AddComponent                (std::shared_ptr<Component>& component);
+    void                            AddComponent                (std::shared_ptr<Component> component);
 
     // Removes pointer to the component and unregisters component from engines subsystems, if needed.
     // Removes owner pointer for the component.

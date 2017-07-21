@@ -33,7 +33,7 @@ Entity::~Entity()
     RemoveAllComponents();
 }
 
-void Entity::AddComponent(std::shared_ptr<Component>& component)
+void Entity::AddComponent(std::shared_ptr<Component> component)
 {
     components_.push_back(component);
     ComponentRegistrationAttorney::SetComponentOwner(component, this);

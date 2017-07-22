@@ -168,12 +168,15 @@
     <ClInclude Include="Include\RenderingSystem\RenderingSystem.h" />
     <ClInclude Include="Include\Util\CustomException\not_implemented_exc.h" />
     <ClInclude Include="Include\Util\Debugging\DebugTools.h" />
+    <ClInclude Include="Include\Util\Hierarchy.h" />
     <ClInclude Include="Include\Util\InitUtils.h" />
     <ClInclude Include="Include\Util\Input.h" />
     <ClInclude Include="Include\Shaders\ShaderProgram.h" />
     <ClInclude Include="Include\Util\Singletone.h" />
     <ClInclude Include="Include\VertexData\VertexAttribData.h" />
     <ClInclude Include="Include\VertexData\VertexData.h" />
+    <ClInclude Include="Include\World\World.h" />
+    <ClInclude Include="Include\World\WorldManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="debug_log.txt" />

@@ -1,16 +1,16 @@
 #include "..\Include\Component\ComponentRegistrationAttorney.h"
 
-void ComponentRegistrationAttorney::SetComponentOwner(std::shared_ptr<Component> component, Entity* owner)
+void ComponentRegistrationAttorney::SetComponentOwner(Component* component, Entity* owner)
 {
     component->SetOwner(owner);
 }
 
-void ComponentRegistrationAttorney::RegisterInSystem(std::shared_ptr<Component> component)
+void ComponentRegistrationAttorney::RegisterInSystem(Component* component)
 {
     component->RegisterInSystem();
 }
 
-void ComponentRegistrationAttorney::UnregisterFromSystem(std::shared_ptr<Component> component)
+void ComponentRegistrationAttorney::UnregisterFromSystem(Component* component)
 {
     component->UnregisterFromSystem();
 }

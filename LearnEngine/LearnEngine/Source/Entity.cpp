@@ -1,56 +1,87 @@
 #include "..\Include\Entity\Entity.h"
 #include "..\Include\Component\ComponentRegistrationAttorney.h"
+#include "..\Include\World\World.h"
 
-Entity::Entity()
+Entity* Entity::CreateEntity()
+{
+    Entity* new_entity = new Entity(nullptr);
+    World::Instance().AddToRoot(new_entity);
+    return new_entity;
+}
+
+Entity * Entity::CreateRootEnitity()
+{
+    return new Entity(nullptr);
+}
+
+Entity* Entity::FindEntity(std::string& name)
+{
+    if (name_ == name) {
+        return this;
+    }
+
+    if (!children_.empty()) {
+        std::for_each(children_.begin(), children_.end(),
+            [&name, this](HierarchyMember<Entity>* candidate) {
+            return dynamic_cast<Entity*>(this->FindEntity(name));
+        });
+    }
+    
+    return nullptr;
+}
+
+std::string & Entity::Name()
+{
+    return name_;
+}
+
+Entity::Entity(Entity* parent) :
+    HierarchyMember<Entity>(parent)
 {
 
 }
 
-Entity::Entity(const Entity & rhs) : components_(rhs.components_)
-{
-
-}
-
-Entity::Entity(Entity&& rhs) : components_(std::move(rhs.components_))
-{
-
-}
-
-Entity& Entity::operator=(const Entity& rhs)
-{
-    components_ = rhs.components_;
-    return *this;
-}
-
-Entity& Entity::operator=(Entity&& rhs)
-{
-    components_ = std::move(rhs.components_);
-    return *this;
-}
+//Entity::Entity(const Entity & rhs) : components_(rhs.components_)
+//{
+//
+//}
+//
+//Entity::Entity(Entity&& rhs) : components_(std::move(rhs.components_))
+//{
+//
+//}
+//
+//Entity& Entity::operator=(const Entity& rhs)
+//{
+//    components_ = rhs.components_;
+//    return *this;
+//}
+//
+//Entity& Entity::operator=(Entity&& rhs)
+//{
+//    components_ = std::move(rhs.components_);
+//    return *this;
+//}
 
 Entity::~Entity()
 {
     RemoveAllComponents();
 }
 
-void Entity::AddComponent(std::shared_ptr<Component> component)
+void Entity::AddComponent(Component* component)
 {
     components_.push_back(component);
     ComponentRegistrationAttorney::SetComponentOwner(component, this);
     ComponentRegistrationAttorney::RegisterInSystem(component);
 }
 
-void Entity::RemoveComponent(std::weak_ptr<Component> component)
+void Entity::RemoveComponent(Component* component)
 {
-    // If locked std::shared_ptr is not nullptr..
-    if (auto to_remove = component.lock()) {
-        ComponentRegistrationAttorney::UnregisterFromSystem(to_remove);
-        
-        components_.remove_if(
-            [=](std::shared_ptr<Component>& candidate) {
-            return to_remove == candidate;
-        });
-    }
+    components_.remove_if(
+        [=](Component* candidate) {
+        ComponentRegistrationAttorney::UnregisterFromSystem(candidate);
+        return component == candidate;
+    });
 }
 
 void Entity::RemoveAllComponents()

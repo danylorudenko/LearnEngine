@@ -2,6 +2,7 @@
 #include "..\Include\Util\Input.h"
 #include "..\Include\Util\Debugging\DebugTools.h"
 #include "..\Include\Entity\Entity.h"
+#include "..\Include\World\World.h"
 
 Program::Program()
 {
@@ -38,11 +39,13 @@ void Program::Initialize()
 
     // ================
 
+    World::Create();
+
     auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
     RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
-    main_camera->SetWorldPosition(glm::vec3(0.0f, 0.5f, -3.0f));
+    
 
-    /*auto vertex_data = std::shared_ptr<VertexData>(
+    auto vertex_data = std::shared_ptr<VertexData>(
         new VertexData(
             new GLfloat[180] {
                     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
@@ -121,11 +124,8 @@ void Program::Initialize()
     auto material = std::shared_ptr<Material>(new Material(test_cube_shader));
     material->AddTexture(0, texture_controller);
 
-    auto gl_object = std::shared_ptr<GLObject>(new GLObject(vertex_data, material));
-
-    auto entity = std::shared_ptr<Entity>(new Entity());
-    entity->AddComponent(gl_object);*/
-
+    auto* entity = Entity::CreateEntity();
+    entity->AddComponent(new GLObject(vertex_data, material));
 }
 
 void Program::StartMainLoop()

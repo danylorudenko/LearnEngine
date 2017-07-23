@@ -89,6 +89,7 @@ void Entity::RemoveAllComponents()
     for (auto component : components_) {
         ComponentRegistrationAttorney::UnregisterFromSystem(component);
         ComponentRegistrationAttorney::SetComponentOwner(component, nullptr);
+        delete component;
     }
 
     components_.clear();

@@ -52,15 +52,17 @@ void TextureController::LoadToGL()
     // Allocating storage.
     glTextureStorage2D(
         texture_handle_,
-        3, // Mipmaps
+        2, // Mipmaps
         GL_RGB,
         width_,
         height_
     );
 
+    display_gl_errors();
+
     glTextureSubImage2D(
         texture_handle_,
-        3, // Mipmaps
+        0, // Mipmaps
         0, 0,
         width_, height_,
         GL_RGB,
@@ -119,8 +121,8 @@ void TextureController::SetupDefaultSamler()
     SetSamplerParam(GL_TEXTURE_WRAP_S, GL_REPEAT);
     SetSamplerParam(GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-    SetSamplerParam(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    SetSamplerParam(GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+    SetSamplerParam(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+    SetSamplerParam(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     display_gl_errors();
 }

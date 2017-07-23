@@ -19,6 +19,8 @@ public:
 
     Entity*             FindEntity              (std::string& name);
 
+    virtual ~World                              ();
+
 protected:
     Entity* root_;
 };

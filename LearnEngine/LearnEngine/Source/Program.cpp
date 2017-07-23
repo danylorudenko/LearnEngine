@@ -11,6 +11,8 @@ Program::Program()
 
 Program::~Program()
 {
+    World::Delete();
+    RenderingSystem::Delete();
     glfwTerminate();
 }
 

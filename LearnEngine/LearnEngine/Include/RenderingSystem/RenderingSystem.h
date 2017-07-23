@@ -9,7 +9,6 @@
 #include <GLFW\glfw3.h>
 
 #include <vector>
-#include <queue>
 
 class RenderingSystem : public Singletone<RenderingSystem>
 {

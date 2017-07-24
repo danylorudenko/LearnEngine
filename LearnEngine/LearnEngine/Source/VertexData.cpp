@@ -1,4 +1,5 @@
 #include "..\Include\VertexData\VertexData.h"
+#include "..\Include\Util\Debugging\DebugTools.h"
 
 #include <cstdlib>
 
@@ -74,11 +75,13 @@ void VertexData::AddVAOVertexAttrib(const VertexAttribData& data)
     glVertexArrayAttribFormat(
         vertex_array_object_,
         data.attrib_index_,
-        data.attrib_size_,
+        data.element_count_,
         data.attrib_gl_format_,
         data.normalized_,
         data.offset_
         );
+
+    display_gl_errors();
 
     glVertexArrayVertexBuffer(
         vertex_array_object_,
@@ -88,16 +91,22 @@ void VertexData::AddVAOVertexAttrib(const VertexAttribData& data)
         stride_
     );
 
+    display_gl_errors();
+
     glVertexArrayAttribBinding(
         vertex_array_object_,
         data.attrib_index_,
         data.binding_index_
     );
 
+    display_gl_errors();
+
     glEnableVertexArrayAttrib(
         vertex_array_object_,
         data.attrib_index_
     );
+
+    display_gl_errors();
 }
 
 GLsizei VertexData::DataRawSize() const

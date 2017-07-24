@@ -37,7 +37,7 @@ public:
 
     // Gets reference to the first component in the list of the template type.
     template<typename TComponent>
-    TComponent                      GetComponent                ()
+    TComponent*                     GetComponent                ()
     {
         for (auto component : components_) {
             if (auto casted_component = dynamic_cast<TComponent*>(component)) {

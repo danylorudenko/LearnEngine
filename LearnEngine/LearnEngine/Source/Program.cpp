@@ -99,6 +99,8 @@ void Program::Initialize()
             )
         );
 
+    display_gl_errors();
+
     VertexAttribData pos_attrib_data(
         0,
         0,
@@ -118,16 +120,26 @@ void Program::Initialize()
         2
     );
 
+    display_gl_errors();
+
     vertex_data->AddVAOVertexAttrib(pos_attrib_data);
     vertex_data->AddVAOVertexAttrib(uv_attrib_data);
     
-    auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vert", "Shaders\\fragment_shader.frag");
-    auto texture_controller = std::shared_ptr<TextureController>(new TextureController("Resources\\container.jpg"));
-    auto material = std::shared_ptr<Material>(new Material(test_cube_shader));
-    material->AddTexture(0, texture_controller);
+    display_gl_errors();
 
+    auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vert", "Shaders\\fragment_shader.frag");
+    display_gl_errors();
+    auto texture_controller = std::shared_ptr<TextureController>(new TextureController("Resources\\container.jpg"));
+    display_gl_errors();
+    auto material = std::shared_ptr<Material>(new Material(test_cube_shader));
+    display_gl_errors();
+    material->AddTexture(0, texture_controller);
+    display_gl_errors();
     auto* entity = Entity::CreateEntity();
     entity->AddComponent(new GLObject(vertex_data, material));
+    
+    GLObject* gl_obj = entity->GetComponent<GLObject>();
+    gl_obj->SetPosition(0.0f, 0.0f, -3.0f);
 }
 
 void Program::StartMainLoop()

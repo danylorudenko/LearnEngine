@@ -4,7 +4,7 @@
 // Conventional uniforms which are binded to shader by every (GLObject : IGLTransfromable)
 //////////////////////////////////////////////////
 
-layout (std140, binding - 0) uniform RenderingSystemData {
+layout (std140, binding = 0) uniform RenderingSystemData {
 	mat4 viewMatrix;
 	mat4 perspectiveMatrix;
 	vec3 cameraPos;
@@ -15,10 +15,7 @@ layout (std140, binding = 1) uniform ModelData {
 	mat4 modelMatrix;
 } modelData;
 
-layout (std140, binding = 2) uniform TextureData {
-	sampler2D mainTexture;
-} textureData;
-
+layout (binding = 0) uniform sampler2D mainTexture;
 
 //////////////////////////////////////////////////
 // Vertex attributes inputs
@@ -34,10 +31,10 @@ layout (location = 1) in vec2 _texCoord;
 
 out VS_OUT {
 	vec2 textureCoordinate;
-}
+} vs_out;
 
 void main()
 {
-	VS_OUT.textureCoordinate = _texCoord;
+	vs_out.textureCoordinate = _texCoord;
 	gl_Position = systemData.perspectiveMatrix * systemData.viewMatrix * modelData.modelMatrix * vec4(_vertex_position, 1.0f);
 }

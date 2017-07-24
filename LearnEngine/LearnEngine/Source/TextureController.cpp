@@ -47,12 +47,16 @@ void TextureController::LoadToGL()
         throw std::runtime_error("Can't load texture to the GL. No data in RAM.");
     }
     
+    display_gl_errors();
+
     glCreateTextures(GL_TEXTURE_2D, 1, &texture_handle_);
+
+    display_gl_errors();
 
     // Allocating storage.
     glTextureStorage2D(
         texture_handle_,
-        2, // Mipmaps
+        1, // Mipmaps
         GL_RGB8,
         width_,
         height_
@@ -62,11 +66,11 @@ void TextureController::LoadToGL()
 
     glTextureSubImage2D(
         texture_handle_,
-        2, // Mipmaps
+        0, // Mipmaps
         0, 0,
         width_, height_,
-        GL_RGB,
-        GL_FLOAT,
+        GL_BGR,
+        GL_UNSIGNED_BYTE,
         image_data_
     );
 

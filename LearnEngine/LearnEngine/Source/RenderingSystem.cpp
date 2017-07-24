@@ -7,7 +7,7 @@
 RenderingSystem::RenderingSystem(int resolution_X, int resolution_Y, std::shared_ptr<Camera> main_cam) :
     screen_width_(resolution_X), screen_height_(resolution_Y), main_camera_(main_cam)
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);
 }
@@ -26,6 +26,8 @@ void RenderingSystem::Iterate(GLFWwindow* window)
     uniform_buffer_.Bind();
 
     DrawAll(window);
+
+    display_gl_errors();
 }
 
 void RenderingSystem::DrawAll(GLFWwindow* window)

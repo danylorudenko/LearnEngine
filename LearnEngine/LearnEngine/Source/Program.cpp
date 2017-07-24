@@ -44,6 +44,8 @@ void Program::Initialize()
     World::Create();
 
     auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
+    main_camera->SetWorldPosition(glm::vec3(0.0f, 3.0f, -1.0f));
+    main_camera->SetViewDirection(glm::vec3(0.0f, 15.0, 0.0f));
     RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
     
 
@@ -154,7 +156,7 @@ void Program::Initialize()
     entity->AddComponent(new GLObject(vertex_data, material));
     
     GLObject* gl_obj = entity->GetComponent<GLObject>();
-    gl_obj->SetPosition(0.0f, 0.0f, -3.0f);
+    gl_obj->SetPosition(0.0f, 0.0f, 3.0f);
     gl_obj->SetRotation(30.0f, 30.0f, 10.0f);
     
 }

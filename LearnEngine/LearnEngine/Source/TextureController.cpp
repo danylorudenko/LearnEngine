@@ -53,7 +53,7 @@ void TextureController::LoadToGL()
     glTextureStorage2D(
         texture_handle_,
         2, // Mipmaps
-        GL_RGB,
+        GL_RGB8,
         width_,
         height_
     );
@@ -62,7 +62,7 @@ void TextureController::LoadToGL()
 
     glTextureSubImage2D(
         texture_handle_,
-        0, // Mipmaps
+        2, // Mipmaps
         0, 0,
         width_, height_,
         GL_RGB,

@@ -35,6 +35,7 @@ void RenderingSystem::DrawAll(GLFWwindow* window)
     int count = static_cast<int>(rendering_list_.size());
     for (int i = 0; i < count; ++i) {
         rendering_list_[i]->BindToRender();
+        glDrawArraysIndirect(GL_TRIANGLES, (GLvoid*)0);
     }
 
     glfwSwapBuffers(window);

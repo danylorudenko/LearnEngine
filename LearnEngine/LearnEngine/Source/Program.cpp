@@ -127,6 +127,21 @@ void Program::Initialize()
     
     display_gl_errors();
 
+    // Draw command initialization
+    DrawArraysIndirectCommand draw_command;
+    void* draw_command_data = draw_command.MapReadWrite();
+
+    *((GLuint*)((GLbyte*)draw_command_data + DrawArraysIndirectCommand::BASE_INSTANCE_OFFSET)) = 0;
+    *((GLuint*)((GLbyte*)draw_command_data + DrawArraysIndirectCommand::FIRST_VERTEX_OFFSET)) = 0;
+    *((GLuint*)((GLbyte*)draw_command_data + DrawArraysIndirectCommand::INSTANCE_COUNT_OFFSET)) = 1;
+    *((GLuint*)((GLbyte*)draw_command_data + DrawArraysIndirectCommand::VERTEX_COUNT_OFFSET)) = 36;
+
+    draw_command.Unmap();
+
+    vertex_data->SetDrawCommand(std::move(draw_command));
+
+    display_gl_errors();
+    
     auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vert", "Shaders\\fragment_shader.frag");
     display_gl_errors();
     auto texture_controller = std::shared_ptr<TextureController>(new TextureController("Resources\\container.jpg"));
@@ -140,6 +155,8 @@ void Program::Initialize()
     
     GLObject* gl_obj = entity->GetComponent<GLObject>();
     gl_obj->SetPosition(0.0f, 0.0f, -3.0f);
+    gl_obj->SetRotation(30.0f, 30.0f, 10.0f);
+    
 }
 
 void Program::StartMainLoop()

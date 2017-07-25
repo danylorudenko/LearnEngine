@@ -1,5 +1,6 @@
 #include "..\Include\Program.h"
 #include "..\Include\Input\InputSystem.h"
+#include "..\Include\ScriptingSystem\ScriptingSystem.h"
 #include "..\Include\Util\Debugging\DebugTools.h"
 #include "..\Include\Entity\Entity.h"
 #include "..\Include\World\World.h"
@@ -35,18 +36,13 @@ void Program::Initialize()
         throw std::runtime_error("Error initializing GLEW.");
     }
 
-    // Callbacks
-    
-    glfwSetFramebufferSizeCallback(main_window_, &RenderingSystem::frame_buffer_size_callback);
-
-    // ================
-
     World::Create();
+    ScriptingSystem::Create();
 
     auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
     main_camera->SetWorldPosition(glm::vec3(0.0f, 3.0f, -1.0f));
     main_camera->SetViewDirection(glm::vec3(0.0f, 30.0, 0.0f));
-    RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
+    RenderingSystem::Create(main_window_, default_resolution_X, default_resolution_Y, main_camera);
     
 
     auto vertex_data = std::shared_ptr<VertexData>(
@@ -144,9 +140,9 @@ void Program::Initialize()
 
     display_gl_errors();
     
-    auto test_cube_shader = std::make_shared<ShaderProgram>("Shaders\\vertex_shader.vert", "Shaders\\fragment_shader.frag");
+    auto test_cube_shader = std::make_shared<ShaderProgram>("Resources\\Shaders\\vertex_shader.vert", "Resources\\Shaders\\fragment_shader.frag");
     display_gl_errors();
-    auto texture_controller = std::shared_ptr<TextureController>(new TextureController("Resources\\container.jpg"));
+    auto texture_controller = std::shared_ptr<TextureController>(new TextureController("Resources\\Images\\container.jpg"));
     display_gl_errors();
     auto material = std::shared_ptr<Material>(new Material(test_cube_shader));
     display_gl_errors();

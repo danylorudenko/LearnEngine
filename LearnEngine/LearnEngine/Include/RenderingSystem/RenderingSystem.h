@@ -18,7 +18,8 @@ public:
     static constexpr GLfloat                        DEFAULT_FOW = 60.0f;
 
 public:
-    RenderingSystem                                 (int viewport_X, int viewport_Y,
+    RenderingSystem                                 (GLFWwindow* window,
+                                                     int viewport_X, int viewport_Y,
                                                      std::shared_ptr<Camera> main_cam);
 
     RenderingSystem                                 (const RenderingSystem& rhs) = delete;

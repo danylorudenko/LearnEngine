@@ -21,6 +21,7 @@ protected:
     virtual void                RegisterInSystem            () override;
     virtual void                UnregisterFromSystem        () override;
 
+    virtual void                OnStart                     () = 0;
     virtual void                OnRegistered                () = 0;
     virtual void                OnUnregistered              () = 0;
     virtual void                Tick                        () = 0;
@@ -34,7 +35,10 @@ protected:
 class ScriptingSystemCallbackAttorney
 {
     using ScriptingSystemTickCallback                                           = void(Script::*)();
+    using ScriptingSystemStartCallback                                          = void(Script::*)();
+
     static constexpr ScriptingSystemTickCallback    s_standard_tick_callback    = &Script::Tick;
+    static constexpr ScriptingSystemStartCallback   s_standard_start_callback   = &Script::OnStart;
 
     friend ScriptingSystem;
 };

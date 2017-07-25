@@ -13,11 +13,34 @@ void InputSystem::key_callback(GLFWwindow* window, int key, int scan_code, int a
         system.holded_keys_.insert(key);
         system.down_keys_.insert(key);
     }
+
     if (action == GLFW_RELEASE) {
         system.holded_keys_.erase(key);
         system.up_keys_.insert(key);
     }
 }
+
+void InputSystem::mouse_pos_callback(GLFWwindow* window, double x_pos, double y_pos)
+{
+    Instance().mouse_position_ = glm::vec2(x_pos, y_pos);
+}
+
+void InputSystem::mouse_button_callback(GLFWwindow* window, int key, int action, int mods)
+{
+    auto& system = Instance();
+
+    if (action == GLFW_PRESS) {
+        system.holded_keys_.insert(key);
+        system.down_keys_.insert(key);
+    }
+
+    if (action == GLFW_RELEASE) {
+        system.holded_keys_.erase(key);
+        system.up_keys_.insert(key);
+    }
+}
+
+
 
 InputSystem::InputSystem(GLFWwindow* window)
 {
@@ -39,4 +62,9 @@ bool InputSystem::GetKeyUp(int glfw_code) const
 bool InputSystem::GetKey(int glfw_code) const
 {
     return holded_keys_.find(glfw_code) != holded_keys_.end();
+}
+
+const glm::vec2& InputSystem::GetMousePos() const
+{
+    return mouse_position_;
 }

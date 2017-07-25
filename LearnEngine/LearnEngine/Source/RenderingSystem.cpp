@@ -4,9 +4,11 @@
 
 #include <algorithm>
 
-RenderingSystem::RenderingSystem(int resolution_X, int resolution_Y, std::shared_ptr<Camera> main_cam) :
+RenderingSystem::RenderingSystem(GLFWwindow* window, int resolution_X, int resolution_Y, std::shared_ptr<Camera> main_cam) :
     screen_width_(resolution_X), screen_height_(resolution_Y), main_camera_(main_cam)
 {
+    glfwSetFramebufferSizeCallback(window, &RenderingSystem::frame_buffer_size_callback);
+    
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
     glEnable(GL_DEPTH_TEST);

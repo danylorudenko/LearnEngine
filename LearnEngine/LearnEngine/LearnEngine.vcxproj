@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Include\RenderingSystem\RenderingSystemUniformBuffer.cpp" />
+    <ClCompile Include="Source\RenderingSystemUniformBuffer.cpp" />
     <ClCompile Include="Source\DrawArraysIndirectCommand.cpp" />
     <ClCompile Include="Source\IGLTransformable.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
@@ -146,7 +146,7 @@
     <ClCompile Include="Source\VertexAttribData.cpp" />
     <ClCompile Include="Source\VertexData.cpp" />
     <ClCompile Include="Source\InitUtils.cpp" />
-    <ClCompile Include="Source\Input.cpp" />
+    <ClCompile Include="Source\InputSystem.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\ShaderProgram.cpp" />
     <ClCompile Include="Source\World.cpp" />
@@ -171,7 +171,7 @@
     <ClInclude Include="Include\Util\Debugging\DebugTools.h" />
     <ClInclude Include="Include\Util\HierarchyMember.h" />
     <ClInclude Include="Include\Util\InitUtils.h" />
-    <ClInclude Include="Include\Util\Input.h" />
+    <ClInclude Include="Include\Input\InputSystem.h" />
     <ClInclude Include="Include\Shaders\ShaderProgram.h" />
     <ClInclude Include="Include\Util\Singletone.h" />
     <ClInclude Include="Include\VertexData\VertexAttribData.h" />

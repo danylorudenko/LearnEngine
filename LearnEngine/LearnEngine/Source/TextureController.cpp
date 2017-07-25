@@ -69,7 +69,7 @@ void TextureController::LoadToGL()
         0, // Mipmaps
         0, 0,
         width_, height_,
-        GL_BGR,
+        GL_RGB,
         GL_UNSIGNED_BYTE,
         image_data_
     );

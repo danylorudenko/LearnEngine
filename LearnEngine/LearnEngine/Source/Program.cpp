@@ -1,5 +1,5 @@
 #include "..\Include\Program.h"
-#include "..\Include\Util\Input.h"
+#include "..\Include\Input\InputSystem.h"
 #include "..\Include\Util\Debugging\DebugTools.h"
 #include "..\Include\Entity\Entity.h"
 #include "..\Include\World\World.h"
@@ -36,7 +36,7 @@ void Program::Initialize()
     }
 
     // Callbacks
-    glfwSetKeyCallback(main_window_, key_callback);
+    
     glfwSetFramebufferSizeCallback(main_window_, &RenderingSystem::frame_buffer_size_callback);
 
     // ================
@@ -45,7 +45,7 @@ void Program::Initialize()
 
     auto main_camera = std::make_shared<Camera>(RenderingSystem::DEFAULT_FOW);
     main_camera->SetWorldPosition(glm::vec3(0.0f, 3.0f, -1.0f));
-    main_camera->SetViewDirection(glm::vec3(0.0f, 15.0, 0.0f));
+    main_camera->SetViewDirection(glm::vec3(0.0f, 30.0, 0.0f));
     RenderingSystem::Create(default_resolution_X, default_resolution_Y, main_camera);
     
 

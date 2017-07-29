@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Resources\Scripts\Rotator.cpp" />
     <ClCompile Include="Source\ProgramStartupLogic.cpp" />
     <ClCompile Include="Source\RenderingSystemUniformBuffer.cpp" />
     <ClCompile Include="Source\DrawArraysIndirectCommand.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Include\VertexData\VertexAttribData.h" />
     <ClInclude Include="Include\VertexData\VertexData.h" />
     <ClInclude Include="Include\World\World.h" />
+    <ClInclude Include="Resources\Scripts\Rotator.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="debug_log.txt" />

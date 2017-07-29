@@ -1,6 +1,7 @@
 #include "..\Include\Program\Program.h"
 #include "..\Include\Entity\Entity.h"
 #include "..\Include\Util\Debugging\DebugTools.h"
+#include "..\Resources\Scripts\Rotator.h"
 
 void Program::StartupLogic()
 {
@@ -117,4 +118,5 @@ void Program::StartupLogic()
     gl_obj->SetPosition(0.0f, 0.0f, 3.0f);
     gl_obj->SetRotation(30.0f, 30.0f, 10.0f);
 
+    entity->AddComponent(new Rotator());
 }

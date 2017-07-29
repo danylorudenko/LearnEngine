@@ -54,18 +54,3 @@ void Script::RegisterStart()
 {
     ScriptingSystem::Instance().RegisterStarter(this);
 }
-
-void Script::OnRegistered()
-{
-    // Is up to inheriting users to implement it.
-}
-
-void Script::OnUnregistered()
-{
-    // Is up to inheriting users to implement it.
-}
-
-void Script::Tick()
-{
-    // Is up to inheriting users to implement it.
-}

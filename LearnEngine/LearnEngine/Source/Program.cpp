@@ -45,6 +45,8 @@ void Program::Initialize()
 
 void Program::StartMainLoop()
 {
+    StartupLogic();
+    
     while (!glfwWindowShouldClose(main_window_)) {
 		glfwPollEvents();
 

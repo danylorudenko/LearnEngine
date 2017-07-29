@@ -22,10 +22,12 @@ protected:
     virtual void                RegisterInSystem            () override;
     virtual void                UnregisterFromSystem        () override;
 
-    virtual void                OnStart                     () = 0;
-    virtual void                OnRegistered                () = 0;
-    virtual void                OnUnregistered              () = 0;
-    virtual void                Tick                        () = 0;
+    virtual void                OnStart                     () { };
+    virtual void                OnRegistered                () { };
+    virtual void                OnUnregistered              () { };
+    virtual void                Tick                        () { };
+
+    virtual                     ~Script() = 0;
 
 protected:
     bool                        is_ticking_;

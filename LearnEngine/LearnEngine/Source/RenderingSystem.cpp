@@ -5,7 +5,10 @@
 #include <algorithm>
 
 RenderingSystem::RenderingSystem(GLFWwindow* window, int resolution_X, int resolution_Y, std::shared_ptr<Camera> main_cam) :
-    screen_width_(resolution_X), screen_height_(resolution_Y), main_camera_(main_cam)
+    context_window_(window),
+    screen_width_(resolution_X), 
+    screen_height_(resolution_Y), 
+    main_camera_(main_cam)
 {
     glfwSetFramebufferSizeCallback(window, &RenderingSystem::frame_buffer_size_callback);
     
@@ -14,7 +17,7 @@ RenderingSystem::RenderingSystem(GLFWwindow* window, int resolution_X, int resol
     glEnable(GL_DEPTH_TEST);
 }
 
-void RenderingSystem::Iterate(GLFWwindow* window)
+void RenderingSystem::Iterate()
 {
     Clear();
 
@@ -22,17 +25,17 @@ void RenderingSystem::Iterate(GLFWwindow* window)
         main_camera_->GetWorldPosition(),
         main_camera_->GetViewDirection(),
         static_cast<GLfloat>(screen_width_) / static_cast<GLfloat>(screen_height_),
-        DEFAULT_FOW,
+        main_camera_->GetFOW(),
         main_camera_->GetClippingPlanes()[0], main_camera_->GetClippingPlanes()[1]
     );
     uniform_buffer_.Bind();
 
-    DrawAll(window);
+    DrawAll();
 
     display_gl_errors();
 }
 
-void RenderingSystem::DrawAll(GLFWwindow* window)
+void RenderingSystem::DrawAll()
 {
     int count = static_cast<int>(rendering_list_.size());
     for (int i = 0; i < count; ++i) {
@@ -40,12 +43,17 @@ void RenderingSystem::DrawAll(GLFWwindow* window)
         glDrawArraysIndirect(GL_TRIANGLES, (GLvoid*)0);
     }
 
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(context_window_);
 }
 
 void RenderingSystem::Clear()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+Camera & RenderingSystem::GetMainCamera()
+{
+    return *main_camera_;
 }
 
 void RenderingSystem::SetMainCamera(std::shared_ptr<Camera> main_cam)

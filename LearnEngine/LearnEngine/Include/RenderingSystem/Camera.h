@@ -7,6 +7,8 @@
 class Camera
 {
 public:
+    static constexpr GLfloat DEFAULT_FOW    = 60.0f;
+
     Camera                                  (const GLfloat fow = 60);
                                             
     Camera                                  (const Camera& rhs) = delete;

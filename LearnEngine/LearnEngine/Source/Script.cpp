@@ -1,19 +1,19 @@
 #include "..\Include\Component\Script\Script.h"
 #include "..\Include\ScriptingSystem\ScriptingSystem.h"
 
-Script::Script() : Component(), enable_ticking_(false)
+Script::Script() : Component(), is_ticking_(false)
 {
 
 }
 
-Script::Script(const Script& rhs) : enable_ticking_(rhs.enable_ticking_)
+Script::Script(const Script& rhs) : is_ticking_(rhs.is_ticking_)
 {
 
 }
 
-Script::Script(Script&& rhs) : enable_ticking_(rhs.enable_ticking_)
+Script::Script(Script&& rhs) : is_ticking_(rhs.is_ticking_)
 {
-    rhs.enable_ticking_ = false;
+    rhs.is_ticking_ = false;
 }
 
 Script& Script::operator=(const Script& rhs)
@@ -23,27 +23,36 @@ Script& Script::operator=(const Script& rhs)
 
 Script& Script::operator=(Script&& rhs)
 {
-    enable_ticking_ = rhs.enable_ticking_;
-    rhs.enable_ticking_ = false;
+    is_ticking_ = rhs.is_ticking_;
+    rhs.is_ticking_ = false;
 
     return *this;
 }
 
 void Script::RegisterInSystem()
 {
-    ScriptingSystem::Instance().RegisterTickCallback(this);
     OnRegistered(); 
 }
 
 void Script::UnregisterFromSystem()
 {
-    ScriptingSystem::Instance().UnregisterTickCallback(this);
     OnUnregistered();
 }
 
 void Script::SetTicking(bool value)
 {
-    enable_ticking_ = value;
+    is_ticking_ = value;
+    if (is_ticking_) {
+        ScriptingSystem::Instance().RegisterTicker(this);
+    }
+    else {
+        ScriptingSystem::Instance().UnregisterTicker(this);
+    }
+}
+
+void Script::RegisterStart()
+{
+    ScriptingSystem::Instance().RegisterStarter(this);
 }
 
 void Script::OnRegistered()

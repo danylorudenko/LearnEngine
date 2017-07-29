@@ -2,12 +2,16 @@
 #define __SCRIPTING_SYSTEM_H__
 
 #include <vector>
+#include <queue>
 
 #include "..\Util\Singletone.h"
 #include "..\Component\Script\Script.h"
 
 class ScriptingSystem : public Singletone<ScriptingSystem>
 {
+    using StartCallback                                     = void(Script::*)();
+    using StartCallbackQueue                                = std::queue<Script*>;
+
     using TickCallback                                      = void(Script::*)();
     using TickCallbackList                                  = std::vector<Script*>;
 
@@ -22,15 +26,21 @@ public:
 public:
     void                            Iterate                 ();
 
-    void                            RegisterTickCallback    (Script* script);
-    void                            UnregisterTickCallback  (Script* script);
+    void                            RegisterStarter         (Script* script);
+
+    void                            RegisterTicker          (Script* script);
+    void                            UnregisterTicker        (Script* script);
     
 
 protected:
+    void                            FlushStartQueue         ();
     void                            TickAll                 ();
+
     static constexpr TickCallback   s_tick_callback_        = ScriptingSystemCallbackAttorney::s_standard_tick_callback;
+    static constexpr StartCallback  s_start_callback_       = ScriptingSystemCallbackAttorney::s_standard_start_callback;
 
 protected:
+    StartCallbackQueue              start_queue_;
     TickCallbackList                ticking_scripts_;
 };
 

@@ -1,8 +1,7 @@
 #include "..\Include\Util\InitUtils.h"
-#include "..\Include\Util\Input.h"
+#include "..\Include\Input\InputSystem.h"
 #include "..\Include\Shaders\ShaderProgram.h"
 
-#include <chrono>
 #include <iostream>
 #include <stdexcept>
 
@@ -42,9 +41,4 @@ int InitGLEW()
 		return -1;
 	}
 	return 0;
-}
-
-void SetViewport(int width, int height)
-{
-	glViewport(0, 0, width, height);
 }

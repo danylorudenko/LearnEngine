@@ -44,6 +44,8 @@ public:
                 return casted_component;
             }
         }
+
+        return nullptr;
     }
 
     // Adds component to the internal list and sets its owner to self.

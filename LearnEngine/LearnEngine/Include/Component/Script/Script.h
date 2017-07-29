@@ -15,6 +15,7 @@ public:
     Script&                     operator=                   (const Script& rhs);
     Script&                     operator=                   (Script&& rhs);
 
+    void                        RegisterStart               ();
     void                        SetTicking                  (bool value);
 
 protected:
@@ -27,7 +28,7 @@ protected:
     virtual void                Tick                        () = 0;
 
 protected:
-    bool                        enable_ticking_;
+    bool                        is_ticking_;
 
     friend class ScriptingSystemCallbackAttorney;
 };

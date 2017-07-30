@@ -3,7 +3,8 @@
 #include <glm\gtx\rotate_vector.hpp>
 
 
-Rotator::Rotator() : cam(nullptr)
+Rotator::Rotator() : 
+    cam(nullptr)
 {
 }
 

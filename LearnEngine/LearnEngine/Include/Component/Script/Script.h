@@ -27,7 +27,7 @@ protected:
     virtual void                OnUnregistered              () { };
     virtual void                Tick                        () { };
 
-    virtual                     ~Script() = 0;
+    virtual                     ~Script() = 0 { };
 
 protected:
     bool                        is_ticking_;

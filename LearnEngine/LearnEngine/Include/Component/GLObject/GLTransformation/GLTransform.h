@@ -23,8 +23,9 @@ private:
 
 public:
     // Binding contents of the internal buffer to the conventional binding index (0).
+    // If model matrix in buffer is outdated, updates it.
     // Convention: contents of the transform buffer is model matrix (glm::mat4).
-    void                        BindTransformUniformBuffer  () const;
+    void                        BindTransformUniformBuffer  ();
    
 protected:
     GLTransform                                             (const GLTransform& rhs) = delete;
@@ -38,7 +39,31 @@ protected:
     // Performs full copy of the GPU buffer to the instance.
     GLTransform&                operator=                   (const GLTransform& rhs);
 
-private:
+public:
+    void                        SetPosition                 (const glm::vec3& world_position);
+    void                        SetPosition                 (GLfloat x, GLfloat y, GLfloat z);
+    void                        SetPosition                 (x_type, GLfloat param);
+    void                        SetPosition                 (y_type, GLfloat param);
+    void                        SetPosition                 (z_type, GLfloat param);
+
+    void                        SetRotation                 (const glm::vec3& world_rotation_euler);
+    void                        SetRotation                 (GLfloat x, GLfloat y, GLfloat z);
+    void                        SetRotation                 (x_type, GLfloat param);
+    void                        SetRotation                 (y_type, GLfloat param);
+    void                        SetRotation                 (z_type, GLfloat param);
+
+    void                        SetScale                    (const glm::vec3& world_scale);
+    void                        SetScale                    (GLfloat x, GLfloat y, GLfloat z);
+    void                        SetScale                    (x_type, GLfloat param);
+    void                        SetScale                    (y_type, GLfloat param);
+    void                        SetScale                    (z_type, GLfloat param);
+
+    const glm::vec3&            GetPosition                 () const;
+    const glm::vec3&            GetRotation                 () const;
+    const glm::vec3&            GetScale                    () const;
+
+
+protected:
     // Allocating GPU buffer with appropriate size to hold model matrix data.
     // Now buffer size is (sizeof(glm::mat4x4)).
     void                        AllocateGPUBuffer           ();
@@ -50,11 +75,12 @@ private:
     void                        ApplyTranslation            (glm::mat4* const source, const glm::vec3& position);
 
 
-private:
+protected:
     glm::vec3                   position_;
     glm::vec3                   rotation_;
     glm::vec3                   scale_;
 
+    bool                        model_mat_outdated_;
     GLuint                      uniform_buffer_handle_;
 };
 

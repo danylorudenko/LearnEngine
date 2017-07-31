@@ -12,32 +12,32 @@ Rotator::Rotator() :
 void Rotator::OnRegistered()
 {
     target_ = owner_->GetComponent<GLObject>();
-    target_->SetScale(glm::vec3(0.3f));
-    target_->SetPosition(glm::vec3(0.0f, 0.0f, 3.0f));
+    target_->SetScale(glm::vec3(2.f));
+    target_->SetPosition(glm::vec3(0.0f, -0.5f, 3.0f));
     SetTicking(true);
 }
 
 
 void Rotator::Tick()
 {
-    target_->SetRotation(y_type(), y_rotation_);
-    y_rotation_ += 10.0f;
+    //target_->SetRotation(y_type(), y_rotation_);
+    y_rotation_ += 0.01f;
     
-    auto old_pos = target_->GetPosition();
-    if (InputSystem::Instance().GetKey(GLFW_KEY_D)) {
-        target_->SetPosition(x_type(), old_pos.x + 0.01f);
+    auto old_pos = target_->GetRotation();
+    if (InputSystem::Instance().GetKey(GLFW_KEY_A)) {
+        target_->SetRotation(x_type(), old_pos.x + 1.01f);
     }
 
-    if (InputSystem::Instance().GetKey(GLFW_KEY_A)) {
-        target_->SetPosition(x_type(), old_pos.x - 0.01f);
+    if (InputSystem::Instance().GetKey(GLFW_KEY_D)) {
+        target_->SetRotation(x_type(), old_pos.x - 1.01f);
     }
 
     if (InputSystem::Instance().GetKey(GLFW_KEY_W)) {
-        target_->SetPosition(z_type(), old_pos.z + 0.001f);
+        target_->SetRotation(y_type(), old_pos.y + 1.01f);
     }
 
     if (InputSystem::Instance().GetKey(GLFW_KEY_S)) {
-        target_->SetPosition(z_type(), old_pos.z - 0.001f);
+        target_->SetRotation(y_type(), old_pos.y - 1.01f);
     }
 
     auto new_pos = target_->GetPosition();

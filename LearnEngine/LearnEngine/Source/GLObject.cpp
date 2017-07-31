@@ -33,7 +33,7 @@ Material& GLObject::GetMainMaterial()
     return *main_material_;
 }
 
-void GLObject::BindStandardUnifromBlocks() const
+void GLObject::BindStandardUnifromBlocks()
 {
     GLTransform::BindTransformUniformBuffer();
 }
@@ -43,7 +43,7 @@ void GLObject::SetVertexData(std::shared_ptr<VertexData>& vertex_data)
     vertex_data_ = vertex_data;
 }
 
-void GLObject::BindToRender() const
+void GLObject::BindToRender()
 {
     main_material_->GetShader().Use();
     main_material_->BindAllTextures();

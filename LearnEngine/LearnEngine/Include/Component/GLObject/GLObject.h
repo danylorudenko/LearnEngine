@@ -38,7 +38,7 @@ public:
 public:
 
     virtual void                        SetVertexData               (std::shared_ptr<VertexData>& vertex_data);
-    virtual void                        BindToRender                () const;
+    virtual void                        BindToRender                ();
 
     virtual std::shared_ptr<Material>   GetMainMaterialShared       ();
     virtual Material&                   GetMainMaterial             ();
@@ -49,7 +49,7 @@ protected:
     //      - common data from rendering system (camera position);
     //      - transformation data;
     //      - sampler2D (main texture);
-    virtual void                        BindStandardUnifromBlocks   () const;
+    virtual void                        BindStandardUnifromBlocks   ();
 
 protected:
     std::shared_ptr<Material>           main_material_;

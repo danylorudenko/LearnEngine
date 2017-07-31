@@ -30,7 +30,7 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     );
 
     glm::mat4 view_matrix = glm::lookAt(position, direction + position, glm::vec3(0.0f, 1.0f, 0.0f));
-    glm::mat4 perspective_matrix = glm::perspective(fow, aspect_ratio, near_plane, far_plane);
+    glm::mat4 perspective_matrix = glm::perspective(glm::radians(fow), aspect_ratio, near_plane, far_plane);
 
     GLubyte* buffer_data = (GLubyte*)glMapNamedBuffer(uniform_buffer_handle_, GL_WRITE_ONLY);
 

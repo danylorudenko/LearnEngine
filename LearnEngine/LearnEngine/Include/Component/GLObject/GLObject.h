@@ -6,14 +6,14 @@
 
 #include "..\Component.h"
 #include "DrawArraysIndirectCommand.h"
-#include ".\GLTransformation\IGLTransformable.h"
+#include ".\GLTransformation\GLTransform.h"
 #include "..\..\Material\Material.h"
 #include "..\..\VertexData\VertexData.h"
 
 // Represents component that allows entity to be drawn in the scene.
 // Supports GPU uniform transformation buffer.
 // Can override transformation logic of the owner entity.
-class GLObject : public Component, public IGLTransformable
+class GLObject : public Component, public GLTransform
 {
 protected:
     // ========== Component interface =============

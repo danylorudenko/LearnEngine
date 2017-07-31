@@ -5,8 +5,8 @@
 
 void Program::StartupLogic()
 {
-    RenderingSystem::Instance().GetMainCamera().SetWorldPosition(glm::vec3(0.0f, 3.0f, -1.0f));
-    RenderingSystem::Instance().GetMainCamera().SetViewDirection(glm::vec3(0.0f, 30.0, 0.0f));
+    //RenderingSystem::Instance().GetMainCamera().SetWorldPosition(glm::vec3(0.0f, 3.0f, -1.0f));
+    //RenderingSystem::Instance().GetMainCamera().SetViewDirection(glm::vec3(0.0f, 30.0, 0.0f));
 
     auto vertex_data = std::shared_ptr<VertexData>(
         new VertexData(
@@ -115,8 +115,6 @@ void Program::StartupLogic()
     entity->AddComponent(new GLObject(vertex_data, material));
 
     GLObject* gl_obj = entity->GetComponent<GLObject>();
-    gl_obj->SetPosition(0.0f, 0.0f, 3.0f);
-    gl_obj->SetRotation(30.0f, 30.0f, 10.0f);
 
     entity->AddComponent(new Rotator());
 }

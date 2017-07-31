@@ -21,9 +21,6 @@ public:
 
 // ========== Public interface ============
 
-    glm::mat4       GetViewMatrix           () const;
-    glm::mat4       GetPerspectiveMatrix    (int viewport_width, int viewport_height) const;
-
 	void			SetWorldPosition		(glm::vec3& pos);
 	void			SetViewDirection		(glm::vec3& dir);
 

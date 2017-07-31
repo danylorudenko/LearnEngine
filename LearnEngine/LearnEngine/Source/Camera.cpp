@@ -19,17 +19,6 @@ Camera::~Camera()
     delete view_direction_;
 }
 
-glm::mat4 Camera::GetViewMatrix() const
-{
-    return glm::lookAt(*world_position_, *world_position_ + *view_direction_, glm::vec3(0.0f, 1.0f, 0.0f));
-}
-
-glm::mat4 Camera::GetPerspectiveMatrix(int viewport_width, int viewport_height) const
-{
-    float aspect_ratio = static_cast<float>(viewport_width) / static_cast<float>(viewport_height);
-    return glm::perspective(glm::radians(fow_), aspect_ratio, 0.1f, 100.0f);
-}
-
 void Camera::SetWorldPosition(glm::vec3 & pos)
 {
 	*world_position_ = pos;

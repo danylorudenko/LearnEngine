@@ -38,6 +38,7 @@ void Program::Initialize()
 
     World::Create();
     ScriptingSystem::Create();
+    InputSystem::Create(main_window_);
 
     auto main_camera = std::make_shared<Camera>();
     RenderingSystem::Create(main_window_, default_resolution_X, default_resolution_Y, main_camera);

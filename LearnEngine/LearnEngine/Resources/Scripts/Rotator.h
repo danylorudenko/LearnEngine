@@ -1,7 +1,8 @@
 #pragma once
 
+#include "..\..\Include\Component\GLObject\GLObject.h"
 #include "..\..\Include\RenderingSystem\Camera.h"
-#include "F:\Git_local\LearnOpenGL\LearnEngine\LearnEngine\Include\Component\Script\Script.h"
+#include "..\..\Include\Component\Script\Script.h"
 
 class Rotator :
     public Script
@@ -15,6 +16,7 @@ protected:
 
     virtual ~Rotator() override { };
 
-    Camera* cam;
+    GLObject* target_;
+    float y_rotation_;
 };
 

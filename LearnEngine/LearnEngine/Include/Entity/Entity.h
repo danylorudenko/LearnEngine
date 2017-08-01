@@ -9,7 +9,7 @@
 
 #include "..\Util\HierarchyMember.h"
 #include "..\Component\Component.h"
-#include "..\Component\GLObject\GLTransformation\GLTransform.h"
+#include "..\Util\GLTransformation\GLTransform.h"
 
 class Entity : public HierarchyMember<Entity>
 {
@@ -27,10 +27,13 @@ public:
 
     virtual ~Entity                                             ();
 
-
+    // Create empty entity and add it to the world.
     static Entity*                  CreateEntity                ();
+
+    // [FOR WORLD USE ONLY] Create root entity.
     static Entity*                  CreateRootEnitity           ();
 
+    // Find child entity in the hierarchy by the name.
     Entity*                         FindEntity                  (std::string& name);
 
     std::string&                    Name                        ();

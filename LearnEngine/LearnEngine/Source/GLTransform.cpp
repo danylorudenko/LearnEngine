@@ -1,11 +1,10 @@
-#include "..\Include\Entity\GLTransformation\GLTransform.h"
+#include "..\Include\Util\GLTransformation\GLTransform.h"
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
 GLTransform::GLTransform() : model_mat_outdated_(true)
 {
     AllocateGPUBuffer();
-    FillGPUBuffer();
 }
 
 GLTransform::~GLTransform()
@@ -148,18 +147,6 @@ void GLTransform::AllocateGPUBuffer()
 {
     glCreateBuffers(1, &transform_uniform_buffer_handle_);
     glNamedBufferStorage(transform_uniform_buffer_handle_, GPU_BUFFER_SIZE, nullptr, GL_DYNAMIC_STORAGE_BIT | GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
-}
-
-void GLTransform::FillGPUBuffer()
-{
-    static const glm::mat4 identity_matrix(
-        glm::vec4(1.0f, 0.0f, 0.0f, 0.0f),
-        glm::vec4(0.0f, 1.0f, 0.0f, 0.0f),
-        glm::vec4(0.0f, 0.0f, 1.0f, 0.0f),
-        glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)
-    );
-
-    glNamedBufferSubData(transform_uniform_buffer_handle_, 0, GPU_BUFFER_SIZE, glm::value_ptr(identity_matrix));
 }
 
 void GLTransform::BindTransformUniformBuffer()

@@ -22,8 +22,8 @@ void RenderingSystem::Iterate()
     Clear();
 
     uniform_buffer_.UpdateCameraData(
-        main_camera_->GetWorldPosition(),
-        main_camera_->GetViewDirection(),
+        main_camera_->Transform().GetPosition(),
+        main_camera_->Transform().GetRotation(),
         static_cast<GLfloat>(screen_width_) / static_cast<GLfloat>(screen_height_),
         main_camera_->GetFOW(),
         main_camera_->GetClippingPlanes()[0], main_camera_->GetClippingPlanes()[1]

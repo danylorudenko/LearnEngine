@@ -7,9 +7,8 @@
 class Program : public Singletone<Program>
 {
 public:
-    static constexpr unsigned int           default_resolution_X = 800;
-    static constexpr unsigned int           default_resolution_Y = 600;
-
+    static constexpr unsigned int           DEFAULT_RESOLUTION_X = 800;
+    static constexpr unsigned int           DEFAULT_RESOLUTION_Y = 600;
 
     Program                         ();
     Program                         (const Program& rhs) = delete;
@@ -19,16 +18,18 @@ public:
 
     ~Program                        ();
 
-
-    void            Initialize      ();
-    void            StartMainLoop   ();
-
     void            Close           ();
 
-
-    void            frame_buffer_size_callback(GLFWwindow* window, int width, int height);
-
 protected:
+    // Engine initialization logic.
+    // Calls the startup of the main engine loop.
+    void            Initialize      ();
+
+    // Start main engine loop.
+    // Waiting glfwWindowShouldClose message to exit the loop.
+    void            StartMainLoop   ();
+
+    // Custom actions to be executed after initialization and before the main loop.
     void            StartupLogic    ();
 
 protected:

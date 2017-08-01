@@ -3,13 +3,16 @@
 
 #include <GL\glew.h>
 
+// Wrapper for indirect array-drawing command.
+// Used to tell OpenGL params for indirect dwawing (vertex count, instance count, bases).
 class DrawArraysIndirectCommand
 {
-    //GLuint vertex_count;
-    //GLuint instances_count;
-    //GLuint firstVertex;
-    //GLuint baseInstance;
-public:
+    // Format of default data in the DrawArray indirect command.
+    // GLuint vertex_count      = 0;
+    // GLuint instances_count   = 1;
+    // GLuint firstVertex       = 0;
+    // GLuint baseInstance      = 0;
+protected:
     static constexpr GLsizei VERTEX_COUNT_OFFSET    = 0 * sizeof(GLuint);
     static constexpr GLsizei INSTANCE_COUNT_OFFSET  = 1 * sizeof(GLuint);
     static constexpr GLsizei FIRST_VERTEX_OFFSET    = 2 * sizeof(GLuint);
@@ -27,37 +30,37 @@ public:
     DrawArraysIndirectCommand&  operator=   (DrawArraysIndirectCommand&& rhs);
 
     // Allocate GPU buffer of proper size for indirect command.
-    void    Allocate                ();
+    void    Allocate                        ();
 
     // Delete allocatd GPU buffer.
-    void    Deallocate              ();
+    void    Deallocate                      ();
 
     // Bind indirect command buffer to the target (GL_DRAW_INDIRECT_BUFFER).
-    void    Bind                    () const;
+    void    Bind                            () const;
 
     // Set count of vertices to draw.
-    void    SetVertexCount          (GLuint vertex_count);
+    void    SetVertexCount                  (GLuint vertex_count);
 
     // Set count of instances to be drawn.
-    void    SetInstanceCount        (GLuint instance_count);
+    void    SetInstanceCount                (GLuint instance_count);
 
     // Set Offset of the first vertex in bytes in the vertex buffer to be drawn.
-    void    SetFirstVertexOffset    (GLuint first_vertex_offset);
+    void    SetFirstVertexOffset            (GLuint first_vertex_offset);
 
     // Set offset for the instance counter used in instanced rendering.
-    void    SetBaseInstance         (GLuint base_instance_offset);
+    void    SetBaseInstance                 (GLuint base_instance_offset);
 
     // Mapping GPU buffer for reading only.
-    void*   MapRead                 () const;
+    void*   MapRead                         () const;
 
     // Mapping GPU buffer for writing only.
-    void*   MapWrite                ();
+    void*   MapWrite                        ();
 
     // Mapping GPU buffer for both reading and writing.
-    void*   MapReadWrite            ();
+    void*   MapReadWrite                    ();
 
     // Unmapping GPU buffer.
-    void    Unmap                   () const;
+    void    Unmap                           () const;
 
 
 protected:

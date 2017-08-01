@@ -24,8 +24,8 @@ public:
     RenderingSystemUniformBuffer        operator=       (RenderingSystemUniformBuffer&& rhs) = delete;
 
     void            Bind                        () const;
-    void            UpdateCameraData            (glm::vec3& position, 
-                                                 glm::vec3& rotation,
+    void            UpdateCameraData            (const glm::vec3& position, 
+                                                 const glm::vec3& rotation,
                                                  GLfloat aspect_ratio,
                                                  GLfloat fow,
                                                  GLfloat near_plane, GLfloat far_plane);

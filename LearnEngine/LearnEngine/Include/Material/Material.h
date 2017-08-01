@@ -26,12 +26,21 @@ public:
 
 
 public:
-    void                                SetShader               (std::shared_ptr<ShaderProgram>& shader);
-    void                                AddTexture              (GLuint unit, std::shared_ptr<TextureController>& texture);
+    // Set main shader of the material.
+    // Shaders can be shared across multiple Materials.
+    void                                SetShader               (const std::shared_ptr<ShaderProgram>& shader);
+
+    // Add new texture paired with texture unit to be binded to.
+    // If there is a texture already paired with that unit, new texture replases the old one.
+    void                                AddTexture              (GLuint unit, const std::shared_ptr<TextureController>& texture);
+
+    // Remove Unit-Texture pair with the passed unit.
+    void                                RemoveTexture           (GLuint unit);
 
     ShaderProgram&                      GetShader               ();
     std::shared_ptr<ShaderProgram>      GetShaderShared         ();
 
+    // Bind all textures to paired texture units.
     void                                BindAllTextures         ();
 
 protected:

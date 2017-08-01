@@ -3,33 +3,31 @@
 
 #include <GL\glew.h>
 #include <glm\fwd.hpp>
+#include <memory>
+
+#include "..\Util\GLTransformation\GLTransform.h"
 
 class Camera
 {
 public:
     static constexpr GLfloat DEFAULT_FOW    = 60.0f;
 
-    Camera                                  (const GLfloat fow = 60);
-                                            
-    Camera                                  (const Camera& rhs) = delete;
-    Camera          operator=               (const Camera& rhs) = delete;
-                                            
-    Camera                                  (Camera&& rhs) = delete;
-    Camera          operator=               (Camera&& rhs) = delete;
+    Camera                                      (const GLfloat fow = 60);
+                                                
+    Camera                                      (const Camera& rhs) = delete;
+    Camera              operator=               (const Camera& rhs) = delete;
+                                                
+    Camera                                      (Camera&& rhs) = delete;
+    Camera              operator=               (Camera&& rhs) = delete;
 
-    virtual ~Camera                         ();
+    virtual ~Camera                             ();
 
 // ========== Public interface ============
 
-	void			SetWorldPosition		(glm::vec3& pos);
-	void			SetViewDirection		(glm::vec3& dir);
+    GLfloat             GetFOW                  () const;
+    GLTransform&        Transform               ();
 
-    glm::vec3       GetWorldPosition        () const;
-    glm::vec3       GetViewDirection        () const;
-
-    GLfloat         GetFOW                  () const;
-
-    GLfloat*        GetClippingPlanes       () const;
+    const GLfloat*      GetClippingPlanes       () const;
 
 
 protected:
@@ -37,8 +35,7 @@ protected:
 
     GLfloat     clipping_planes_[2];
 
-    glm::vec3*  world_position_;
-    glm::vec3*  view_direction_;
+    std::unique_ptr<GLTransform> transform_;
 };
 
 #endif

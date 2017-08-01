@@ -53,6 +53,7 @@ void Rotator::Tick()
         Program::Instance().Close();
     }
 
-    auto new_pos = owner_->Transform().GetPosition();
-    std::cout << new_pos.x << ", " << new_pos.y << ", " << new_pos.z << std::endl;
+    //auto new_pos = owner_->Transform().GetPosition();
+    auto new_pos = InputSystem::Instance().GetMousePos();
+    std::cout << new_pos.x << ", " << new_pos.y << ", " /*<< new_pos.z*/ << std::endl;
 }

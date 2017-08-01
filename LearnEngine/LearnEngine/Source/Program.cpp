@@ -26,7 +26,7 @@ void Program::Initialize()
     // ================
 
     main_window_ = nullptr;
-    if (OpenWindow_SetContext(main_window_, default_resolution_X, default_resolution_Y) != 0) {
+    if (OpenWindow_SetContext(main_window_, DEFAULT_RESOLUTION_X, DEFAULT_RESOLUTION_Y) != 0) {
         throw std::runtime_error("Error opening window.");
     }
 
@@ -41,7 +41,9 @@ void Program::Initialize()
     InputSystem::Create(main_window_);
 
     auto main_camera = std::make_shared<Camera>();
-    RenderingSystem::Create(main_window_, default_resolution_X, default_resolution_Y, main_camera);
+    RenderingSystem::Create(main_window_, DEFAULT_RESOLUTION_X, DEFAULT_RESOLUTION_Y, main_camera);
+
+    StartMainLoop();
 }
 
 void Program::StartMainLoop()
@@ -59,9 +61,4 @@ void Program::StartMainLoop()
 void Program::Close()
 {
     glfwSetWindowShouldClose(main_window_, 1);
-}
-
-void Program::frame_buffer_size_callback(GLFWwindow * window, int width, int height)
-{
-    RenderingSystem::Instance().SetViewport(width, height);
 }

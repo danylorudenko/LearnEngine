@@ -20,10 +20,16 @@ public:
     InputSystem&            operator=           (const InputSystem& rhs) = delete;
     InputSystem&            operator=           (InputSystem&& rhs) = delete;
 
+    // Check if key is was pressed down after the last system iteration (frame).
     bool                    GetKeyDown          (int glfw_code) const;
+
+    // Check if key was released after the last system iteration (frame)
     bool                    GetKeyUp            (int glfw_code) const;
+
+    // Check if key is being pressed after any previous iterations.
     bool                    GetKey              (int glfw_code) const;
 
+    // Get mouse position in pixels from the top-left corner of the screen.
     const glm::vec2&        GetMousePos         () const;
 protected:
     // Called by GLFW to handle user input

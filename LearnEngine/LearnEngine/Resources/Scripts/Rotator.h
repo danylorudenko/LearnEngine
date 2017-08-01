@@ -1,4 +1,5 @@
-#pragma once
+#ifndef __ROTATOR_H__
+#define __ROTATOR_H__
 
 #include "..\..\Include\Component\GLObject\GLObject.h"
 #include "..\..\Include\RenderingSystem\Camera.h"
@@ -19,3 +20,4 @@ protected:
     float y_rotation_;
 };
 
+#endif

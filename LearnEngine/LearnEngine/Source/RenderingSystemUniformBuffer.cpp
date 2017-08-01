@@ -14,8 +14,8 @@ void RenderingSystemUniformBuffer::Bind() const
 }
 
 void RenderingSystemUniformBuffer::UpdateCameraData(
-    glm::vec3& position,
-    glm::vec3& rotation,
+    const glm::vec3& position,
+    const glm::vec3& rotation,
     GLfloat aspect_ratio,
     GLfloat fow,
     GLfloat near_plane, GLfloat far_plane)

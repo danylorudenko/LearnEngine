@@ -22,7 +22,7 @@ private:
     static constexpr GLsizei    GPU_BUFFER_SIZE                 = sizeof(glm::mat4);
 
 public:
-    // Default constuctor must be called in all inheriteng classes. It provides allocation of memory
+    // Default constuctor provides allocation of memory
     // on the GPU and some other setup.
     GLTransform();
 
@@ -39,7 +39,7 @@ protected:
     GLTransform                                             (GLTransform&& rhs) = delete;
     GLTransform&                operator=                   (GLTransform&& rhs) = delete;
 
-    // Performs full copy of the GPU buffer to the instance.
+    // Performs deep copy of the transformation properties and the GPU buffer.
     GLTransform&                operator=                   (const GLTransform& rhs);
 
 public:
@@ -67,22 +67,30 @@ public:
 
 
 protected:
-    // Allocating GPU buffer with appropriate size to hold model matrix data.
+    // Allocate GPU buffer with appropriate size to hold model matrix data.
     // Now buffer size is (sizeof(glm::mat4x4)).
     void                        AllocateGPUBuffer           ();
-    void                        FillGPUBuffer               ();
+
+    // Update model matrix in the GPU buffer with transformation properties 
+    // (position, rotation, scale).
     void                        UpdateBuffer                ();
 
+    // Apply scaling transfromation to the source matrix.
     static void                 ApplyScale                  (glm::mat4* const source, const glm::vec3& scale);
-    static void                 ApplyRotation               (glm::mat4* const source, const glm::vec3& euler);
-    static void                 ApplyTranslation            (glm::mat4* const source, const glm::vec3& position);
 
+    // Apply rotation transformation to the source matrix.
+    static void                 ApplyRotation               (glm::mat4* const source, const glm::vec3& euler);
+
+    // Apply translation transformation to the source matrix.
+    static void                 ApplyTranslation            (glm::mat4* const source, const glm::vec3& position);
 
 protected:
     glm::vec3                   position_;
     glm::vec3                   rotation_;
     glm::vec3                   scale_;
 
+    // Flag which reports if the transformation properties were changed
+    // and the matrix in the buffer should be updated before rendering.
     bool                        model_mat_outdated_;
     GLuint                      transform_uniform_buffer_handle_;
 };

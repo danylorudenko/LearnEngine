@@ -46,6 +46,7 @@ InputSystem::InputSystem(GLFWwindow* window)
 {
     context_window_ = window;
     glfwSetKeyCallback(window, InputSystem::key_callback);
+    glfwSetCursorPosCallback(window, InputSystem::mouse_pos_callback);
     glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 }
 

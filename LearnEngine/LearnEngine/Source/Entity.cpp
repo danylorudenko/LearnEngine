@@ -35,7 +35,13 @@ std::string & Entity::Name()
     return name_;
 }
 
+GLTransform & Entity::Transform()
+{
+    return *transform_;
+}
+
 Entity::Entity(Entity* parent) :
+    transform_(new GLTransform()),
     HierarchyMember<Entity>(parent)
 {
 

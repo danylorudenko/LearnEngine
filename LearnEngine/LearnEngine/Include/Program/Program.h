@@ -23,6 +23,8 @@ public:
     void            Initialize      ();
     void            StartMainLoop   ();
 
+    void            Close           ();
+
 
     void            frame_buffer_size_callback(GLFWwindow* window, int width, int height);
 

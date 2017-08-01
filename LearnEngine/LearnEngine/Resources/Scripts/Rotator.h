@@ -16,7 +16,6 @@ protected:
 
     virtual ~Rotator() override { };
 
-    GLObject* target_;
     float y_rotation_;
 };
 

@@ -22,6 +22,13 @@ private:
     static constexpr GLsizei    GPU_BUFFER_SIZE                 = sizeof(glm::mat4);
 
 public:
+    // Default constuctor must be called in all inheriteng classes. It provides allocation of memory
+    // on the GPU and some other setup.
+    GLTransform();
+
+    // Deletes model matrix buffer from the GPU
+    virtual ~GLTransform();
+    
     // Binding contents of the internal buffer to the conventional binding index (0).
     // If model matrix in buffer is outdated, updates it.
     // Convention: contents of the transform buffer is model matrix (glm::mat4).
@@ -31,10 +38,6 @@ protected:
     GLTransform                                             (const GLTransform& rhs) = delete;
     GLTransform                                             (GLTransform&& rhs) = delete;
     GLTransform&                operator=                   (GLTransform&& rhs) = delete;
-
-    // Default constuctor must be called in all inheriteng classes. It provides allocation of memory
-    // on the GPU and some other setup.
-    GLTransform                                             ();
 
     // Performs full copy of the GPU buffer to the instance.
     GLTransform&                operator=                   (const GLTransform& rhs);
@@ -70,9 +73,9 @@ protected:
     void                        FillGPUBuffer               ();
     void                        UpdateBuffer                ();
 
-    void                        ApplyScale                  (glm::mat4* const source, const glm::vec3& scale);
-    void                        ApplyRotation               (glm::mat4* const source, const glm::vec3& euler);
-    void                        ApplyTranslation            (glm::mat4* const source, const glm::vec3& position);
+    static void                 ApplyScale                  (glm::mat4* const source, const glm::vec3& scale);
+    static void                 ApplyRotation               (glm::mat4* const source, const glm::vec3& euler);
+    static void                 ApplyTranslation            (glm::mat4* const source, const glm::vec3& position);
 
 
 protected:
@@ -81,7 +84,7 @@ protected:
     glm::vec3                   scale_;
 
     bool                        model_mat_outdated_;
-    GLuint                      uniform_buffer_handle_;
+    GLuint                      transform_uniform_buffer_handle_;
 };
 
 #endif

@@ -1,4 +1,4 @@
-#include "..\Include\Component\GLObject\GLTransformation\GLTransform.h"
+#include "..\Include\Entity\GLTransformation\GLTransform.h"
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
 
@@ -8,11 +8,16 @@ GLTransform::GLTransform() : model_mat_outdated_(true)
     FillGPUBuffer();
 }
 
+GLTransform::~GLTransform()
+{
+    glDeleteBuffers(1, &transform_uniform_buffer_handle_);
+}
+
 GLTransform& GLTransform::operator=(const GLTransform& rhs)
 {
     glCopyNamedBufferSubData(
-        rhs.uniform_buffer_handle_,
-        uniform_buffer_handle_,
+        rhs.transform_uniform_buffer_handle_,
+        transform_uniform_buffer_handle_,
         0,
         0,
         GPU_BUFFER_SIZE
@@ -141,8 +146,8 @@ const glm::vec3 & GLTransform::GetScale() const
 
 void GLTransform::AllocateGPUBuffer()
 {
-    glCreateBuffers(1, &uniform_buffer_handle_);
-    glNamedBufferStorage(uniform_buffer_handle_, GPU_BUFFER_SIZE, nullptr, GL_DYNAMIC_STORAGE_BIT | GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+    glCreateBuffers(1, &transform_uniform_buffer_handle_);
+    glNamedBufferStorage(transform_uniform_buffer_handle_, GPU_BUFFER_SIZE, nullptr, GL_DYNAMIC_STORAGE_BIT | GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
 }
 
 void GLTransform::FillGPUBuffer()
@@ -154,7 +159,7 @@ void GLTransform::FillGPUBuffer()
         glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)
     );
 
-    glNamedBufferSubData(uniform_buffer_handle_, 0, GPU_BUFFER_SIZE, glm::value_ptr(identity_matrix));
+    glNamedBufferSubData(transform_uniform_buffer_handle_, 0, GPU_BUFFER_SIZE, glm::value_ptr(identity_matrix));
 }
 
 void GLTransform::BindTransformUniformBuffer()
@@ -162,7 +167,7 @@ void GLTransform::BindTransformUniformBuffer()
     if (model_mat_outdated_) {
         UpdateBuffer();
     }
-    glBindBufferBase(GL_UNIFORM_BUFFER, TRANSFORM_BLOCK_BINDING_INDEX, uniform_buffer_handle_);
+    glBindBufferBase(GL_UNIFORM_BUFFER, TRANSFORM_BLOCK_BINDING_INDEX, transform_uniform_buffer_handle_);
 }
 
 void GLTransform::UpdateBuffer()
@@ -179,7 +184,7 @@ void GLTransform::UpdateBuffer()
     ApplyRotation(&identity_matrix, rotation_);
 
     glNamedBufferSubData(
-        uniform_buffer_handle_,
+        transform_uniform_buffer_handle_,
         0,
         sizeof(identity_matrix),
         glm::value_ptr(identity_matrix)

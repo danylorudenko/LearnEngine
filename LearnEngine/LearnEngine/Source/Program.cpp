@@ -56,6 +56,11 @@ void Program::StartMainLoop()
     }
 }
 
+void Program::Close()
+{
+    glfwSetWindowShouldClose(main_window_, 1);
+}
+
 void Program::frame_buffer_size_callback(GLFWwindow * window, int width, int height)
 {
     RenderingSystem::Instance().SetViewport(width, height);

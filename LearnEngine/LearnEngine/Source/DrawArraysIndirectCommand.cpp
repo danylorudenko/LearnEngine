@@ -76,6 +76,26 @@ void DrawArraysIndirectCommand::Bind() const
     glBindBuffer(GL_DRAW_INDIRECT_BUFFER, buffer_handle_);
 }
 
+void DrawArraysIndirectCommand::SetVertexCount(GLuint vertex_count)
+{
+    glNamedBufferSubData(buffer_handle_, VERTEX_COUNT_OFFSET, sizeof(vertex_count), &vertex_count);
+}
+
+void DrawArraysIndirectCommand::SetInstanceCount(GLuint instance_count)
+{
+    glNamedBufferSubData(buffer_handle_, INSTANCE_COUNT_OFFSET, sizeof(instance_count), &instance_count);
+}
+
+void DrawArraysIndirectCommand::SetFirstVertexOffset(GLuint first_vertex_offset)
+{
+    glNamedBufferSubData(buffer_handle_, FIRST_VERTEX_OFFSET, sizeof(first_vertex_offset), &first_vertex_offset);
+}
+
+void DrawArraysIndirectCommand::SetBaseInstance(GLuint base_instance)
+{
+    glNamedBufferSubData(buffer_handle_, BASE_INSTANCE_OFFSET, sizeof(base_instance), &base_instance);
+}
+
 void* DrawArraysIndirectCommand::MapRead() const
 {
     return glMapNamedBuffer(buffer_handle_, GL_READ_ONLY);

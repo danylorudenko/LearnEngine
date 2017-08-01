@@ -17,6 +17,7 @@ public:
 
     static constexpr GLsizei BUFFER_SIZE            = 4 * sizeof(GLuint);
 
+public:
     DrawArraysIndirectCommand               ();
     ~DrawArraysIndirectCommand              ();
 
@@ -25,21 +26,44 @@ public:
     DrawArraysIndirectCommand               (DrawArraysIndirectCommand&& rhs);
     DrawArraysIndirectCommand&  operator=   (DrawArraysIndirectCommand&& rhs);
 
+    // Allocate GPU buffer of proper size for indirect command.
+    void    Allocate                ();
 
+    // Delete allocatd GPU buffer.
+    void    Deallocate              ();
 
-    void    Allocate    ();
-    void    Deallocate  ();
-    void    Bind        () const;
+    // Bind indirect command buffer to the target (GL_DRAW_INDIRECT_BUFFER).
+    void    Bind                    () const;
 
-    void*   MapRead     () const;
-    void*   MapWrite    ();
-    void*   MapReadWrite();
-    void    Unmap       () const;
+    // Set count of vertices to draw.
+    void    SetVertexCount          (GLuint vertex_count);
+
+    // Set count of instances to be drawn.
+    void    SetInstanceCount        (GLuint instance_count);
+
+    // Set Offset of the first vertex in bytes in the vertex buffer to be drawn.
+    void    SetFirstVertexOffset    (GLuint first_vertex_offset);
+
+    // Set offset for the instance counter used in instanced rendering.
+    void    SetBaseInstance         (GLuint base_instance_offset);
+
+    // Mapping GPU buffer for reading only.
+    void*   MapRead                 () const;
+
+    // Mapping GPU buffer for writing only.
+    void*   MapWrite                ();
+
+    // Mapping GPU buffer for both reading and writing.
+    void*   MapReadWrite            ();
+
+    // Unmapping GPU buffer.
+    void    Unmap                   () const;
 
 
 protected:
     GLuint  buffer_handle_;
     
+    // Default data to be filled in the internal GPU buffer.
     static constexpr GLuint  DEFAULT_DATA[]         = { 0, 1, 0, 0 };
 };
 

@@ -9,6 +9,7 @@
 
 #include "..\Util\HierarchyMember.h"
 #include "..\Component\Component.h"
+#include "..\Component\GLObject\GLTransformation\GLTransform.h"
 
 class Entity : public HierarchyMember<Entity>
 {
@@ -33,6 +34,7 @@ public:
     Entity*                         FindEntity                  (std::string& name);
 
     std::string&                    Name                        ();
+    GLTransform&                    Transform                   ();
 
 
     // Gets reference to the first component in the list of the template type.
@@ -61,6 +63,8 @@ public:
     void                            RemoveAllComponents         ();
 
 protected:
+    std::unique_ptr<GLTransform>    transform_;
+
     std::string                     name_;
     ComponentList                   components_;
 };

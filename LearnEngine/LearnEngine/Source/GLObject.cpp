@@ -1,12 +1,9 @@
-#include <glm\mat4x4.hpp>
-#include <glm\gtc\matrix_transform.hpp>
 #include "..\Include\Component\GLObject\GLObject.h"
+#include "..\Include\Entity\Entity.h"
 #include "..\Include\RenderingSystem\RenderingSystem.h"
-#include "..\Include\Util\CustomException\not_implemented_exc.h"
 
 GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material) :
     Component(),
-    GLTransform(),
     vertex_data_    (vertex_data), 
     main_material_  (main_material)
 {
@@ -35,10 +32,10 @@ Material& GLObject::GetMainMaterial()
 
 void GLObject::BindStandardUnifromBlocks()
 {
-    GLTransform::BindTransformUniformBuffer();
+    owner_->Transform().BindTransformUniformBuffer();
 }
 
-void GLObject::SetVertexData(std::shared_ptr<VertexData>& vertex_data)
+void GLObject::SetVertexData(const std::shared_ptr<VertexData>& vertex_data)
 {
     vertex_data_ = vertex_data;
 }

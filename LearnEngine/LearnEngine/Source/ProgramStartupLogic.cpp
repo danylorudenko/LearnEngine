@@ -90,14 +90,7 @@ void Program::StartupLogic()
 
     // Draw command initialization
     DrawArraysIndirectCommand draw_command;
-    void* draw_command_data = draw_command.MapReadWrite();
-
-    *((GLuint*)((GLbyte*)draw_command_data + DrawArraysIndirectCommand::BASE_INSTANCE_OFFSET)) = 0;
-    *((GLuint*)((GLbyte*)draw_command_data + DrawArraysIndirectCommand::FIRST_VERTEX_OFFSET)) = 0;
-    *((GLuint*)((GLbyte*)draw_command_data + DrawArraysIndirectCommand::INSTANCE_COUNT_OFFSET)) = 1;
-    *((GLuint*)((GLbyte*)draw_command_data + DrawArraysIndirectCommand::VERTEX_COUNT_OFFSET)) = 36;
-
-    draw_command.Unmap();
+    draw_command.SetVertexCount(36);
 
     vertex_data->SetDrawCommand(std::move(draw_command));
 

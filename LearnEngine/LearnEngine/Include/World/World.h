@@ -25,7 +25,7 @@ public:
     // Find entity in heirarchy by it's name.
     Entity*             FindEntity              (std::string& name);
 
-    virtual ~World                              ();
+    virtual             ~World                  ();
 
 protected:
     Entity* root_;

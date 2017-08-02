@@ -28,7 +28,7 @@ public:
     Entity                                                      (Entity&& rhs) = delete;
     Entity&                         operator=                   (Entity&& rhs) = delete;
 
-    virtual ~Entity                                             ();
+    virtual                         ~Entity                     ();
 
     // Create empty entity and add it to the world.
     static Entity*                  CreateEntity                ();

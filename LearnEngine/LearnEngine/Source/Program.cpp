@@ -13,6 +13,7 @@ Program::Program()
 Program::~Program()
 {
     World::Delete();
+    ScriptingSystem::Delete();
     RenderingSystem::Delete();
     glfwTerminate();
 }
@@ -47,6 +48,10 @@ void Program::Initialize()
         CameraEntity::CreateCamera()
     );
 
+    if (!Program::IsCreated()) {
+        throw std::exception("fuck");
+    }
+
     StartMainLoop();
 }
 
@@ -64,8 +69,5 @@ void Program::StartMainLoop()
 
 void Program::Close()
 {
-    glfwSetWindowShouldClose(main_window_, 1);
-    RenderingSystem::Delete();
-    ScriptingSystem::Delete();
-    World::Delete();
+    glfwSetWindowShouldClose(main_window_, true);
 }

@@ -73,9 +73,14 @@ void Entity::AddComponent(Component* component)
 void Entity::RemoveComponent(Component* component)
 {
     components_.remove_if(
-        [=](Component* candidate) {
-        ComponentRegistrationAttorney::UnregisterFromSystem(candidate);
-        return component == candidate;
+        [component](Component* candidate) {
+        if (component == candidate) {
+            ComponentRegistrationAttorney::UnregisterFromSystem(candidate);
+            return true;
+        }
+        else {
+            return false;
+        }
     });
 }
 

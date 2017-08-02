@@ -9,7 +9,7 @@
 
 // Wrapper for conventional RenderingSystem uniform buffer.
 // Rendering system is responisble for putting data in this buffer, it is persistent across single rendering iteration.
-class RenderingSystemUniformBuffer : public Singletone<RenderingSystemUniformBuffer>
+class RenderingSystemUniformBuffer
 {
 protected:
     static constexpr GLuint     RENDERING_SYSTEM_UNIFORM_BINDING_IDNEX = 0;

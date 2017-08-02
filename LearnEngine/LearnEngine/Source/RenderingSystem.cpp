@@ -4,7 +4,7 @@
 
 #include <algorithm>
 
-RenderingSystem::RenderingSystem(GLFWwindow* window, int resolution_X, int resolution_Y, std::shared_ptr<CameraEntity> main_cam) :
+RenderingSystem::RenderingSystem(GLFWwindow* window, int resolution_X, int resolution_Y, CameraEntity* main_cam) :
     context_window_(window),
     screen_width_(resolution_X), 
     screen_height_(resolution_Y), 
@@ -50,7 +50,7 @@ CameraEntity & RenderingSystem::GetMainCamera()
     return *main_camera_;
 }
 
-void RenderingSystem::SetMainCamera(std::shared_ptr<CameraEntity> main_cam)
+void RenderingSystem::SetMainCamera(CameraEntity* main_cam)
 {
     main_camera_ = main_cam;
 }

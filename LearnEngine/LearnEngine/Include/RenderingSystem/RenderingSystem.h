@@ -18,8 +18,8 @@ class RenderingSystem : public Singletone<RenderingSystem>
 
 public:
     RenderingSystem                                 (GLFWwindow* window,
-                                                     int viewport_X, int viewport_Y,
-                                                     std::shared_ptr<CameraEntity> main_cam);
+                                                     int viewport_X, int viewport_Y, 
+                                                     CameraEntity* main_cam);
 
     RenderingSystem                                 (const RenderingSystem& rhs) = delete;
     RenderingSystem                                 (RenderingSystem&& rhs) = delete;
@@ -34,10 +34,10 @@ public:
     void                Clear                       ();
 
     // Main camera rendering.
-    CameraEntity&             GetMainCamera               ();
+    CameraEntity&       GetMainCamera         ();
 
-    // Set new main camera. Currently only one camera is supported.
-    void                SetMainCamera               (std::shared_ptr<CameraEntity> main_cam);
+    // Set new main camera. Only one camera is currently supported.
+    void                SetMainCamera               (CameraEntity * main_cam);
 
     // Set viewport for rendering.
     void                SetViewport                 (int resolution_X, int resolution_Y);
@@ -62,7 +62,7 @@ protected:
     int                                     screen_width_;
     int                                     screen_height_;
 
-    std::shared_ptr<CameraEntity>                 main_camera_;
+    CameraEntity*                           main_camera_;
     RenderingListContainter                 rendering_list_;
 
     RenderingSystemUniformBuffer            uniform_buffer_;

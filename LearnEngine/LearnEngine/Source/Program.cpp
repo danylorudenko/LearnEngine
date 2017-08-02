@@ -44,7 +44,7 @@ void Program::Initialize()
         main_window_, 
         DEFAULT_RESOLUTION_X, 
         DEFAULT_RESOLUTION_Y, 
-        std::shared_ptr<CameraEntity>(CameraEntity::CreateCamera())
+        CameraEntity::CreateCamera()
     );
 
     StartMainLoop();
@@ -65,4 +65,7 @@ void Program::StartMainLoop()
 void Program::Close()
 {
     glfwSetWindowShouldClose(main_window_, 1);
+    RenderingSystem::Delete();
+    ScriptingSystem::Delete();
+    World::Delete();
 }

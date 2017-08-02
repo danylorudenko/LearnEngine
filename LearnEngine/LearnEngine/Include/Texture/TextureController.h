@@ -4,6 +4,8 @@
 #include <string>
 #include <GL\glew.h>
 
+// Wpapper around texture binary data and texture buffer on the GPU.
+// Contains state-setting logic of sampler, seperate/solid binding of texture and sampler to texture units units.
 class TextureController
 {
 public:
@@ -21,20 +23,34 @@ public:
     GLuint                  GetTextureHandle    ();
     GLuint                  GetSamplerHandle    ();
 
+    // Bind both sampler and texture buffer to the single texture_unit
     void                    BindAllToUnit       (GLuint texture_unit) const;
+
+    // Bind only texture buffer to the texture unit.
     void                    BindTextureToUnit   (GLuint texture_unit) const;
+    
+    // Bind only sampler to the texture unit.
     void                    BindSamplerToUnit   (GLuint texture_unit) const;
 
     void                    SetSamplerParam     (GLenum p_name, GLint param);
     void                    SetSamplerParam     (GLenum p_name, GLfloat param);
 
+    // Does TextureController have binary data of the texture in RAM?
     bool                    IsInMemory          () const;
+
+    // Does TextureController have a filled texture buffer on GPU? 
     bool                    IsOnGPU             () const;
 
-    virtual void            LoadTextureData     ();
+    // Load texture binary data from disk to RAM.
+    virtual void            LoadToMemory        ();
+
+    // Load texture binary data from RAM to GPU buffer.
     virtual void            LoadToGL            ();
 
+    // Delete texture memory in RAM.
     virtual void            UnloadFromMemory    ();
+
+    // Delete texture buffer on GPU.
     virtual void            UnloadFromGL        ();
 
 protected:

@@ -7,6 +7,8 @@
 #include <set>
 #include <vector>
 
+// System for interaction with user keyboard/mouse input.
+// Independently of user-code request, holds the state of pressed/holded/unpressed keys/mouse_pos/etc.
 class InputSystem : public Singletone<InputSystem>
 {
     //                               key, action

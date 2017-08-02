@@ -4,6 +4,9 @@
 #include "..\Util\Singletone.h"
 #include "..\Entity\Entity.h"
 
+// Main world where all actions are performed.
+// Must aggregate all created Entities.
+// Has Empty entity as a root.
 class World : public Singletone<World>
 {
 public:
@@ -13,10 +16,13 @@ public:
     World                                       (World&& rhs) = delete;
     World               operator=               (World&& rhs) = delete;
 
-
+    // Add a children Entity to root.
     void                AddToRoot               (Entity* entity);
+
+    // Set new root. Old root is deleted.
     void                SetRoot                 (Entity* root);
 
+    // Find entity in heirarchy by it's name.
     Entity*             FindEntity              (std::string& name);
 
     virtual ~World                              ();

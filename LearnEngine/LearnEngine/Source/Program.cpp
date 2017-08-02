@@ -40,8 +40,12 @@ void Program::Initialize()
     ScriptingSystem::Create();
     InputSystem::Create(main_window_);
 
-    auto main_camera = std::make_shared<Camera>();
-    RenderingSystem::Create(main_window_, DEFAULT_RESOLUTION_X, DEFAULT_RESOLUTION_Y, main_camera);
+    RenderingSystem::Create(
+        main_window_, 
+        DEFAULT_RESOLUTION_X, 
+        DEFAULT_RESOLUTION_Y, 
+        std::shared_ptr<CameraEntity>(CameraEntity::CreateCamera())
+    );
 
     StartMainLoop();
 }

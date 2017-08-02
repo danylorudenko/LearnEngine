@@ -19,11 +19,11 @@ TextureController::TextureController() :
 TextureController::TextureController(const std::string& file_path) : file_path_(file_path)
 {
     SetupDefaultSamler();
-    LoadTextureData();
+    LoadToMemory();
     LoadToGL();
 }
 
-void TextureController::LoadTextureData()
+void TextureController::LoadToMemory()
 {
     image_data_ = SOIL_load_image(file_path_.c_str(), &width_, &height_, nullptr, SOIL_LOAD_RGB);
 

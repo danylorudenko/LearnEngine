@@ -35,39 +35,28 @@ std::string & Entity::Name()
     return name_;
 }
 
+const std::string & Entity::Name() const
+{
+    return name_;
+}
+
 GLTransform & Entity::Transform()
 {
     return *transform_;
 }
 
+const GLTransform & Entity::Transform() const
+{
+    return *transform_;
+}
+
 Entity::Entity(Entity* parent) :
+    HierarchyMember<Entity>(parent),
     transform_(new GLTransform()),
-    HierarchyMember<Entity>(parent)
+    name_("new_entity")
 {
 
 }
-
-//Entity::Entity(const Entity & rhs) : components_(rhs.components_)
-//{
-//
-//}
-//
-//Entity::Entity(Entity&& rhs) : components_(std::move(rhs.components_))
-//{
-//
-//}
-//
-//Entity& Entity::operator=(const Entity& rhs)
-//{
-//    components_ = rhs.components_;
-//    return *this;
-//}
-//
-//Entity& Entity::operator=(Entity&& rhs)
-//{
-//    components_ = std::move(rhs.components_);
-//    return *this;
-//}
 
 Entity::~Entity()
 {

@@ -7,6 +7,7 @@
 #include "..\Component\GLObject\DrawArraysIndirectCommand.h"
 #include "VertexAttribData.h"
 
+// Wrapper to hold binary vertex data in the RAM and in GPU buffer + data needed to set state to render internal vertex data.
 class VertexData
 {
 public:
@@ -25,35 +26,51 @@ public:
 
     // ================ General ==================
 
+    // Bind all needed data to render internal vertex data.
     void                                Bind                () const;
+
+    // Bind indeirect draw command.
     void                                BindDrawCommand     () const;
+
+    // Bind Vertex Array Object describing vertex data.
     void                                BindVAO             () const;
 
     // Size of internal data array in bytes.
-    GLsizei                             DataRawSize         () const;
+    GLsizei                             RawDataSize         () const;
 
+    // Get pointer to raw vertex data in RAM.
     void*                               RawData             () const;
+
+    // Count of vertices in RAM that can be renderd together.
     GLuint                              VertexCount         () const;
 
-    // Offset of the vertex data in the internal array.
+    // Offset of the vertex data in the internal RAM memory.
     GLuint                              Offset              () const; 
 
-    // Stride between vertices in the internal array.
+    // Stride between vertices in the internal RAM memory.
     GLsizei                             Stride              () const;
 
 
 
     // ================ Attributes data manipulation ===================
     
+    // Add VertrexAttribData describing vertex attribute.
+    // Automatically attaches vertex attribute data to the VAO.
     void                    AddVAOVertexAttrib              (const VertexAttribData& data);
 
     virtual ~VertexData                                     ();
 
 protected:
+    // Create Vertex Array Object on GPU.
     void                    CreateVAO                       ();
+
+    // Delete Vertex Array Object from GPU.
     void                    DeleteVAO                       ();
 
+    // Allocate VBO on GPU to hold vertex data and fill it with vertex data from RAM.
     void                    CreateAndFillVertexBuffer       ();
+
+    // Delete VBO from GPU.
     void                    DeleteVertexBuffer              ();
 
 protected:

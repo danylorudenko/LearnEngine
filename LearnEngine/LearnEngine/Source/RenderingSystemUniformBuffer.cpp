@@ -14,14 +14,12 @@ void RenderingSystemUniformBuffer::Bind() const
 }
 
 void RenderingSystemUniformBuffer::UpdateCameraData(
-    const glm::vec3& position,
-    const glm::vec3& rotation,
-    GLfloat aspect_ratio,
-    GLfloat fow,
-    GLfloat near_plane, GLfloat far_plane)
+    const CameraEntity& camera, GLfloat aspect_ratio)
 {
     // TODO: add roll support(around z coordinate)
     // Camera view direction calculation ( x = yaw, y = pitch)
+
+    auto rotation = camera.Transform().GetRotation();
     GLfloat short_hypothenuse = std::cosf(glm::radians(rotation.x));
     glm::vec3 direction(
         std::sinf(glm::radians(rotation.y)) * short_hypothenuse,
@@ -29,8 +27,16 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
         std::cosf(glm::radians(rotation.y)) * short_hypothenuse
     );
 
-    glm::mat4 view_matrix = glm::lookAt(position, direction + position, glm::vec3(0.0f, 1.0f, 0.0f));
-    glm::mat4 perspective_matrix = glm::perspective(glm::radians(fow), aspect_ratio, near_plane, far_plane);
+    glm::mat4 view_matrix = glm::lookAt(
+        camera.Transform().GetPosition(), 
+        direction + camera.Transform().GetPosition(), 
+        glm::vec3(0.0f, 1.0f, 0.0f));
+
+    glm::mat4 perspective_matrix = glm::perspective(
+        glm::radians(camera.GetFOW()), 
+        aspect_ratio, 
+        camera.GetClippingPlanes()[0], 
+        camera.GetClippingPlanes()[1]);
 
     GLubyte* buffer_data = (GLubyte*)glMapNamedBuffer(uniform_buffer_handle_, GL_WRITE_ONLY);
 
@@ -40,8 +46,8 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     std::memcpy(buffer_data, &perspective_matrix, sizeof(perspective_matrix));
     buffer_data += sizeof(perspective_matrix);
 
-    std::memcpy(buffer_data, &position, sizeof(position));
-    buffer_data += sizeof(position);
+    std::memcpy(buffer_data, &camera.Transform().GetPosition(), sizeof(camera.Transform().GetPosition()));
+    buffer_data += sizeof(camera.Transform().GetPosition());
 
     std::memcpy(buffer_data, &rotation, sizeof(rotation));
 

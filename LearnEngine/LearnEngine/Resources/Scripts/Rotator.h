@@ -2,7 +2,6 @@
 #define __ROTATOR_H__
 
 #include "..\..\Include\Component\GLObject\GLObject.h"
-#include "..\..\Include\RenderingSystem\Camera.h"
 #include "..\..\Include\Component\Script\Script.h"
 
 class Rotator :

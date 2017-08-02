@@ -3,6 +3,7 @@
 
 #include <GL\glew.h>
 
+// Aggregator of data needed to describe vertex attribute to OpenGL.
 class VertexAttribData
 {
 public:

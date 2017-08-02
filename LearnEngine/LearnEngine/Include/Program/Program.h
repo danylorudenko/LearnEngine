@@ -4,6 +4,7 @@
 #include "..\RenderingSystem\RenderingSystem.h"
 #include "..\Util\InitUtils.h"
 
+// The highest facade for engine launching.
 class Program : public Singletone<Program>
 {
 public:
@@ -18,6 +19,7 @@ public:
 
     ~Program                        ();
 
+    // Send ShouldClose message to glfw.
     void            Close           ();
 
 protected:

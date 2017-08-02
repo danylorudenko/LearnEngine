@@ -4,7 +4,7 @@
 
 #include <algorithm>
 
-RenderingSystem::RenderingSystem(GLFWwindow* window, int resolution_X, int resolution_Y, std::shared_ptr<Camera> main_cam) :
+RenderingSystem::RenderingSystem(GLFWwindow* window, int resolution_X, int resolution_Y, std::shared_ptr<CameraEntity> main_cam) :
     context_window_(window),
     screen_width_(resolution_X), 
     screen_height_(resolution_Y), 
@@ -21,13 +21,7 @@ void RenderingSystem::Iterate()
 {
     Clear();
 
-    uniform_buffer_.UpdateCameraData(
-        main_camera_->Transform().GetPosition(),
-        main_camera_->Transform().GetRotation(),
-        static_cast<GLfloat>(screen_width_) / static_cast<GLfloat>(screen_height_),
-        main_camera_->GetFOW(),
-        main_camera_->GetClippingPlanes()[0], main_camera_->GetClippingPlanes()[1]
-    );
+    uniform_buffer_.UpdateCameraData(*main_camera_, static_cast<float>(screen_width_) / static_cast<float>(screen_height_));
     uniform_buffer_.Bind();
 
     DrawAll();
@@ -51,12 +45,12 @@ void RenderingSystem::Clear()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-Camera & RenderingSystem::GetMainCamera()
+CameraEntity & RenderingSystem::GetMainCamera()
 {
     return *main_camera_;
 }
 
-void RenderingSystem::SetMainCamera(std::shared_ptr<Camera> main_cam)
+void RenderingSystem::SetMainCamera(std::shared_ptr<CameraEntity> main_cam)
 {
     main_camera_ = main_cam;
 }
@@ -69,12 +63,12 @@ void RenderingSystem::SetViewport(int resolution_X, int resolution_Y)
     glViewport(0, 0, screen_width_, screen_width_);
 }
 
-void RenderingSystem::AddToDrawList(GLObject* to_add)
+void RenderingSystem::AddToRenderingList(GLObject* to_add)
 {
     rendering_list_.push_back(to_add);
 }
 
-void RenderingSystem::RemoveFromDrawList(GLObject* to_remove)
+void RenderingSystem::RemoveFromRenderingList(GLObject* to_remove)
 {
     std::remove_if(rendering_list_.begin(), rendering_list_.end(),
         [to_remove](GLObject* candidate) { return candidate == to_remove; });

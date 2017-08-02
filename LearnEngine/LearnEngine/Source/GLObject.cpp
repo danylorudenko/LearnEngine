@@ -17,12 +17,12 @@ GLObject::~GLObject()
 
 void GLObject::RegisterInSystem()
 {
-    RenderingSystem::Instance().AddToDrawList(this);
+    RenderingSystem::Instance().AddToRenderingList(this);
 }
 
 void GLObject::UnregisterFromSystem()
 {
-    RenderingSystem::Instance().RemoveFromDrawList(this);
+    RenderingSystem::Instance().RemoveFromRenderingList(this);
 }
 
 Material& GLObject::GetMainMaterial()

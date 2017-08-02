@@ -5,9 +5,8 @@
 
 class Entity;
 
-/*
-    Base abtract class for all components which can be attached to the 
-*/
+
+// Base abtract class for all components which can be attached to the 
 class Component
 {
 public:

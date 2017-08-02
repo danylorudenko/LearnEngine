@@ -11,6 +11,9 @@
 #include "..\Component\Component.h"
 #include "..\Util\GLTransformation\GLTransform.h"
 
+// Main structural unit in the World.
+// Can be identified only by name. Default name is "new_entity"
+// Has a position, can contain components that describe it's behaviour.
 class Entity : public HierarchyMember<Entity>
 {
 protected:
@@ -37,7 +40,10 @@ public:
     Entity*                         FindEntity                  (std::string& name);
 
     std::string&                    Name                        ();
+    const std::string&              Name                        () const;
+
     GLTransform&                    Transform                   ();
+    const GLTransform&              Transform                   () const;
 
 
     // Gets reference to the first component in the list of the template type.

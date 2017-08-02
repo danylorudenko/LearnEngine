@@ -36,7 +36,7 @@ void VertexData::DeleteVAO()
 void VertexData::CreateAndFillVertexBuffer()
 {
     glCreateBuffers(1, &vertex_buffer_object_);
-    glNamedBufferStorage(vertex_buffer_object_, data_size_, vertex_data_, 0);
+    glNamedBufferStorage(vertex_buffer_object_, RawDataSize(), RawData(), 0);
 }
 
 void VertexData::DeleteVertexBuffer()
@@ -109,7 +109,7 @@ void VertexData::AddVAOVertexAttrib(const VertexAttribData& data)
     display_gl_errors();
 }
 
-GLsizei VertexData::DataRawSize() const
+GLsizei VertexData::RawDataSize() const
 {
     return data_size_;
 }

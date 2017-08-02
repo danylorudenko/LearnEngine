@@ -1,7 +1,7 @@
 #ifndef __RENDERING_SYSTEM_H__
 #define __RENDERING_SYSTEM_H__
 
-#include "Camera.h"
+#include "..\Entity\CameraEntity.h"
 #include "..\Component\GLObject\GLObject.h"
 #include "RenderingSystemUniformBuffer.h"
 #include "..\Util\Singletone.h"
@@ -10,6 +10,8 @@
 
 #include <vector>
 
+// System responsible for maintaining rendering list, 
+// changing state of OpenGL, sending rendering commands.
 class RenderingSystem : public Singletone<RenderingSystem>
 {
     using RenderingListContainter                   = std::vector<GLObject*>;
@@ -17,7 +19,7 @@ class RenderingSystem : public Singletone<RenderingSystem>
 public:
     RenderingSystem                                 (GLFWwindow* window,
                                                      int viewport_X, int viewport_Y,
-                                                     std::shared_ptr<Camera> main_cam);
+                                                     std::shared_ptr<CameraEntity> main_cam);
 
     RenderingSystem                                 (const RenderingSystem& rhs) = delete;
     RenderingSystem                                 (RenderingSystem&& rhs) = delete;
@@ -25,17 +27,32 @@ public:
     RenderingSystem&    operator=                   (const RenderingSystem& rhs) = delete;
     RenderingSystem&    operator=                   (RenderingSystem&& rhs) = delete;
 
+    // Aggregator for whole iteration of the rendering system.
     void                Iterate                     ();
-    void                DrawAll                     ();
+
+    // Clearing screen with color and clearing depth buffer.
     void                Clear                       ();
 
-    Camera&             GetMainCamera               ();
+    // Main camera rendering.
+    CameraEntity&             GetMainCamera               ();
 
-    void                SetMainCamera               (std::shared_ptr<Camera> main_cam);
+    // Set new main camera. Currently only one camera is supported.
+    void                SetMainCamera               (std::shared_ptr<CameraEntity> main_cam);
+
+    // Set viewport for rendering.
     void                SetViewport                 (int resolution_X, int resolution_Y);
-    void                AddToDrawList               (GLObject* to_add);
-    void                RemoveFromDrawList          (GLObject* to_remove);
 
+    // Add new GLObject to the rendering list.
+    void                AddToRenderingList          (GLObject* to_add);
+
+    // Remove GLObject from the rendering list.
+    void                RemoveFromRenderingList     (GLObject* to_remove);
+
+protected:
+    // Main rendering logic. Setting states and drawing.
+    void                DrawAll                     ();
+
+    // System callback for change of the buffer size.
     static void         frame_buffer_size_callback  (GLFWwindow* window, int width, int height);
 
 
@@ -45,7 +62,7 @@ protected:
     int                                     screen_width_;
     int                                     screen_height_;
 
-    std::shared_ptr<Camera>                 main_camera_;
+    std::shared_ptr<CameraEntity>                 main_camera_;
     RenderingListContainter                 rendering_list_;
 
     RenderingSystemUniformBuffer            uniform_buffer_;

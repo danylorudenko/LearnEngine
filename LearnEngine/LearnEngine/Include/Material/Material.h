@@ -4,10 +4,12 @@
 #include <memory>
 #include <tuple>
 #include <vector>
-#include "..\RenderingSystem\Camera.h"
 #include "..\Shaders\ShaderProgram.h"
 #include "..\Texture\TextureController.h"
 
+// Aggregator for the properties that can describe a physical material.
+// Dependant on the main shader which material uses to provide a state for rendering.
+// Contains additional unifrom properties like textures paired with texture binding unit ID.
 class Material
 {
 protected:

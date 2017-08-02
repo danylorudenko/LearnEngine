@@ -5,6 +5,8 @@
 #include <glm\fwd.hpp>
 #include <string>
 
+// Wrapper around OpenGL shader program.
+// Has accessors to various unifrom setting functions.
 class ShaderProgram
 {
 public:
@@ -34,6 +36,7 @@ protected:
 	GLuint			CompileFragment	    (const GLchar* fragment_source);
 	GLuint			LinkShaders		    (const GLuint vertex_shader, const GLuint fragment_shader);
 
+    // Read file as a single string to pass to the OpenGL shader program.
 	std::string		ReadFile	        (const GLchar* file_path);
 
 protected:

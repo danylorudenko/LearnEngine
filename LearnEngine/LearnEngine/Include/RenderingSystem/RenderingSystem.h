@@ -12,7 +12,7 @@
 
 // System responsible for maintaining rendering list, 
 // changing state of OpenGL, sending rendering commands.
-class RenderingSystem : public Singletone<RenderingSystem>
+class RenderingSystem : public ControlledSingletone<RenderingSystem>
 {
     using RenderingListContainter                   = std::vector<GLObject*>;
 

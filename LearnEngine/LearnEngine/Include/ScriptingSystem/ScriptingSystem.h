@@ -8,7 +8,7 @@
 #include "..\Component\Script\Script.h"
 
 // System responsible for maintaining Script components to trigger custom Entity behaviour.
-class ScriptingSystem : public Singletone<ScriptingSystem>
+class ScriptingSystem : public ControlledSingletone<ScriptingSystem>
 {
     using StartCallback                                     = void(Script::*)();
     using StartCallbackQueue                                = std::queue<Script*>;

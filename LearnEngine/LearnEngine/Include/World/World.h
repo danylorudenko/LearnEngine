@@ -7,7 +7,7 @@
 // Main world where all actions are performed.
 // Must aggregate all created Entities.
 // Has Empty entity as a root.
-class World : public Singletone<World>
+class World : public ControlledSingletone<World>
 {
 public:
     World                                       ();

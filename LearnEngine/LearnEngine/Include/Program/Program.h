@@ -5,7 +5,7 @@
 #include "..\Util\InitUtils.h"
 
 // The highest facade for engine launching.
-class Program : public Singletone<Program>
+class Program : public ControlledSingletone<Program>
 {
 public:
     static constexpr unsigned int           DEFAULT_RESOLUTION_X = 800;

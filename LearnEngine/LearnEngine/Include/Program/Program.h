@@ -19,6 +19,10 @@ public:
 
     ~Program                        ();
 
+    // Start main engine loop.
+    // Waiting glfwWindowShouldClose message to exit the loop.
+    void            StartMainLoop   ();
+
     // Send ShouldClose message to glfw.
     void            Close           ();
 
@@ -26,10 +30,6 @@ protected:
     // Engine initialization logic.
     // Calls the startup of the main engine loop.
     void            Initialize      ();
-
-    // Start main engine loop.
-    // Waiting glfwWindowShouldClose message to exit the loop.
-    void            StartMainLoop   ();
 
     // Custom actions to be executed after initialization and before the main loop.
     void            StartupLogic    ();

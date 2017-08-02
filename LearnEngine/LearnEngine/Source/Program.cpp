@@ -47,12 +47,6 @@ void Program::Initialize()
         DEFAULT_RESOLUTION_Y, 
         CameraEntity::CreateCamera()
     );
-
-    if (!Program::IsCreated()) {
-        throw std::exception("fuck");
-    }
-
-    StartMainLoop();
 }
 
 void Program::StartMainLoop()

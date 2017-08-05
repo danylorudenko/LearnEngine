@@ -76,6 +76,7 @@ void Entity::RemoveComponent(Component* component)
         [component](Component* candidate) {
         if (component == candidate) {
             ComponentRegistrationAttorney::UnregisterFromSystem(candidate);
+            ComponentRegistrationAttorney::SetComponentOwner(component, nullptr);
             return true;
         }
         else {

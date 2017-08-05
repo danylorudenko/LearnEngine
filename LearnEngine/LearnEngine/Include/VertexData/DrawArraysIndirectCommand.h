@@ -29,12 +29,7 @@ public:
     DrawArraysIndirectCommand               (DrawArraysIndirectCommand&& rhs);
     DrawArraysIndirectCommand&  operator=   (DrawArraysIndirectCommand&& rhs);
 
-    // Allocate GPU buffer of proper size for indirect command.
-    void    Allocate                        ();
-
-    // Delete allocatd GPU buffer.
-    void    Deallocate                      ();
-
+    
     // Bind indirect command buffer to the target (GL_DRAW_INDIRECT_BUFFER).
     void    Bind                            () const;
 
@@ -62,6 +57,15 @@ public:
     // Unmapping GPU buffer.
     void    Unmap                           () const;
 
+
+
+protected:
+
+    // Allocate GPU buffer of proper size for indirect command.
+    void    Allocate();
+
+    // Delete allocatd GPU buffer.
+    void    Deallocate();
 
 protected:
     GLuint  buffer_handle_;

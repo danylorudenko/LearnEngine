@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "..\Component.h"
-#include "DrawArraysIndirectCommand.h"
 #include "..\..\Material\Material.h"
 #include "..\..\VertexData\VertexData.h"
 

@@ -4,7 +4,7 @@
 #include <vector>
 
 #include <GL\glew.h>
-#include "..\Component\GLObject\DrawArraysIndirectCommand.h"
+#include "DrawArraysIndirectCommand.h"
 #include "VertexAttribData.h"
 
 // Wrapper to hold binary vertex data in the RAM and in GPU buffer + data needed to set state to render internal vertex data.

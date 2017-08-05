@@ -1,4 +1,4 @@
-#include "..\Include\Component\GLObject\DrawArraysIndirectCommand.h"
+#include "..\Include\VertexData\DrawArraysIndirectCommand.h"
 #include "..\Include\Util\Debugging\DebugTools.h"
 
 DrawArraysIndirectCommand::DrawArraysIndirectCommand() :

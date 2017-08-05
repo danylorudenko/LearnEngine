@@ -22,7 +22,7 @@ void Rotator::Tick()
     owner_->Transform().SetRotation(y_type(), y_rotation_);
     owner_->Transform().SetRotation(z_type(), y_rotation_ / 2.0f);
     owner_->Transform().SetRotation(x_type(), y_rotation_ * 2);
-    y_rotation_ += 1.1f;
+    y_rotation_ += 0.1f;
     
     auto old_pos = owner_->Transform().GetPosition();
     if (InputSystem::Instance().GetKey(GLFW_KEY_A)) {
@@ -54,6 +54,6 @@ void Rotator::Tick()
     }
 
     //auto new_pos = owner_->Transform().GetPosition();
-    auto new_pos = InputSystem::Instance().GetMousePos();
-    std::cout << new_pos.x << ", " << new_pos.y << ", " /*<< new_pos.z*/ << std::endl;
+    //auto new_pos = InputSystem::Instance().GetMousePos();
+    //std::cout << new_pos.x << ", " << new_pos.y << ", " /*<< new_pos.z*/ << std::endl;
 }

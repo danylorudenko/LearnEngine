@@ -1,6 +1,7 @@
 #include "..\Include\Util\GLTransformation\GLTransform.h"
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
+#include "..\Include\Util\Debugging\DebugTools.h"
 
 GLTransform::GLTransform() : model_mat_outdated_(true)
 {
@@ -14,6 +15,23 @@ GLTransform::~GLTransform()
 
 GLTransform& GLTransform::operator=(const GLTransform& rhs)
 {
+#ifdef GL44
+    
+    glBindBuffer(GL_COPY_READ_BUFFER, rhs.transform_uniform_buffer_handle_);
+    glBindBuffer(GL_COPY_WRITE_BUFFER, transform_uniform_buffer_handle_);
+
+    glCopyBufferSubData(
+        GL_COPY_READ_BUFFER,
+        GL_COPY_WRITE_BUFFER,
+        0,
+        0,
+        GPU_BUFFER_SIZE
+    );
+
+    display_gl_errors();
+
+#else
+
     glCopyNamedBufferSubData(
         rhs.transform_uniform_buffer_handle_,
         transform_uniform_buffer_handle_,
@@ -22,6 +40,8 @@ GLTransform& GLTransform::operator=(const GLTransform& rhs)
         GPU_BUFFER_SIZE
     );
 
+#endif
+    
     position_ = rhs.position_;
     rotation_ = rhs.rotation_;
     scale_ = rhs.scale_;
@@ -146,7 +166,19 @@ const glm::vec3 & GLTransform::GetScale() const
 void GLTransform::AllocateGPUBuffer()
 {
     glCreateBuffers(1, &transform_uniform_buffer_handle_);
+
+#ifdef GL44
+
+    glBindBuffer(GL_UNIFORM_BUFFER, transform_uniform_buffer_handle_);
+    glBufferStorage(GL_UNIFORM_BUFFER, GPU_BUFFER_SIZE, nullptr, GL_DYNAMIC_STORAGE_BIT | GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+
+    display_gl_errors();
+
+#else
+
     glNamedBufferStorage(transform_uniform_buffer_handle_, GPU_BUFFER_SIZE, nullptr, GL_DYNAMIC_STORAGE_BIT | GL_MAP_READ_BIT | GL_MAP_WRITE_BIT);
+
+#endif
 }
 
 void GLTransform::BindTransformUniformBuffer()
@@ -170,12 +202,28 @@ void GLTransform::UpdateBuffer()
     ApplyScale(&identity_matrix, scale_);
     ApplyRotation(&identity_matrix, rotation_);
 
+#ifdef GL44
+
+    glBindBuffer(GL_UNIFORM_BUFFER, transform_uniform_buffer_handle_);
+    glBufferSubData(
+        GL_UNIFORM_BUFFER,
+        0,
+        sizeof(identity_matrix),
+        glm::value_ptr(identity_matrix)
+    );
+
+    display_gl_errors();
+
+#else
+
     glNamedBufferSubData(
         transform_uniform_buffer_handle_,
         0,
         sizeof(identity_matrix),
         glm::value_ptr(identity_matrix)
     );
+
+#endif
 
     model_mat_outdated_ = false;
 }

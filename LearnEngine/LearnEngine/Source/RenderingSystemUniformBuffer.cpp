@@ -1,6 +1,7 @@
 #include "..\Include\RenderingSystem\RenderingSystemUniformBuffer.h"
 #include <glm\gtc\type_ptr.hpp>
 #include <glm\gtc\matrix_transform.hpp>
+#include "..\Include\Util\Debugging\DebugTools.h"
 
 RenderingSystemUniformBuffer::RenderingSystemUniformBuffer() :
     uniform_buffer_handle_(0)
@@ -38,7 +39,18 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
         camera.GetClippingPlanes()[0], 
         camera.GetClippingPlanes()[1]);
 
+#ifdef GL44
+
+    glBindBuffer(GL_UNIFORM_BUFFER, uniform_buffer_handle_);
+    GLubyte* buffer_data = (GLubyte*)glMapBuffer(GL_UNIFORM_BUFFER, GL_WRITE_ONLY);
+
+    display_gl_errors();
+
+#else
+
     GLubyte* buffer_data = (GLubyte*)glMapNamedBuffer(uniform_buffer_handle_, GL_WRITE_ONLY);
+
+#endif
 
     std::memcpy(buffer_data, &view_matrix, sizeof(view_matrix));
     buffer_data += sizeof(view_matrix);
@@ -51,7 +63,19 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
 
     std::memcpy(buffer_data, &rotation, sizeof(rotation));
 
+#ifdef GL44
+
+    glUnmapBuffer(GL_UNIFORM_BUFFER);
+
+    display_gl_errors();
+
+#else
+
     glUnmapNamedBuffer(uniform_buffer_handle_);
+
+#endif
+
+    
 }
 
 void RenderingSystemUniformBuffer::AllocateGPUBuffer()
@@ -66,6 +90,56 @@ void RenderingSystemUniformBuffer::AllocateGPUBuffer()
     static const glm::vec3 zero_vector(0.0f);
 
     glCreateBuffers(1, &uniform_buffer_handle_);
+
+#ifdef GL44
+
+    glBindBuffer(GL_UNIFORM_BUFFER, uniform_buffer_handle_);
+
+    glBufferStorage(
+        GL_UNIFORM_BUFFER,
+        BUFFER_SIZE,
+        nullptr,
+        GL_DYNAMIC_STORAGE_BIT | GL_MAP_READ_BIT | GL_MAP_WRITE_BIT
+    );
+
+    display_gl_errors();
+
+    // viewMatrix
+    glBufferSubData(
+        GL_UNIFORM_BUFFER,
+        0,
+        sizeof(identity_matrix),
+        glm::value_ptr(identity_matrix)
+    );
+
+    // perspectiveMatrix
+    glBufferSubData(
+        GL_UNIFORM_BUFFER,
+        sizeof(decltype(identity_matrix)),
+        sizeof(decltype(identity_matrix)),
+        glm::value_ptr(identity_matrix)
+    );
+
+    // camera position
+    glBufferSubData(
+        GL_UNIFORM_BUFFER,
+        sizeof(identity_matrix) + sizeof(identity_matrix),
+        sizeof(zero_vector),
+        glm::value_ptr(zero_vector)
+    );
+
+    // camera rotation
+    glBufferSubData(
+        GL_UNIFORM_BUFFER,
+        sizeof(identity_matrix) + sizeof(identity_matrix) + sizeof(zero_vector),
+        sizeof(zero_vector),
+        glm::value_ptr(zero_vector)
+    );
+
+    display_gl_errors();
+
+#else
+
     glNamedBufferStorage(
         uniform_buffer_handle_,
         BUFFER_SIZE,
@@ -104,4 +178,6 @@ void RenderingSystemUniformBuffer::AllocateGPUBuffer()
         sizeof(zero_vector),
         glm::value_ptr(zero_vector)
     );
+
+#endif
 }

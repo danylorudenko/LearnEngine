@@ -53,6 +53,38 @@ void TextureController::LoadToGL()
 
     display_gl_errors();
 
+#ifdef GL44
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture_handle_);
+
+    display_gl_errors();
+
+    // Allocating storage.
+    glTexStorage2D(
+        GL_TEXTURE_2D,
+        1, // Mipmaps
+        GL_RGB8,
+        width_,
+        height_
+    );
+
+    display_gl_errors();
+
+    glTexSubImage2D(
+        GL_TEXTURE_2D,
+        0, // Mipmaps
+        0, 0,
+        width_, height_,
+        GL_RGB,
+        GL_UNSIGNED_BYTE,
+        image_data_
+    );
+
+    display_gl_errors();
+
+#else
+
     // Allocating storage.
     glTextureStorage2D(
         texture_handle_,
@@ -73,6 +105,8 @@ void TextureController::LoadToGL()
         GL_UNSIGNED_BYTE,
         image_data_
     );
+
+#endif
 
     is_on_GPU_ = true;
 
@@ -116,12 +150,23 @@ void TextureController::BindSamplerToUnit(GLuint texture_unit) const
 
 void TextureController::BindTextureToUnit(GLuint texture_unit) const
 {
+#ifdef GL44
+
+    glActiveTexture(GL_TEXTURE0 + texture_unit);
+    glBindTexture(GL_TEXTURE_2D, texture_handle_);
+
+    display_gl_errors();
+
+#else
+
     glBindTextureUnit(texture_unit, texture_handle_);
+
+#endif
 }
 
 void TextureController::SetupDefaultSamler()
 {
-    glCreateSamplers(1, &sampler_handle_);
+    glGenSamplers(1, &sampler_handle_);
     SetSamplerParam(GL_TEXTURE_WRAP_S, GL_REPEAT);
     SetSamplerParam(GL_TEXTURE_WRAP_T, GL_REPEAT);
 

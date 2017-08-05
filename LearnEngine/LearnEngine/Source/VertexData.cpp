@@ -36,7 +36,19 @@ void VertexData::DeleteVAO()
 void VertexData::CreateAndFillVertexBuffer()
 {
     glCreateBuffers(1, &vertex_buffer_object_);
+
+#ifdef GL44
+
+    glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_object_);
+    glBufferStorage(GL_ARRAY_BUFFER, RawDataSize(), RawData(), 0);
+
+    display_gl_errors();
+
+#else
+
     glNamedBufferStorage(vertex_buffer_object_, RawDataSize(), RawData(), 0);
+
+#endif
 }
 
 void VertexData::DeleteVertexBuffer()
@@ -72,6 +84,45 @@ void VertexData::BindVAO() const
 
 void VertexData::AddVAOVertexAttrib(const VertexAttribData& data)
 {
+#ifdef GL44
+
+    glBindVertexArray(vertex_array_object_);
+    
+    glVertexAttribFormat(
+        data.attrib_index_,
+        data.element_count_,
+        data.attrib_gl_format_,
+        data.normalized_,
+        data.offset_
+    );
+
+    display_gl_errors();
+
+    glBindVertexBuffer(
+        data.binding_index_,
+        vertex_buffer_object_,
+        vertex_data_offset_,
+        stride_
+    );
+
+    display_gl_errors();
+
+    glVertexAttribBinding(
+        data.attrib_index_,
+        data.binding_index_
+    );
+
+    display_gl_errors();
+
+    glEnableVertexAttribArray(
+        data.attrib_index_
+    );
+
+    display_gl_errors();
+
+
+#else
+
     glVertexArrayAttribFormat(
         vertex_array_object_,
         data.attrib_index_,
@@ -107,6 +158,8 @@ void VertexData::AddVAOVertexAttrib(const VertexAttribData& data)
     );
 
     display_gl_errors();
+
+#endif
 }
 
 GLsizei VertexData::RawDataSize() const

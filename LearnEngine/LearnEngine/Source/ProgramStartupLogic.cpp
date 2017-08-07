@@ -105,9 +105,13 @@ void Program::StartupLogic()
     material->AddTexture(0, texture_controller);
     display_gl_errors();
     auto* entity = Entity::CreateEntity();
+    entity->Transform().SetPosition(glm::vec3(0.0f, -0.5f, 6.0f));
     entity->AddComponent(new GLObject(vertex_data, material));
 
-    GLObject* gl_obj = entity->GetComponent<GLObject>();
+    auto* entity2 = Entity::CreateEntity();
+    entity2->Transform().SetPosition(2.0f, 0.0f, 3.0f);
+    entity2->AddComponent(new GLObject(vertex_data, material));
 
     entity->AddComponent(new Rotator());
+    entity2->AddComponent(new Rotator());
 }

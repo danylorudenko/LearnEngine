@@ -6,9 +6,9 @@ World::World() :
     
 }
 
-void World::AddToRoot(Entity* entity)
+Entity& World::Root()
 {
-    root_->AddChildToListWithIndex(entity);
+    return *root_;
 }
 
 void World::SetRoot(Entity* root)

@@ -21,8 +21,7 @@ CameraEntity::~CameraEntity()
 
 CameraEntity * CameraEntity::CreateCamera()
 {
-    CameraEntity* new_entity = new CameraEntity(nullptr);
-    World::Instance().AddToRoot(new_entity);
+    CameraEntity* new_entity = new CameraEntity(&World::Instance().Root());
     return new_entity;
 }
 

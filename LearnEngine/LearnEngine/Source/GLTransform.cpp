@@ -3,7 +3,11 @@
 #include <glm\gtc\type_ptr.hpp>
 #include "..\Include\Util\Debugging\DebugTools.h"
 
-GLTransform::GLTransform() : model_mat_outdated_(true)
+GLTransform::GLTransform() : 
+    position_(0.0f),
+    rotation_(0.0f),
+    scale_(1.0f),
+    model_mat_outdated_(true)
 {
     AllocateGPUBuffer();
 }

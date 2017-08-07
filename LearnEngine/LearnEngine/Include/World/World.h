@@ -16,8 +16,8 @@ public:
     World                                       (World&& rhs) = delete;
     World               operator=               (World&& rhs) = delete;
 
-    // Add a children Entity to root.
-    void                AddToRoot               (Entity* entity);
+    // Empty root entity of the world
+    Entity&             Root                    ();
 
     // Set new root. Old root is deleted.
     void                SetRoot                 (Entity* root);

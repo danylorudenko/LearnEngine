@@ -11,8 +11,6 @@ Rotator::Rotator() :
 
 void Rotator::OnRegistered()
 {
-    owner_->Transform().SetScale(glm::vec3(0.3f));
-    owner_->Transform().SetPosition(glm::vec3(0.0f, -0.5f, 3.0f));
     SetTicking(true);
 }
 

@@ -36,22 +36,22 @@ public:
     void                    SetSamplerParam     (GLenum p_name, GLfloat param);
 
     // Does TextureController have binary data of the texture in RAM?
-    bool                    IsInMemory          () const;
+    bool                    IsInRAM             () const;
 
     // Does TextureController have a filled texture buffer on GPU? 
     bool                    IsOnGPU             () const;
 
     // Load texture binary data from disk to RAM.
-    virtual void            LoadToMemory        ();
+    virtual void            LoadToRAM           ();
 
     // Load texture binary data from RAM to GPU buffer.
-    virtual void            LoadToGL            ();
+    virtual void            LoadToGPU           ();
 
     // Delete texture memory in RAM.
-    virtual void            UnloadFromMemory    ();
+    virtual void            UnloadFromRAM       ();
 
     // Delete texture buffer on GPU.
-    virtual void            UnloadFromGL        ();
+    virtual void            UnloadFromGPU       ();
 
 protected:
     void                    SetupDefaultSamler  ();

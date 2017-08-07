@@ -19,11 +19,11 @@ TextureController::TextureController() :
 TextureController::TextureController(const std::string& file_path) : file_path_(file_path)
 {
     SetupDefaultSamler();
-    LoadToMemory();
-    LoadToGL();
+    LoadToRAM();
+    LoadToGPU();
 }
 
-void TextureController::LoadToMemory()
+void TextureController::LoadToRAM()
 {
     image_data_ = SOIL_load_image(file_path_.c_str(), &width_, &height_, nullptr, SOIL_LOAD_RGB);
 
@@ -34,14 +34,14 @@ void TextureController::LoadToMemory()
     is_in_memory_ = true;
 }
 
-void TextureController::UnloadFromMemory()
+void TextureController::UnloadFromRAM()
 {
     SOIL_free_image_data(image_data_);
     image_data_ = nullptr;
     is_in_memory_ = false;
 }
 
-void TextureController::LoadToGL()
+void TextureController::LoadToGPU()
 {
     if (image_data_ == nullptr) {
         throw std::runtime_error("Can't load texture to the GL. No data in RAM.");
@@ -113,7 +113,7 @@ void TextureController::LoadToGL()
 	display_gl_errors();
 }
 
-void TextureController::UnloadFromGL()
+void TextureController::UnloadFromGPU()
 {
     glDeleteTextures(1, &texture_handle_);
     texture_handle_ = 0;
@@ -122,8 +122,8 @@ void TextureController::UnloadFromGL()
 
 TextureController::~TextureController()
 {
-    UnloadFromGL();
-    UnloadFromMemory();
+    UnloadFromGPU();
+    UnloadFromRAM();
     glDeleteSamplers(1, &sampler_handle_);
 }
 
@@ -186,7 +186,7 @@ void TextureController::SetSamplerParam(GLenum p_name, GLfloat param)
     glSamplerParameterf(sampler_handle_, p_name, param);
 }
 
-bool TextureController::IsInMemory() const
+bool TextureController::IsInRAM() const
 {
     return is_in_memory_;
 }

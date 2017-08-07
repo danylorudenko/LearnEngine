@@ -32,7 +32,7 @@ public:
     static CameraEntity*      CreateCamera            ();
 
     // Field of view of the current camera.
-    const GLfloat&            GetFOW                  () const;
+    GLfloat                   GetFOW                  () const;
     GLfloat&                  GetFOW                  ();
 
     // Const array of two floats containing clipping planes of the camera.

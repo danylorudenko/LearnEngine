@@ -26,7 +26,7 @@ CameraEntity * CameraEntity::CreateCamera()
     return new_entity;
 }
 
-const GLfloat& CameraEntity::GetFOW() const
+GLfloat CameraEntity::GetFOW() const
 {
     return fow_;
 }

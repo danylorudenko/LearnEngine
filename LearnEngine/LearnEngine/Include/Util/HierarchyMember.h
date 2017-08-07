@@ -39,18 +39,13 @@ public:
             return candidate == this;
         });
         // As we now may have gaps in children index order we chould update them.
-        UpdateIndicies();
+        this->parent_->UpdateIndicies();
 
         this->parent_ = parent;
         AddChildToListWithIndex(this);
     }
 
-    std::size_t AddChildToListWithIndex(HierarchyMember* new_member)
-    {
-        new_member->member_index_ = children_.size();
-        children_.push_back(new_member);
-        return new_member->member_index_;
-    }
+    
 
 protected:
     void UpdateIndicies()
@@ -60,6 +55,14 @@ protected:
             [&index](HierarchyMember* child) {
             child->member_index_ = index++;
         });
+    }
+
+    std::size_t AddChildToListWithIndex(HierarchyMember* new_member)
+    {
+        new_member->member_index_ = children_.size();
+        children_.push_back(new_member);
+        new_member->parent_ = this;
+        return new_member->member_index_;
     }
 
 protected:

@@ -4,8 +4,7 @@
 
 Entity* Entity::CreateEntity()
 {
-    Entity* new_entity = new Entity(nullptr);
-    World::Instance().AddToRoot(new_entity);
+    Entity* new_entity = new Entity(&World::Instance().Root());
     return new_entity;
 }
 

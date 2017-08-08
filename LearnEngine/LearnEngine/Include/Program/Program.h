@@ -1,11 +1,11 @@
 #ifndef __PROGRAM_H__
 #define __PROGRAM_H__
 
-#include "..\RenderingSystem\RenderingSystem.h"
+#include "..\Util\ControlledSingleton.h"
 #include "..\Util\InitUtils.h"
 
 // The highest facade for engine launching.
-class Program : public ControlledSingletone<Program>
+class Program : public ControlledSingleton<Program>
 {
 public:
     static constexpr unsigned int           DEFAULT_RESOLUTION_X = 800;

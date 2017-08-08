@@ -3,13 +3,13 @@
 
 #include <GLFW\glfw3.h>
 #include <glm\vec2.hpp>
-#include "..\Util\Singletone.h"
+#include "..\Util\ControlledSingleton.h"
 #include <set>
 #include <vector>
 
 // System for interaction with user keyboard/mouse input.
 // Independently of user-code request, holds the state of pressed/holded/unpressed keys/mouse_pos/etc.
-class InputSystem : public ControlledSingletone<InputSystem>
+class InputSystem : public ControlledSingleton<InputSystem>
 {
     //                               key, action
     //using KeyboardEvent = std::tuple<int, int>;

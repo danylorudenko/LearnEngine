@@ -1,5 +1,6 @@
 #include "..\Include\Program\Program.h"
 #include "..\Include\Input\InputSystem.h"
+#include "..\Include\RenderingSystem\RenderingSystem.h"
 #include "..\Include\ScriptingSystem\ScriptingSystem.h"
 #include "..\Include\Util\Debugging\DebugTools.h"
 #include "..\Include\Entity\Entity.h"

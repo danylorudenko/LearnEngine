@@ -4,7 +4,7 @@
 #include "..\Entity\CameraEntity.h"
 #include "..\Component\GLObject\GLObject.h"
 #include "RenderingSystemUniformBuffer.h"
-#include "..\Util\Singletone.h"
+#include "..\Util\ControlledSingleton.h"
 
 #include <GLFW\glfw3.h>
 
@@ -12,7 +12,7 @@
 
 // System responsible for maintaining rendering list, 
 // changing state of OpenGL, sending rendering commands.
-class RenderingSystem : public ControlledSingletone<RenderingSystem>
+class RenderingSystem : public ControlledSingleton<RenderingSystem>
 {
     using RenderingListContainter                   = std::vector<GLObject*>;
 

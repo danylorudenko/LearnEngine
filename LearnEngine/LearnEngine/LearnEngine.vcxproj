@@ -83,7 +83,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PreprocessorDefinitions>GLEW_STATIC;GL44;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32s.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -176,7 +176,7 @@
     <ClInclude Include="Include\Util\InitUtils.h" />
     <ClInclude Include="Include\Input\InputSystem.h" />
     <ClInclude Include="Include\Shaders\ShaderProgram.h" />
-    <ClInclude Include="Include\Util\Singletone.h" />
+    <ClInclude Include="Include\Util\ControlledSingleton.h" />
     <ClInclude Include="Include\VertexData\VertexAttribData.h" />
     <ClInclude Include="Include\VertexData\VertexData.h" />
     <ClInclude Include="Include\World\World.h" />

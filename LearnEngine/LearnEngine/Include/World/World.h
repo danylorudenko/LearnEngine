@@ -1,13 +1,13 @@
 #ifndef __WORLD_H__
 #define __WORLD_H__
 
-#include "..\Util\Singletone.h"
+#include "..\Util\ControlledSingleton.h"
 #include "..\Entity\Entity.h"
 
 // Main world where all actions are performed.
 // Must aggregate all created Entities.
 // Has Empty entity as a root.
-class World : public ControlledSingletone<World>
+class World : public ControlledSingleton<World>
 {
 public:
     World                                       ();

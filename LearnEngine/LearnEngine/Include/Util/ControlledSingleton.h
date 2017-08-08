@@ -4,7 +4,7 @@
 #include <stdexcept>
 
 template<typename T>
-class ControlledSingletone
+class ControlledSingleton
 {
 public:
     static T& Instance()
@@ -37,6 +37,6 @@ protected:
 };
 
 template<typename T>
-T* ControlledSingletone<T>::instance_ = nullptr;
+T* ControlledSingleton<T>::instance_ = nullptr;
 
 #endif

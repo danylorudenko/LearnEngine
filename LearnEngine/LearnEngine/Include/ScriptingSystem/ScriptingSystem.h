@@ -4,11 +4,11 @@
 #include <vector>
 #include <queue>
 
-#include "..\Util\Singletone.h"
+#include "..\Util\ControlledSingleton.h"
 #include "..\Component\Script\Script.h"
 
 // System responsible for maintaining Script components to trigger custom Entity behaviour.
-class ScriptingSystem : public ControlledSingletone<ScriptingSystem>
+class ScriptingSystem : public ControlledSingleton<ScriptingSystem>
 {
     using StartCallback                                     = void(Script::*)();
     using StartCallbackQueue                                = std::queue<Script*>;

@@ -128,6 +128,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Resources\Scripts\Rotator.cpp" />
+    <ClCompile Include="Source\ConfigManager.cpp" />
+    <ClCompile Include="Source\DeferredRenderer.cpp" />
+    <ClCompile Include="Source\ForwardRenderer.cpp" />
     <ClCompile Include="Source\ProgramStartupLogic.cpp" />
     <ClCompile Include="Source\RenderingSystemUniformBuffer.cpp" />
     <ClCompile Include="Source\DrawArraysIndirectCommand.cpp" />
@@ -156,6 +159,10 @@
   <ItemGroup>
     <ClInclude Include="Include\Component\Component.h" />
     <ClInclude Include="Include\Component\ComponentRegistrationAttorney.h" />
+    <ClInclude Include="Include\Configuration\ConfigManager.h" />
+    <ClInclude Include="Include\RenderingSystem\Renderers\DeferredRenderer.h" />
+    <ClInclude Include="Include\RenderingSystem\Renderers\ForwardRenderer.h" />
+    <ClInclude Include="Include\RenderingSystem\Renderers\Renderer.h" />
     <ClInclude Include="Include\VertexData\DrawArraysIndirectCommand.h" />
     <ClInclude Include="Include\Component\GLObject\GLTransformation\GLTransform.h" />
     <ClInclude Include="Include\Component\Script\Script.h" />
@@ -184,6 +191,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="debug_log.txt" />
+    <Text Include="Resources\Config\main_config.json" />
     <Text Include="Shaders\fragment_shader.fglsl" />
     <Text Include="Shaders\vertex_shader.vglsl" />
   </ItemGroup>

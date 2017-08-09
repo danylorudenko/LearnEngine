@@ -4,13 +4,17 @@
 #include "..\Util\ControlledSingleton.h"
 #include "..\Entity\Entity.h"
 
+class WorldConstructionAttorney;
+
 // Main world where all actions are performed.
 // Must aggregate all created Entities.
 // Has Empty entity as a root.
 class World : public ControlledSingleton<World>
 {
 public:
-    World                                       ();
+    using ConstructionAttorney                  = WorldConstructionAttorney;
+
+    
     World                                       (const World& rhs) = delete;
     World               operator=               (const World& rhs) = delete;
     World                                       (World&& rhs) = delete;
@@ -28,7 +32,24 @@ public:
     virtual             ~World                  ();
 
 protected:
+
+    World                                       ();
+
+protected:
     Entity* root_;
+
+    friend class WorldConstructionAttorney;
+};
+
+class WorldConstructionAttorney
+{
+    template<typename... TArgs>
+    static World*   ConstructInstance(TArgs&&... args)
+    {
+        return new World(args...);
+    }
+
+    friend class ControlledSingleton<World>;
 };
 
 #endif

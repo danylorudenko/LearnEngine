@@ -12,13 +12,14 @@ public:
         return *instance_;
     }
 
-    template<typename... Targs>
-    static void Create(Targs&&... arg)
+    template<typename... TArgs>
+    static void Create(TArgs&&... arg)
     {
         if (instance_ != nullptr) {
             throw std::logic_error("Logical error: singletone already has an instance. Manualy delete the previous one to create a new..");
         }
-        instance_ = new T(std::forward<Targs>(arg)...);
+        instance_ = T::ConstructionAttorney::ConstructInstance(std::forward<TArgs>(arg)...);
+        //instance_ = new T(std::forward<Targs>(arg)...);
     }
 
     static bool IsCreated()

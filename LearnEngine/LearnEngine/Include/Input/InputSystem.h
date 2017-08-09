@@ -7,16 +7,21 @@
 #include <set>
 #include <vector>
 
+class InputSystemConstructionAttorney;
+
 // System for interaction with user keyboard/mouse input.
 // Independently of user-code request, holds the state of pressed/holded/unpressed keys/mouse_pos/etc.
 class InputSystem : public ControlledSingleton<InputSystem>
 {
+public:
+    using ConstructionAttorney                  = InputSystemConstructionAttorney;
+    
+protected:
     //                               key, action
     //using KeyboardEvent = std::tuple<int, int>;
     using CommandsContainer = std::set<int>;
 public:
-    InputSystem                                 (GLFWwindow* window);
-
+    
     InputSystem                                 (const InputSystem& rhs) = delete;
     InputSystem                                 (InputSystem&& rhs) = delete;
     InputSystem&            operator=           (const InputSystem& rhs) = delete;
@@ -33,7 +38,11 @@ public:
 
     // Get mouse position in pixels from the top-left corner of the screen.
     const glm::vec2&        GetMousePos         () const;
+
+
 protected:
+    InputSystem                                 (GLFWwindow* window);
+
     // Called by GLFW to handle user input
     static void key_callback(GLFWwindow* window, int key, int scan_code, int action, int mods);
 
@@ -51,8 +60,20 @@ protected:
     CommandsContainer       up_keys_;
 
     glm::vec2               mouse_position_;
+
+    friend class InputSystemConstructionAttorney;
 };
 
+class InputSystemConstructionAttorney
+{
+    template<typename... TArgs>
+    static InputSystem*     ConstructInstance(TArgs&&... args)
+    {
+        return new InputSystem(args...);
+    }
 
+
+    friend class ControlledSingleton<InputSystem>;
+};
 
 #endif

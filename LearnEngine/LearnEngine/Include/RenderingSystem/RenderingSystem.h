@@ -10,17 +10,19 @@
 
 #include <vector>
 
+class RenderingSystemConstructionAttorney;
+
 // System responsible for maintaining rendering list, 
 // changing state of OpenGL, sending rendering commands.
 class RenderingSystem : public ControlledSingleton<RenderingSystem>
 {
+public:
+    using ConstructionAttorney                      = RenderingSystemConstructionAttorney;
+
+protected:
     using RenderingListContainter                   = std::vector<GLObject*>;
 
 public:
-    RenderingSystem                                 (GLFWwindow* window,
-                                                     int viewport_X, int viewport_Y, 
-                                                     CameraEntity* main_cam);
-
     RenderingSystem                                 (const RenderingSystem& rhs) = delete;
     RenderingSystem                                 (RenderingSystem&& rhs) = delete;
     
@@ -49,6 +51,10 @@ public:
     void                RemoveFromRenderingList     (GLObject* to_remove);
 
 protected:
+    RenderingSystem                                 (GLFWwindow* window,
+                                                     int viewport_X, int viewport_Y, 
+                                                     CameraEntity* main_cam);
+
     // Main rendering logic. Setting states and drawing.
     void                DrawAll                     ();
 
@@ -66,6 +72,20 @@ protected:
     RenderingListContainter                 rendering_list_;
 
     RenderingSystemUniformBuffer            uniform_buffer_;
+
+    friend class RenderingSystemConstructionAttorney;
+};
+
+class RenderingSystemConstructionAttorney
+{
+private:
+    template<typename... TArgs>
+    static RenderingSystem*    ConstructInstance(TArgs&& ...args)
+    {
+        return new RenderingSystem(args...);
+    }
+
+    friend class ControlledSingleton<RenderingSystem>;
 };
 
 #endif

@@ -1,6 +1,6 @@
 {
 	"rendering_system_config" : {
 		"gl_verstion" : "4.5",
-		"default_renderer" : "forward"
+		"default_renderer" : "forward",
 	}
 }

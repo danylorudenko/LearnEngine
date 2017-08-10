@@ -10,8 +10,6 @@ class Entity;
 class Component
 {
 public:
-    // Default component setup, no owner, no system.
-    Component                               ();
 
     Component                               (const Component& rhs) = delete;
     Component&          operator=           (const Component& rhs) = delete;
@@ -24,6 +22,10 @@ public:
     Entity&             GetOwner            ();
 
 protected:
+
+    // Default component setup, no owner, no system.
+    Component();
+
     // Pure setting of the owner pointer.
     // Used in Component Registration mechanism.
     void                SetOwner            (Entity* owner);

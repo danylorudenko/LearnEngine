@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "..\Component.h"
+#include "..\ComponentFactory.h"
 #include "..\..\Material\Material.h"
 #include "..\..\VertexData\VertexData.h"
 
@@ -11,6 +12,10 @@
 // Contains logic for setting context of OpenGL.
 class GLObject : public Component
 {
+protected:
+    GLObject                                        ();
+    friend class ComponentFactory<GLObject>;
+
 protected:
     // ========== Component interface =============
     
@@ -27,7 +32,6 @@ protected:
 public:
     // ========== Construction and operators ==========
 
-    GLObject                                        (std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material);
     GLObject                                        (const GLObject& rhs) = delete;
                                                     
     GLObject&                operator=              (const GLObject& rhs) = delete;
@@ -47,6 +51,7 @@ public:
     // Perform binding of all conventional and additional buffers needed for rendering of GLObject.
     virtual void                        BindToRender                ();
 
+    void                                SetMainMaterial             (const std::shared_ptr<Material>& material);
     virtual std::shared_ptr<Material>   GetMainMaterialShared       ();
     virtual Material&                   GetMainMaterial             ();
 

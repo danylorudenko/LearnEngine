@@ -2,6 +2,7 @@
 #define __SCRIPT_H__
 
 #include "..\Component.h"
+#include "..\ComponentFactory.h"
 
 class ScriptingSystem;
 
@@ -12,8 +13,11 @@ class ScriptingSystem;
 // All callbacks are empy and to be implemented by the inheriting script.
 class Script : public Component
 {
-public:
+protected:
     Script                                                  ();
+    friend class ComponentFactory<Script>;
+
+public:
     Script                                                  (const Script& rhs);
     Script                                                  (Script&& rhs);
 

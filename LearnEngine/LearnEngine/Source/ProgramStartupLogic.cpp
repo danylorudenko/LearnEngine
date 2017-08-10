@@ -102,16 +102,25 @@ void Program::StartupLogic()
     display_gl_errors();
     auto material = std::shared_ptr<Material>(new Material(test_cube_shader));
     display_gl_errors();
+    material->SetShader(test_cube_shader);
     material->AddTexture(0, texture_controller);
     display_gl_errors();
+
+
     auto* entity = Entity::CreateEntity();
     entity->Transform().SetPosition(glm::vec3(0.0f, -0.5f, 6.0f));
-    entity->AddComponent(new GLObject(vertex_data, material));
+    auto gl_obj = entity->AddComponent<GLObject>();
+    gl_obj->SetMainMaterial(material);
+    gl_obj->SetVertexData(vertex_data);
+
 
     auto* entity2 = Entity::CreateEntity();
     entity2->Transform().SetPosition(2.0f, 0.0f, 3.0f);
-    entity2->AddComponent(new GLObject(vertex_data, material));
+    auto gl_obj2 = entity2->AddComponent<GLObject>();
+    gl_obj2->SetMainMaterial(material);
+    gl_obj2->SetVertexData(vertex_data);
 
-    entity->AddComponent(new Rotator());
-    entity2->AddComponent(new Rotator());
+
+    entity->AddComponent<Rotator>();
+    entity2->AddComponent<Rotator>();
 }

@@ -6,6 +6,7 @@
 template<typename T>
 class ConstructionAttorneyTemplate
 {
+private:
     template<typename... TArgs>
     static T* ConstructInstance(TArgs&&... args)
     {

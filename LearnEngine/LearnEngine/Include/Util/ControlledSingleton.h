@@ -19,7 +19,6 @@ public:
             throw std::logic_error("Logical error: singletone already has an instance. Manualy delete the previous one to create a new..");
         }
         instance_ = T::ConstructionAttorney::ConstructInstance(std::forward<TArgs>(arg)...);
-        //instance_ = new T(std::forward<Targs>(arg)...);
     }
 
     static bool IsCreated()

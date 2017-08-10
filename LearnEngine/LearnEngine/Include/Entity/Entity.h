@@ -9,6 +9,8 @@
 
 #include "..\Util\HierarchyMember.h"
 #include "..\Component\Component.h"
+#include "..\Component\ComponentFactory.h"
+#include "..\Component\ComponentRegistrationAttorney.h"
 #include "..\Util\GLTransformation\GLTransform.h"
 
 // Main structural unit in the World.
@@ -61,7 +63,16 @@ public:
 
     // Adds component to the internal list and sets its owner to self.
     // Performs registration of the component in the contolling system, if needed.
-    void                            AddComponent                (Component* component);
+    template<typename TComponent>
+    TComponent*                     AddComponent                ()
+    {
+        TComponent* component = ComponentFactory<TComponent>::ConstructComponent();
+        components_.push_back(component);
+        ComponentRegistrationAttorney::SetComponentOwner(component, this);
+        ComponentRegistrationAttorney::RegisterInSystem(component);
+
+        return component;
+    }
 
     // Removes pointer to the component and unregisters component from engines subsystems, if needed.
     // Removes owner pointer for the component.

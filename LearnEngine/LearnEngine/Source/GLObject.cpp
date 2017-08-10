@@ -2,10 +2,8 @@
 #include "..\Include\Entity\Entity.h"
 #include "..\Include\RenderingSystem\RenderingSystem.h"
 
-GLObject::GLObject(std::shared_ptr<VertexData> vertex_data, std::shared_ptr<Material> main_material) :
-    Component(),
-    vertex_data_    (vertex_data), 
-    main_material_  (main_material)
+GLObject::GLObject() :
+    Component()
 {
     
 }
@@ -48,6 +46,11 @@ void GLObject::BindToRender()
     BindStandardUnifromBlocks();
 
     vertex_data_->Bind();
+}
+
+void GLObject::SetMainMaterial(const std::shared_ptr<Material>& material)
+{
+    main_material_ = material;
 }
 
 std::shared_ptr<Material> GLObject::GetMainMaterialShared()

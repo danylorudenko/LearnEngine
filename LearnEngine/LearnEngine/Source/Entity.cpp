@@ -1,5 +1,4 @@
 #include "..\Include\Entity\Entity.h"
-#include "..\Include\Component\ComponentRegistrationAttorney.h"
 #include "..\Include\World\World.h"
 
 Entity* Entity::CreateEntity()
@@ -60,13 +59,6 @@ Entity::Entity(Entity* parent) :
 Entity::~Entity()
 {
     RemoveAllComponents();
-}
-
-void Entity::AddComponent(Component* component)
-{
-    components_.push_back(component);
-    ComponentRegistrationAttorney::SetComponentOwner(component, this);
-    ComponentRegistrationAttorney::RegisterInSystem(component);
 }
 
 void Entity::RemoveComponent(Component* component)

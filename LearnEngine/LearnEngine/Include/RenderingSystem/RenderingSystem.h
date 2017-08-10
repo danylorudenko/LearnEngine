@@ -4,20 +4,19 @@
 #include "..\Entity\CameraEntity.h"
 #include "..\Component\GLObject\GLObject.h"
 #include "RenderingSystemUniformBuffer.h"
-#include "..\Util\ControlledSingleton.h"
+#include "..\Util\ConstructionAttorneyTemplate.h"
 
 #include <GLFW\glfw3.h>
 
 #include <vector>
-
-class RenderingSystemConstructionAttorney;
 
 // System responsible for maintaining rendering list, 
 // changing state of OpenGL, sending rendering commands.
 class RenderingSystem : public ControlledSingleton<RenderingSystem>
 {
 public:
-    using ConstructionAttorney                      = RenderingSystemConstructionAttorney;
+    using ConstructionAttorney = ConstructionAttorneyTemplate<RenderingSystem>;
+    friend class ConstructionAttorney;
 
 protected:
     using RenderingListContainter                   = std::vector<GLObject*>;
@@ -72,20 +71,6 @@ protected:
     RenderingListContainter                 rendering_list_;
 
     RenderingSystemUniformBuffer            uniform_buffer_;
-
-    friend class RenderingSystemConstructionAttorney;
-};
-
-class RenderingSystemConstructionAttorney
-{
-private:
-    template<typename... TArgs>
-    static RenderingSystem*    ConstructInstance(TArgs&& ...args)
-    {
-        return new RenderingSystem(args...);
-    }
-
-    friend class ControlledSingleton<RenderingSystem>;
 };
 
 #endif

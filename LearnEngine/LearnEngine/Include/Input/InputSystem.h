@@ -3,18 +3,17 @@
 
 #include <GLFW\glfw3.h>
 #include <glm\vec2.hpp>
-#include "..\Util\ControlledSingleton.h"
+#include "..\Util\ConstructionAttorneyTemplate.h"
 #include <set>
 #include <vector>
-
-class InputSystemConstructionAttorney;
 
 // System for interaction with user keyboard/mouse input.
 // Independently of user-code request, holds the state of pressed/holded/unpressed keys/mouse_pos/etc.
 class InputSystem : public ControlledSingleton<InputSystem>
 {
 public:
-    using ConstructionAttorney                  = InputSystemConstructionAttorney;
+    using ConstructionAttorney                  = ConstructionAttorneyTemplate<InputSystem>;
+    friend class ConstructionAttorney;
     
 protected:
     //                               key, action
@@ -60,20 +59,6 @@ protected:
     CommandsContainer       up_keys_;
 
     glm::vec2               mouse_position_;
-
-    friend class InputSystemConstructionAttorney;
-};
-
-class InputSystemConstructionAttorney
-{
-    template<typename... TArgs>
-    static InputSystem*     ConstructInstance(TArgs&&... args)
-    {
-        return new InputSystem(args...);
-    }
-
-
-    friend class ControlledSingleton<InputSystem>;
 };
 
 #endif

@@ -1,0 +1,18 @@
+#ifndef __CONSTRUCTION_ATTORNEY_H__
+#define __CONSTRUCTION_ATTORNEY_H__
+
+#include "ControlledSingleton.h"
+
+template<typename T>
+class ConstructionAttorneyTemplate
+{
+    template<typename... TArgs>
+    static T* ConstructInstance(TArgs&&... args)
+    {
+        return new T(args...);
+    }
+
+    friend class ControlledSingleton<T>;
+};
+
+#endif

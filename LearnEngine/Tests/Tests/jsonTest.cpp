@@ -19,10 +19,6 @@ int main()
 
     Document document;
     document.ParseStream(read_stream);
-    /*unsigned long long i = 0;
-    for (i = 0; i < 0xffffffffffffffff; i++) {
-        int opui = i - i;
-    }*/
 
     fclose(file);
 

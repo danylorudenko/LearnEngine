@@ -1,10 +1,8 @@
 #ifndef __WORLD_H__
 #define __WORLD_H__
 
-#include "..\Util\ControlledSingleton.h"
+#include "..\Util\ConstructionAttorneyTemplate.h"
 #include "..\Entity\Entity.h"
-
-class WorldConstructionAttorney;
 
 // Main world where all actions are performed.
 // Must aggregate all created Entities.
@@ -12,7 +10,8 @@ class WorldConstructionAttorney;
 class World : public ControlledSingleton<World>
 {
 public:
-    using ConstructionAttorney                  = WorldConstructionAttorney;
+    using ConstructionAttorney                  = ConstructionAttorneyTemplate<World>;
+    friend class ConstructionAttorney;
 
     
     World                                       (const World& rhs) = delete;
@@ -37,19 +36,6 @@ protected:
 
 protected:
     Entity* root_;
-
-    friend class WorldConstructionAttorney;
-};
-
-class WorldConstructionAttorney
-{
-    template<typename... TArgs>
-    static World*   ConstructInstance(TArgs&&... args)
-    {
-        return new World(args...);
-    }
-
-    friend class ControlledSingleton<World>;
 };
 
 #endif

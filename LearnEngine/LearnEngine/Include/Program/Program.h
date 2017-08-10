@@ -1,16 +1,15 @@
 #ifndef __PROGRAM_H__
 #define __PROGRAM_H__
 
-#include "..\Util\ControlledSingleton.h"
+#include "..\Util\ConstructionAttorneyTemplate.h"
 #include "..\Util\InitUtils.h"
-
-class ProgramConstructionAttorney;
 
 // The highest facade for engine launching.
 class Program : public ControlledSingleton<Program>
 {
 public:
-    using ConstructionAttorney      = ProgramConstructionAttorney;
+    using ConstructionAttorney      = ConstructionAttorneyTemplate<Program>;
+    friend class ConstructionAttorney;
 
     static constexpr unsigned int           DEFAULT_RESOLUTION_X = 800;
     static constexpr unsigned int           DEFAULT_RESOLUTION_Y = 600;
@@ -43,20 +42,6 @@ protected:
 
 protected:
     GLFWwindow* main_window_;
-
-    friend class ProgramConstructionAttorney;
-};
-
-class ProgramConstructionAttorney
-{
-private:
-    template<typename... TArgs>
-    static Program*    ConstructInstance(TArgs&&... args)
-    {
-        return new Program(args...);
-    }
-
-    friend class ControlledSingleton<Program>;
 };
 
 #endif

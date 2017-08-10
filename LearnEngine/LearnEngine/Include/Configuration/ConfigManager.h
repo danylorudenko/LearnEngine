@@ -30,7 +30,6 @@ public:
 protected:
     ConfigManager                                       (const char* main_config_file_name);
 
-    Value
     
 protected:
     const std::string&      main_config_file_;

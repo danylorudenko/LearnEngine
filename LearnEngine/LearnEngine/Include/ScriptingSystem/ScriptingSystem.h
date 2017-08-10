@@ -4,16 +4,15 @@
 #include <vector>
 #include <queue>
 
-#include "..\Util\ControlledSingleton.h"
+#include "..\Util\ConstructionAttorneyTemplate.h"
 #include "..\Component\Script\Script.h"
-
-class ScriptingSystemConstructionAttorney;
 
 // System responsible for maintaining Script components to trigger custom Entity behaviour.
 class ScriptingSystem : public ControlledSingleton<ScriptingSystem>
 {
 public:
-    using ConstructionAttorney                              = ScriptingSystemConstructionAttorney;
+    using ConstructionAttorney                              = ConstructionAttorneyTemplate<ScriptingSystem>;
+    friend class ConstructionAttorney;
 
 protected:
     using StartCallback                                     = void(Script::*)();
@@ -57,17 +56,6 @@ protected:
 protected:
     StartCallbackQueue              start_queue_;
     TickCallbackList                ticking_scripts_;
-};
-
-class ScriptingSystemConstructionAttorney
-{
-    template<typename... TArgs>
-    static ScriptingSystem*    ConstructInstance(TArgs&&... args)
-    {
-        return new ScriptingSystem(args...);
-    }
-
-    friend class ControlledSingleton<ScriptingSystem>;
 };
 
 #endif

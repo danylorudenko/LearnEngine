@@ -2,15 +2,14 @@
 #define __COMPONENT_H__
 
 #include <utility>
-
-class Entity;
-
+#include "ComponentFactory.h"
 
 // Base abtract class for all components which can be attached to the 
 class Component
 {
-public:
+    template <typename> friend class ComponentFactory;
 
+public:
     Component                               (const Component& rhs) = delete;
     Component&          operator=           (const Component& rhs) = delete;
     Component                               (Component&& rhs) = delete;
@@ -41,8 +40,6 @@ protected:
 
 protected:
     Entity* owner_;
-
-    friend class ComponentRegistrationAttorney;
 };
 
 #endif

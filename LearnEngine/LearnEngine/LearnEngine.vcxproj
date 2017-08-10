@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Include\Component\Light\Light.cpp" />
     <ClCompile Include="Resources\Scripts\Rotator.cpp" />
     <ClCompile Include="Source\ConfigManager.cpp" />
     <ClCompile Include="Source\DeferredRenderer.cpp" />

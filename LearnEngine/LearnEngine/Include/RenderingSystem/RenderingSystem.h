@@ -17,6 +17,8 @@ class RenderingSystem : public ControlledSingleton<RenderingSystem>
 public:
     using ConstructionAttorney = ConstructionAttorneyTemplate<RenderingSystem>;
     friend class ConstructionAttorney;
+    friend class ComponentFactory<Light>;
+    friend class ComponentFactory<GLObject>;
 
 protected:
     using RenderingListContainter                   = std::vector<GLObject*>;
@@ -43,16 +45,17 @@ public:
     // Set viewport for rendering.
     void                SetViewport                 (int resolution_X, int resolution_Y);
 
+protected:
+    RenderingSystem                                 (GLFWwindow* window,
+                                                     int viewport_X, int viewport_Y, 
+                                                     CameraEntity* main_cam);
+
     // Add new GLObject to the rendering list.
     void                AddToRenderingList          (GLObject* to_add);
 
     // Remove GLObject from the rendering list.
     void                RemoveFromRenderingList     (GLObject* to_remove);
 
-protected:
-    RenderingSystem                                 (GLFWwindow* window,
-                                                     int viewport_X, int viewport_Y, 
-                                                     CameraEntity* main_cam);
 
     // Main rendering logic. Setting states and drawing.
     void                DrawAll                     ();

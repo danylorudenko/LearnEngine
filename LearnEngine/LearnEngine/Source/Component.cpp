@@ -8,7 +8,7 @@ Component::Component() : owner_(nullptr)
 
 Component::~Component()
 {
-    UnregisterFromSystem();
+    //UnregisterFromSystem();
 }
 
 Entity& Component::GetOwner()
@@ -21,14 +21,14 @@ void Component::SetOwner(Entity* owner)
     owner_ = owner;
 }
 
-void Component::RegisterInSystem()
-{
-    if (owner_ == nullptr) {
-        throw std::logic_error("Can't register component which is not attached to any entity.");
-    }
-}
-
-void Component::UnregisterFromSystem()
-{
-    owner_ = nullptr;
-}
+//void Component::RegisterInSystem()
+//{
+//    if (owner_ == nullptr) {
+//        throw std::logic_error("Can't register component which is not attached to any entity.");
+//    }
+//}
+//
+//void Component::UnregisterFromSystem()
+//{
+//    owner_ = nullptr;
+//}

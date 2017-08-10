@@ -29,15 +29,15 @@ Script& Script::operator=(Script&& rhs)
     return *this;
 }
 
-void Script::RegisterInSystem()
-{
-    OnRegistered(); 
-}
-
-void Script::UnregisterFromSystem()
-{
-    OnUnregistered();
-}
+//void Script::RegisterInSystem()
+//{
+//    OnRegistered(); 
+//}
+//
+//void Script::UnregisterFromSystem()
+//{
+//    OnUnregistered();
+//}
 
 void Script::SetTicking(bool value)
 {

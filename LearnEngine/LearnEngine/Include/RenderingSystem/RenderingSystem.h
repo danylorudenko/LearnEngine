@@ -44,6 +44,12 @@ public:
     // Set new main camera. Only one camera is currently supported.
     void                SetMainCamera               (CameraEntity * main_cam);
 
+
+protected:
+    RenderingSystem                                 (GLFWwindow* window,
+                                                     int viewport_X, int viewport_Y, 
+                                                     CameraEntity* main_cam);
+
     // Set viewport for rendering.
     void                SetViewport                 (int resolution_X, int resolution_Y);
 
@@ -52,11 +58,6 @@ public:
 
     // Remove GLObject from the rendering list.
     void                RemoveFromRenderingList     (GLObject* to_remove);
-
-protected:
-    RenderingSystem                                 (GLFWwindow* window,
-                                                     int viewport_X, int viewport_Y, 
-                                                     CameraEntity* main_cam);
 
     // Main rendering logic. Setting states and drawing.
     void                DrawAll                     ();

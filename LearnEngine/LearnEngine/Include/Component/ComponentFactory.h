@@ -16,6 +16,11 @@ private:
         component->SetOwner(owner);
         return new TComponent();
     }
+
+    static void DestroyComponent(TComponent* component)
+    {
+        delete component;
+    }
 };
 
 template<>

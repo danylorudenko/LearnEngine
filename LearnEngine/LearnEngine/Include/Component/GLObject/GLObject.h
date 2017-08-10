@@ -4,9 +4,10 @@
 #include <memory>
 
 #include "..\Component.h"
-#include "..\ComponentFactory.h"
 #include "..\..\Material\Material.h"
 #include "..\..\VertexData\VertexData.h"
+
+template<typename TComponent> class ComponentFactory;
 
 // Represents component that allows Entity to be drawn in the scene.
 // Contains logic for setting context of OpenGL.

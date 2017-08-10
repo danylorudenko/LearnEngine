@@ -5,10 +5,14 @@
 
 class Entity;
 
+template<typename TComponent> class ComponentFactory;
 
 // Base abtract class for all components which can be attached to the 
 class Component
 {
+    template<typename TComponent>
+    friend class ComponentFactory;
+
 public:
 
     Component                               (const Component& rhs) = delete;
@@ -42,7 +46,7 @@ protected:
 protected:
     Entity* owner_;
 
-    friend class ComponentRegistrationAttorney;
+    //friend class ComponentRegistrationAttorney;
 };
 
 #endif

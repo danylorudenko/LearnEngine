@@ -66,10 +66,8 @@ public:
     template<typename TComponent>
     TComponent*                     AddComponent                ()
     {
-        TComponent* component = ComponentFactory<TComponent>::ConstructComponent();
+        TComponent* component = ComponentFactory<TComponent>::ConstructComponent(this);
         components_.push_back(component);
-        ComponentRegistrationAttorney::SetComponentOwner(component, this);
-        ComponentRegistrationAttorney::RegisterInSystem(component);
 
         return component;
     }

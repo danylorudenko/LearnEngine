@@ -37,6 +37,12 @@ private:
         RenderingSystem::Instance().AddToRenderingList(component);
         return new GLObject();
     }
+
+    static void DestroyComponent(GLObject* component)
+    {
+        RenderingSystem::Instance().RemoveFromRenderingList(component);
+        delete component;
+    }
 };
 
 #endif

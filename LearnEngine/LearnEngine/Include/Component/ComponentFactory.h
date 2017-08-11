@@ -34,7 +34,7 @@ private:
     {
         GLObject* component = new GLObject();
         component->SetOwner(owner);
-        //RenderingSystem::Instance().AddToRenderingList(component);
+        RenderingSystem::Instance().AddToRenderingList(component);
         return new GLObject();
     }
 };

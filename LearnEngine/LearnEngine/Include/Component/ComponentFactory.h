@@ -3,6 +3,7 @@
 
 #include "..\Entity\Entity.h"
 #include "GLObject\GLObject.h"
+#include "..\RenderingSystem\RenderingSystem.h"
 
 template<typename TComponent>
 class ComponentFactory
@@ -33,6 +34,7 @@ private:
     {
         GLObject* component = new GLObject();
         component->SetOwner(owner);
+        //RenderingSystem::Instance().AddToRenderingList(component);
         return new GLObject();
     }
 };

@@ -9,7 +9,6 @@
 
 #include "..\Util\HierarchyMember.h"
 #include "..\Component\Component.h"
-#include "..\Component\ComponentFactory.h"
 #include "..\Component\ComponentRegistrationAttorney.h"
 #include "..\Util\GLTransformation\GLTransform.h"
 

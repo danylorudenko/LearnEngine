@@ -17,7 +17,7 @@ template<typename TComponent> class ComponentFactory;
 class RenderingSystem : public ControlledSingleton<RenderingSystem>
 {
 public:
-    using ConstructionAttorney = ConstructionAttorneyTemplate<RenderingSystem>;
+    using ConstructionAttorney = SingletonConstructionAttorneyTemplate<RenderingSystem>;
     friend class ConstructionAttorney;
 
     friend class ComponentFactory<GLObject>;
@@ -39,7 +39,7 @@ public:
     void                Clear                       ();
 
     // Main camera rendering.
-    CameraEntity&       GetMainCamera         ();
+    CameraEntity&       GetMainCamera               ();
 
     // Set new main camera. Only one camera is currently supported.
     void                SetMainCamera               (CameraEntity * main_cam);

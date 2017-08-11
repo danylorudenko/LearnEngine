@@ -4,7 +4,7 @@
 #include "ControlledSingleton.h"
 
 template<typename T>
-class ConstructionAttorneyTemplate
+class SingletonConstructionAttorneyTemplate
 {
 private:
     template<typename... TArgs>

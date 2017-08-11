@@ -8,7 +8,7 @@
 class Program : public ControlledSingleton<Program>
 {
 public:
-    using ConstructionAttorney      = ConstructionAttorneyTemplate<Program>;
+    using ConstructionAttorney      = SingletonConstructionAttorneyTemplate<Program>;
     friend class ConstructionAttorney;
 
     static constexpr unsigned int           DEFAULT_RESOLUTION_X = 800;

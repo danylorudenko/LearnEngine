@@ -7,13 +7,8 @@
 Rotator::Rotator() :
     y_rotation_(0.0f)
 {
-}
-
-void Rotator::OnRegistered()
-{
     SetTicking(true);
 }
-
 
 void Rotator::Tick()
 {

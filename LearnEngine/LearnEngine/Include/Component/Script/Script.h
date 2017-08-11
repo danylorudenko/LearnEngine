@@ -18,11 +18,11 @@ protected:
     friend class ComponentFactory<Script>;
 
 public:
-    Script                                                  (const Script& rhs);
-    Script                                                  (Script&& rhs);
+    Script                                                  (const Script& rhs) = delete;
+    Script                                                  (Script&& rhs) = delete;
 
-    Script&                     operator=                   (const Script& rhs);
-    Script&                     operator=                   (Script&& rhs);
+    Script&                     operator=                   (const Script& rhs) = delete;
+    Script&                     operator=                   (Script&& rhs) = delete;
 
     // Explicit adding OnStart callback to the Scripting system START queue.
     // OnStart will be called on the next iteration.
@@ -46,10 +46,10 @@ protected:
     virtual void                OnStart                     () { };
 
     // This callback is called right after Script was registered in Scripting system.
-    virtual void                OnRegistered                () { };
+    //virtual void                OnRegistered                () { };
 
     // This callback is called right after Script was removed from Scripting system.
-    virtual void                OnUnregistered              () { };
+    //virtual void                OnUnregistered              () { };
 
     // This callback can be called every Scripting system iteraction, if enabled.
     virtual void                Tick                        () { };

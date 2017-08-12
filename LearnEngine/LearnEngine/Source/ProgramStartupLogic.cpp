@@ -1,7 +1,7 @@
 #include "..\Include\Program\Program.h"
 #include "..\Include\Entity\Entity.h"
 #include "..\Include\Util\Debugging\DebugTools.h"
-#include "..\Resources\Scripts\Rotator.h"
+#include "..\Resources\Scripts\CameraController.h"
 
 void Program::StartupLogic()
 {
@@ -117,5 +117,6 @@ void Program::StartupLogic()
     gl_obj2->SetMainMaterial(material);
     gl_obj2->SetVertexData(vertex_data);
 
-    
+
+    RenderingSystem::Instance().GetMainCamera().AddComponent<CameraController>();
 }

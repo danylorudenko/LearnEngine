@@ -26,6 +26,8 @@ public:
     InputSystem&            operator=           (const InputSystem& rhs) = delete;
     InputSystem&            operator=           (InputSystem&& rhs) = delete;
 
+    void                    ResetDeltas             ();
+
     // Check if key is was pressed down after the last system iteration (frame).
     bool                    GetKeyDown          (int glfw_code) const;
 
@@ -35,12 +37,20 @@ public:
     // Check if key is being pressed after any previous iterations.
     bool                    GetKey              (int glfw_code) const;
 
+    void                    EnableCursor        () const;
+    
+    void                    DisableCursor       () const;
+
     // Get mouse position in pixels from the top-left corner of the screen.
     const glm::vec2&        GetMousePos         () const;
+
+    const glm::vec2&        GetMouseDelta       () const;
 
 
 protected:
     InputSystem                                 (GLFWwindow* window);
+
+    glm::vec2               ComputeMouseDelta   (glm::vec2& new_pos);
 
     // Called by GLFW to handle user input
     static void key_callback(GLFWwindow* window, int key, int scan_code, int action, int mods);
@@ -59,6 +69,7 @@ protected:
     CommandsContainer       up_keys_;
 
     glm::vec2               mouse_position_;
+    glm::vec2               mouse_delta_;
 };
 
 #endif

@@ -12,6 +12,8 @@ public:
 
 protected:
     virtual void Tick() override;
+
+    bool cursor_on_;
 };
 
 #endif

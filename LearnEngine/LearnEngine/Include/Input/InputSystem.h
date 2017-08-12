@@ -26,7 +26,7 @@ public:
     InputSystem&            operator=           (const InputSystem& rhs) = delete;
     InputSystem&            operator=           (InputSystem&& rhs) = delete;
 
-    void                    ResetDeltas             ();
+    void                    ResetFrameData      ();
 
     // Check if key is was pressed down after the last system iteration (frame).
     bool                    GetKeyDown          (int glfw_code) const;

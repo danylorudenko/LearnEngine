@@ -13,6 +13,9 @@ public:
 protected:
     virtual void Tick() override;
 
+    float x_rotation_;
+    float y_rotation_;
+
     bool cursor_on_;
 };
 

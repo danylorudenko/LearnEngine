@@ -59,7 +59,7 @@ void Program::StartMainLoop()
 
         ScriptingSystem::Instance().Iterate();
         RenderingSystem::Instance().Iterate();
-        InputSystem::Instance().ResetDeltas();
+        InputSystem::Instance().ResetFrameData();
     }
 }
 

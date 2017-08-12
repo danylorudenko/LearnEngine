@@ -6,9 +6,6 @@ void InputSystem::key_callback(GLFWwindow* window, int key, int scan_code, int a
 {
     auto& system = Instance();
 
-    system.down_keys_.clear();
-    system.up_keys_.clear();
-
     if (action == GLFW_PRESS) {
         system.holded_keys_.insert(key);
         system.down_keys_.insert(key);
@@ -41,8 +38,6 @@ void InputSystem::mouse_button_callback(GLFWwindow* window, int key, int action,
     }
 }
 
-
-
 InputSystem::InputSystem(GLFWwindow* window) :
     context_window_(window),
     mouse_position_(0.0f),
@@ -58,9 +53,12 @@ glm::vec2 InputSystem::ComputeMouseDelta(glm::vec2 & new_pos)
    return mouse_position_ - new_pos;
 }
 
-void InputSystem::ResetDeltas()
+void InputSystem::ResetFrameData()
 {
     mouse_delta_ = glm::vec2(0.0f);
+
+    Instance().down_keys_.clear();
+    Instance().up_keys_.clear();
 }
 
 bool InputSystem::GetKeyDown(int glfw_code) const

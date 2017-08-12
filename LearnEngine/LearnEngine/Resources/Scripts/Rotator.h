@@ -12,7 +12,6 @@ public:
 
 protected:
     virtual void Tick() override;
-    virtual void OnRegistered() override;
 
     virtual ~Rotator() override { };
 

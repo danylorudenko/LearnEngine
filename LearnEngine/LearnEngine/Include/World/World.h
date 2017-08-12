@@ -10,7 +10,7 @@
 class World : public ControlledSingleton<World>
 {
 public:
-    using ConstructionAttorney                  = ConstructionAttorneyTemplate<World>;
+    using ConstructionAttorney                  = SingletonConstructionAttorneyTemplate<World>;
     friend class ConstructionAttorney;
 
     

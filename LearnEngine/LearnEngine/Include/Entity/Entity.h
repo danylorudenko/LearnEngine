@@ -9,7 +9,6 @@
 
 #include "..\Util\HierarchyMember.h"
 #include "..\Component\Component.h"
-#include "..\Component\ComponentFactory.h"
 #include "..\Component\ComponentRegistrationAttorney.h"
 #include "..\Util\GLTransformation\GLTransform.h"
 
@@ -66,10 +65,8 @@ public:
     template<typename TComponent>
     TComponent*                     AddComponent                ()
     {
-        TComponent* component = ComponentFactory<TComponent>::ConstructComponent();
+        TComponent* component = ComponentFactory<TComponent>::ConstructComponent(this);
         components_.push_back(component);
-        ComponentRegistrationAttorney::SetComponentOwner(component, this);
-        ComponentRegistrationAttorney::RegisterInSystem(component);
 
         return component;
     }

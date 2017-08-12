@@ -11,7 +11,7 @@
 class ScriptingSystem : public ControlledSingleton<ScriptingSystem>
 {
 public:
-    using ConstructionAttorney                              = ConstructionAttorneyTemplate<ScriptingSystem>;
+    using ConstructionAttorney                              = SingletonConstructionAttorneyTemplate<ScriptingSystem>;
     friend class ConstructionAttorney;
 
 protected:

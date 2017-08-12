@@ -18,11 +18,11 @@ protected:
     friend class ComponentFactory<Script>;
 
 public:
-    Script                                                  (const Script& rhs);
-    Script                                                  (Script&& rhs);
+    Script                                                  (const Script& rhs) = delete;
+    Script                                                  (Script&& rhs) = delete;
 
-    Script&                     operator=                   (const Script& rhs);
-    Script&                     operator=                   (Script&& rhs);
+    Script&                     operator=                   (const Script& rhs) = delete;
+    Script&                     operator=                   (Script&& rhs) = delete;
 
     // Explicit adding OnStart callback to the Scripting system START queue.
     // OnStart will be called on the next iteration.
@@ -33,23 +33,9 @@ public:
     void                        SetTicking                  (bool value);
 
 protected:
-    // Performs proper registration of script in the scripting system.
-    // Registration is performed right after script is attached to the Entity as a component.
-    virtual void                RegisterInSystem            () override;
-
-    // Performs proper removal of script from the scripting system.
-    // Removals is performed when the Script is removed from Entity manually or when Entity is destroyed.
-    virtual void                UnregisterFromSystem        () override;
-
     // This callback can be called once in the start of Scripting system iteration.
     // To be called this callback must be registered via Script::RegisterStart().
     virtual void                OnStart                     () { };
-
-    // This callback is called right after Script was registered in Scripting system.
-    virtual void                OnRegistered                () { };
-
-    // This callback is called right after Script was removed from Scripting system.
-    virtual void                OnUnregistered              () { };
 
     // This callback can be called every Scripting system iteraction, if enabled.
     virtual void                Tick                        () { };

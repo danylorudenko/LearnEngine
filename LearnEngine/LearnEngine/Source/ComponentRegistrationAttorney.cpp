@@ -2,15 +2,15 @@
 
 void ComponentRegistrationAttorney::SetComponentOwner(Component* component, Entity* owner)
 {
-    component->SetOwner(owner);
+    //component->SetOwner(owner);
 }
 
 void ComponentRegistrationAttorney::RegisterInSystem(Component* component)
 {
-    component->RegisterInSystem();
+    //component->RegisterInSystem();
 }
 
 void ComponentRegistrationAttorney::UnregisterFromSystem(Component* component)
 {
-    component->UnregisterFromSystem();
+    //component->UnregisterFromSystem();
 }

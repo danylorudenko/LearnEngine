@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Include\Component\Light\Light.cpp" />
+    <ClCompile Include="Resources\Scripts\CameraController.cpp" />
     <ClCompile Include="Resources\Scripts\Rotator.cpp" />
     <ClCompile Include="Source\ConfigManager.cpp" />
     <ClCompile Include="Source\DeferredRenderer.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Include\VertexData\VertexAttribData.h" />
     <ClInclude Include="Include\VertexData\VertexData.h" />
     <ClInclude Include="Include\World\World.h" />
+    <ClInclude Include="Resources\Scripts\CameraController.h" />
     <ClInclude Include="Resources\Scripts\Rotator.h" />
   </ItemGroup>
   <ItemGroup>

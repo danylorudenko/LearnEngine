@@ -12,7 +12,7 @@
 class InputSystem : public ControlledSingleton<InputSystem>
 {
 public:
-    using ConstructionAttorney                  = ConstructionAttorneyTemplate<InputSystem>;
+    using ConstructionAttorney                  = SingletonConstructionAttorneyTemplate<InputSystem>;
     friend class ConstructionAttorney;
     
 protected:

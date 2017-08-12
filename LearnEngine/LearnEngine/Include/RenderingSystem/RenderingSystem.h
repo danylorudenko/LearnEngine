@@ -10,14 +10,16 @@
 
 #include <vector>
 
+template<typename TComponent> class ComponentFactory;
+
 // System responsible for maintaining rendering list, 
 // changing state of OpenGL, sending rendering commands.
 class RenderingSystem : public ControlledSingleton<RenderingSystem>
 {
 public:
-    using ConstructionAttorney = ConstructionAttorneyTemplate<RenderingSystem>;
+    using ConstructionAttorney = SingletonConstructionAttorneyTemplate<RenderingSystem>;
     friend class ConstructionAttorney;
-    friend class ComponentFactory<Light>;
+
     friend class ComponentFactory<GLObject>;
 
 protected:
@@ -37,25 +39,25 @@ public:
     void                Clear                       ();
 
     // Main camera rendering.
-    CameraEntity&       GetMainCamera         ();
+    CameraEntity&       GetMainCamera               ();
 
     // Set new main camera. Only one camera is currently supported.
     void                SetMainCamera               (CameraEntity * main_cam);
 
-    // Set viewport for rendering.
-    void                SetViewport                 (int resolution_X, int resolution_Y);
 
 protected:
     RenderingSystem                                 (GLFWwindow* window,
                                                      int viewport_X, int viewport_Y, 
                                                      CameraEntity* main_cam);
 
+    // Set viewport for rendering.
+    void                SetViewport                 (int resolution_X, int resolution_Y);
+
     // Add new GLObject to the rendering list.
     void                AddToRenderingList          (GLObject* to_add);
 
     // Remove GLObject from the rendering list.
     void                RemoveFromRenderingList     (GLObject* to_remove);
-
 
     // Main rendering logic. Setting states and drawing.
     void                DrawAll                     ();

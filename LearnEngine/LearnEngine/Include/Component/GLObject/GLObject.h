@@ -4,9 +4,10 @@
 #include <memory>
 
 #include "..\Component.h"
-#include "..\ComponentFactory.h"
 #include "..\..\Material\Material.h"
 #include "..\..\VertexData\VertexData.h"
+
+template<typename TComponent> class ComponentFactory;
 
 // Represents component that allows Entity to be drawn in the scene.
 // Contains logic for setting context of OpenGL.
@@ -15,18 +16,6 @@ class GLObject : public Component
 protected:
     GLObject                                        ();
     friend class ComponentFactory<GLObject>;
-
-protected:
-    // ========== Component interface =============
-    
-    // Perform proper registration of the GLObject in Rendering system.
-    // Registration is performed right after component is added to Entity.
-    virtual void            RegisterInSystem        () override;
-
-    // Perform proper removal of component by the Rendering system.
-    // Removal is performed when the component is removed from the Entity
-    // or when the Entity is destroyed with all it's components.
-    virtual void            UnregisterFromSystem    () override;
 
 
 public:

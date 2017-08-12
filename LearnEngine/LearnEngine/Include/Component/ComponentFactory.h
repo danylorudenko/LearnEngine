@@ -2,38 +2,46 @@
 #define __COMPONENT_FACTORY_H__
 
 #include "..\Entity\Entity.h"
-#include "..\Component\Light\Light.h"
-#include "..\Component\GLObject\GLObject.h"
+#include "GLObject\GLObject.h"
+#include "..\RenderingSystem\RenderingSystem.h"
 
 template<typename TComponent>
 class ComponentFactory
 {
+    friend class Entity;
+
 private:
-    static TComponent* ConstructComponent()
+    static TComponent* ConstructComponent(Entity* owner)
     {
-        return new TComponent();
+        TComponent* component = new TComponent();
+        component->SetOwner(owner);
+        return component;
     }
 
-    friend class Entity;
+    static void DestroyComponent(TComponent* component)
+    {
+        delete component;
+    }
 };
 
 template<>
 class ComponentFactory<GLObject>
 {
-private:
-    static TComponent* ConstructComponent()
-    {
-        return new GLObject();
-    }
-};
+    friend class Entity;
 
-template<>
-class ComponentFactory<Light>
-{
 private:
-    static TComponent* ConstructComponent()
+    static GLObject* ConstructComponent(Entity* owner)
     {
-        return new Light();
+        GLObject* component = new GLObject();
+        component->SetOwner(owner);
+        RenderingSystem::Instance().AddToRenderingList(component);
+        return component;
+    }
+
+    static void DestroyComponent(GLObject* component)
+    {
+        RenderingSystem::Instance().RemoveFromRenderingList(component);
+        delete component;
     }
 };
 

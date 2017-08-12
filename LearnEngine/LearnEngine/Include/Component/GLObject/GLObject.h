@@ -17,18 +17,6 @@ protected:
     GLObject                                        ();
     friend class ComponentFactory<GLObject>;
 
-protected:
-    // ========== Component interface =============
-    
-    // Perform proper registration of the GLObject in Rendering system.
-    // Registration is performed right after component is added to Entity.
-    //virtual void            RegisterInSystem        () override;
-
-    // Perform proper removal of component by the Rendering system.
-    // Removal is performed when the component is removed from the Entity
-    // or when the Entity is destroyed with all it's components.
-    //virtual void            UnregisterFromSystem    () override;
-
 
 public:
     // ========== Construction and operators ==========

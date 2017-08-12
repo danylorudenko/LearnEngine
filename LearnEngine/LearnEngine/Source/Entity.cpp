@@ -67,8 +67,6 @@ void Entity::RemoveComponent(Component* component)
     components_.remove_if(
         [component](Component* candidate) {
         if (component == candidate) {
-            //ComponentRegistrationAttorney::UnregisterFromSystem(candidate);
-            //ComponentRegistrationAttorney::SetComponentOwner(component, nullptr);
             ComponentFactory<Component>::DestroyComponent(component);
             return true;
         }

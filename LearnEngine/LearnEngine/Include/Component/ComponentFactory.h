@@ -15,7 +15,7 @@ private:
     {
         TComponent* component = new TComponent();
         component->SetOwner(owner);
-        return new TComponent();
+        return component;
     }
 
     static void DestroyComponent(TComponent* component)
@@ -35,7 +35,7 @@ private:
         GLObject* component = new GLObject();
         component->SetOwner(owner);
         RenderingSystem::Instance().AddToRenderingList(component);
-        return new GLObject();
+        return component;
     }
 
     static void DestroyComponent(GLObject* component)

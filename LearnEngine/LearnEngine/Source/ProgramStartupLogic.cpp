@@ -5,9 +5,6 @@
 
 void Program::StartupLogic()
 {
-    //RenderingSystem::Instance().GetMainCamera().SetWorldPosition(glm::vec3(0.0f, 3.0f, -1.0f));
-    //RenderingSystem::Instance().GetMainCamera().SetViewDirection(glm::vec3(0.0f, 30.0, 0.0f));
-
     auto vertex_data = std::shared_ptr<VertexData>(
         new VertexData(
             new GLfloat[180] {
@@ -120,7 +117,5 @@ void Program::StartupLogic()
     gl_obj2->SetMainMaterial(material);
     gl_obj2->SetVertexData(vertex_data);
 
-
-    entity->AddComponent<Rotator>();
-    entity2->AddComponent<Rotator>();
+    
 }

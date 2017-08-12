@@ -34,15 +34,6 @@ protected:
     // Used in Component Registration mechanism.
     void                SetOwner            (Entity* owner);
 
-    // Perform proper registration of the component in corresponding engine system.
-    // Registration of performed when the component is attached to the Entity and the owner pointer was set.
-    //virtual void        RegisterInSystem    () = 0;
-
-    // Perfrorm proper removal of the component from the corresponding engine system.
-    // Removal is performed when the component is removed from Entity manually or when Enity is destroyed.
-    //virtual void        UnregisterFromSystem() = 0;
-
-
 protected:
     Entity* owner_;
 

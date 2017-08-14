@@ -4,6 +4,7 @@
 #include <GL\glew.h>
 #include <glm\vec3.hpp>
 #include <glm\mat4x4.hpp>
+#include <glm\gtc\quaternion.hpp>
 
 class x_type { std::int8_t ch; };
 class y_type { std::int8_t ch; };
@@ -54,6 +55,7 @@ public:
     void                        SetRotation                 (x_type, GLfloat param);
     void                        SetRotation                 (y_type, GLfloat param);
     void                        SetRotation                 (z_type, GLfloat param);
+    void                        SetRotation                 (const glm::quat& quaternion);
 
     void                        SetScale                    (const glm::vec3& world_scale);
     void                        SetScale                    (GLfloat x, GLfloat y, GLfloat z);
@@ -62,8 +64,13 @@ public:
     void                        SetScale                    (z_type, GLfloat param);
 
     const glm::vec3&            GetPosition                 () const;
-    const glm::vec3&            GetRotation                 () const;
+    glm::vec3                   GetEuler                    () const;
+    const glm::quat&            GetRotation                 () const;
     const glm::vec3&            GetScale                    () const;
+
+    glm::vec3                   Right                       () const;
+    glm::vec3                   Up                          () const;
+    glm::vec3                   Forward                     () const;
 
 
 protected:
@@ -79,15 +86,15 @@ protected:
     static void                 ApplyScale                  (glm::mat4* const source, const glm::vec3& scale);
 
     // Apply rotation transformation to the source matrix.
-    static void                 ApplyRotation               (glm::mat4* const source, const glm::vec3& euler);
+    static void                 ApplyRotation               (glm::mat4* const source, const glm::quat& quaternion);
 
     // Apply translation transformation to the source matrix.
     static void                 ApplyTranslation            (glm::mat4* const source, const glm::vec3& position);
 
 protected:
     glm::vec3                   position_;
-    glm::vec3                   rotation_;
     glm::vec3                   scale_;
+    glm::quat                   rotation_;
 
     // Flag which reports if the transformation properties were changed
     // and the matrix in the buffer should be updated before rendering.

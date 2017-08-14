@@ -13,16 +13,6 @@ GLObject::~GLObject()
 
 }
 
-//void GLObject::RegisterInSystem()
-//{
-//    RenderingSystem::Instance().AddToRenderingList(this);
-//}
-//
-//void GLObject::UnregisterFromSystem()
-//{
-//    RenderingSystem::Instance().RemoveFromRenderingList(this);
-//}
-
 Material& GLObject::GetMainMaterial()
 {
     return *main_material_;

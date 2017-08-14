@@ -13,11 +13,11 @@ Rotator::Rotator() :
 void Rotator::Tick()
 {
     owner_->Transform().SetRotation(y_type(), y_rotation_);
-    owner_->Transform().SetRotation(z_type(), y_rotation_ / 2.0f);
-    owner_->Transform().SetRotation(x_type(), y_rotation_ * 2);
+    //owner_->Transform().SetRotation(z_type(), y_rotation_ / 2.0f);
+    //owner_->Transform().SetRotation(x_type(), y_rotation_ * 2);
     y_rotation_ += 0.1f;
     
-    auto old_pos = owner_->Transform().GetPosition();
+    /*auto old_pos = owner_->Transform().GetPosition();
     if (InputSystem::Instance().GetKey(GLFW_KEY_A)) {
         owner_->Transform().SetPosition(x_type(), old_pos.x + 0.01f);
     }
@@ -44,7 +44,7 @@ void Rotator::Tick()
 
     if (InputSystem::Instance().GetKey(GLFW_KEY_ESCAPE)) {
         Program::Instance().Close();
-    }
+    }*/
 
     //auto new_pos = owner_->Transform().GetPosition();
     //auto new_pos = InputSystem::Instance().GetMousePos();

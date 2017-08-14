@@ -78,12 +78,12 @@ bool InputSystem::GetKey(int glfw_code) const
 
 void InputSystem::EnableCursor() const
 {
-    glfwSetInputMode(context_window_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(context_window_, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
 void InputSystem::DisableCursor() const
 {
-    glfwSetInputMode(context_window_, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    glfwSetInputMode(context_window_, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 const glm::vec2& InputSystem::GetMousePos() const

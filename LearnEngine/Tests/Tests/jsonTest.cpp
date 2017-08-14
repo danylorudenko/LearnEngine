@@ -5,7 +5,7 @@
 #include <iostream>
 #include <chrono>
 
-int main()
+int jsonmain()
 {
     using namespace rapidjson;
 

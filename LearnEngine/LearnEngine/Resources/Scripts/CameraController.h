@@ -13,6 +13,9 @@ public:
 protected:
     virtual void Tick() override;
 
+    void SetNewRotation();
+    void SetNewPosition();
+
     float x_rotation_;
     float y_rotation_;
 

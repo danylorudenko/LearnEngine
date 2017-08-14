@@ -5,7 +5,7 @@
 
 GLTransform::GLTransform() : 
     position_(0.0f),
-    rotation_(0.0f),
+    rotation_(1.0f, 0.0f, 0.0f, 0.0f),
     scale_(1.0f),
     model_mat_outdated_(true)
 {
@@ -53,118 +53,60 @@ GLTransform& GLTransform::operator=(const GLTransform& rhs)
     return *this;
 }
 
-void GLTransform::SetPosition(const glm::vec3 & world_position)
-{
-    position_ = world_position;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetPosition(GLfloat x, GLfloat y, GLfloat z)
-{
-    position_.x = x;
-    position_.y = y;
-    position_.z = z;
-
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetPosition(x_type, GLfloat param)
-{
-    position_.x = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetPosition(y_type, GLfloat param)
-{
-    position_.y = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetPosition(z_type, GLfloat param)
-{
-    position_.z = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(const glm::vec3 & world_rotation_euler)
-{
-    rotation_ = world_rotation_euler;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(GLfloat x, GLfloat y, GLfloat z)
-{
-    rotation_.x = x;
-    rotation_.y = y;
-    rotation_.z = z;
-
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(x_type, GLfloat param)
-{
-    rotation_.x = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(y_type, GLfloat param)
-{
-    rotation_.y = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(z_type, GLfloat param)
-{
-    rotation_.z = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetScale(const glm::vec3 & world_scale)
-{
-    scale_ = world_scale;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetScale(GLfloat x, GLfloat y, GLfloat z)
-{
-    scale_.x = x;
-    scale_.y = y;
-    scale_.z = z;
-
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetScale(x_type, GLfloat param)
-{
-    scale_.x = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetScale(y_type, GLfloat param)
-{
-    scale_.y = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetScale(z_type, GLfloat param)
-{
-    scale_.z = param;
-    model_mat_outdated_ = true;
-}
-
-const glm::vec3 & GLTransform::GetPosition() const
+const glm::vec3 & GLTransform::Position() const
 {
     return position_;
 }
 
-const glm::vec3 & GLTransform::GetRotation() const
+glm::vec3& GLTransform::Position()
+{
+    model_mat_outdated_ = true;
+    return position_;
+}
+
+glm::vec3 GLTransform::Euler() const
+{
+    return glm::degrees(glm::eulerAngles(rotation_));
+}
+
+const glm::quat& GLTransform::Rotation() const
 {
     return rotation_;
 }
 
-const glm::vec3 & GLTransform::GetScale() const
+glm::quat& GLTransform::Rotation()
+{
+    model_mat_outdated_ = true;
+    return rotation_;
+}
+
+const glm::vec3& GLTransform::Scale() const
 {
     return scale_;
+}
+
+glm::vec3& GLTransform::Scale()
+{
+    model_mat_outdated_ = true;
+    return scale_;
+}
+
+glm::vec3 GLTransform::Right() const
+{
+    glm::vec4 forward = rotation_ *  glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
+    return glm::vec3(forward.x, forward.y, forward.z);
+}
+
+glm::vec3 GLTransform::Up() const
+{
+    glm::vec4 forward = rotation_ *  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
+    return glm::vec3(forward.x, forward.y, forward.z);
+}
+
+glm::vec3 GLTransform::Forward() const
+{
+    glm::vec4 forward = rotation_ *  glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
+    return glm::vec3(forward.x, forward.y, forward.z);
 }
 
 void GLTransform::AllocateGPUBuffer()
@@ -203,8 +145,8 @@ void GLTransform::UpdateBuffer()
     );
 
     ApplyTranslation(&identity_matrix, position_);
-    ApplyScale(&identity_matrix, scale_);
     ApplyRotation(&identity_matrix, rotation_);
+    ApplyScale(&identity_matrix, scale_);
 
 #ifdef GL44
 
@@ -237,15 +179,9 @@ inline void GLTransform::ApplyScale(glm::mat4* const source, const glm::vec3& sc
     *source = glm::scale(*source, scale);
 }
 
-inline void GLTransform::ApplyRotation(glm::mat4* const source, const glm::vec3& euler)
+inline void GLTransform::ApplyRotation(glm::mat4* const source, const glm::quat& quaternion)
 {
-    static const glm::vec3 X_AXIS(1.0f, 0.0f, 0.0f);
-    static const glm::vec3 Y_AXIS(0.0f, 1.0f, 0.0f);
-    static const glm::vec3 Z_AXIS(0.0f, 0.0f, 1.0f);
-    
-    *source = glm::rotate(*source, glm::radians(euler.x), X_AXIS);
-    *source = glm::rotate(*source, glm::radians(euler.y), Y_AXIS);
-    *source = glm::rotate(*source, glm::radians(euler.z), Z_AXIS);
+   *source *= glm::mat4_cast(quaternion);
 }
 
 inline void GLTransform::ApplyTranslation(glm::mat4* const source, const glm::vec3& position)

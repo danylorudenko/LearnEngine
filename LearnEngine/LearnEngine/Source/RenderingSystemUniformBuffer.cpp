@@ -20,18 +20,13 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     // TODO: add roll support(around z coordinate)
     // Camera view direction calculation ( x = yaw, y = pitch)
 
-    auto rotation = glm::radians(camera.Transform().Euler());
-    GLfloat short_hypothenuse = std::cosf(rotation.x);
-    glm::vec3 direction(
-        std::sinf(rotation.y) * short_hypothenuse,
-        std::sinf(rotation.x),
-        std::cosf(rotation.y) * short_hypothenuse
-    );
+    //auto rotation = glm::radians(camera.Transform().Euler());
+    glm::vec3 direction = glm::mat4_cast(camera.Transform().Rotation()) * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
 
     glm::mat4 view_matrix = glm::lookAt(
         camera.Transform().Position(), 
-        direction + camera.Transform().Position(), 
-        glm::vec3(0.0f, 1.0f, 0.0f));
+        camera.Transform().Position() + camera.Transform().Forward(), 
+        camera.Transform().Up());
 
     glm::mat4 perspective_matrix = glm::perspective(
         glm::radians(camera.GetFOW()), 
@@ -61,7 +56,7 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     std::memcpy(buffer_data, &camera.Transform().Position(), sizeof(camera.Transform().Position()));
     buffer_data += sizeof(camera.Transform().Position());
 
-    std::memcpy(buffer_data, &rotation, sizeof(rotation));
+    std::memcpy(buffer_data, &camera.Transform().Euler(), sizeof(camera.Transform().Euler()));
 
 #ifdef GL44
 

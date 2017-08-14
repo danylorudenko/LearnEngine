@@ -93,38 +93,18 @@ glm::vec3& GLTransform::Scale()
 
 glm::vec3 GLTransform::Right() const
 {
-    GLfloat short_hypothenuse = std::cosf(glm::radians(rotation_.x));
-    glm::vec3 direction(
-        std::cosf(glm::radians(rotation_.x)) * short_hypothenuse,
-        std::sinf(glm::radians(rotation_.y)),
-        std::sinf(glm::radians(rotation_.x)) * short_hypothenuse
-    );
-
-    return direction;
+    glm::vec4 forward = rotation_ *  glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
+    return glm::vec3(forward.x, forward.y, forward.z);
 }
 
 glm::vec3 GLTransform::Up() const
 {
-    GLfloat short_hypothenuse = std::cosf(glm::radians(rotation_.x));
-    glm::vec3 direction(
-        std::sinf(glm::radians(rotation_.y)) * short_hypothenuse,
-        std::sinf(glm::radians(rotation_.x)),
-        std::cosf(glm::radians(rotation_.y)) * short_hypothenuse
-    );
-
-    return direction;
+    glm::vec4 forward = rotation_ *  glm::vec4(0.0f, 1.0f, 0.0f, 0.0f);
+    return glm::vec3(forward.x, forward.y, forward.z);
 }
 
 glm::vec3 GLTransform::Forward() const
 {
-    /*GLfloat short_hypothenuse = std::cosf(glm::radians(rotation_.x));
-    glm::vec3 direction(
-        std::sinf(glm::radians(rotation_.y)) * short_hypothenuse,
-        std::sinf(glm::radians(rotation_.x)),
-        std::cosf(glm::radians(rotation_.y)) * short_hypothenuse
-    );*/
-
-
     glm::vec4 forward = rotation_ *  glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
     return glm::vec3(forward.x, forward.y, forward.z);
 }

@@ -106,20 +106,22 @@ void Program::StartupLogic()
 
 
     auto* entity = Entity::CreateEntity();
-    entity->Transform().SetPosition(glm::vec3(0.0f, -0.5f, 6.0f));
+    entity->Transform().Position() = glm::vec3(0.0f, -0.5f, 6.0f);
     auto gl_obj = entity->AddComponent<GLObject>();
     gl_obj->SetMainMaterial(material);
     gl_obj->SetVertexData(vertex_data);
 
 
     auto* entity2 = Entity::CreateEntity();
-    entity2->Transform().SetPosition(2.0f, 0.0f, 3.0f);
+    entity2->Transform().Position() = glm::vec3(2.0f, 0.0f, 3.0f);
     auto gl_obj2 = entity2->AddComponent<GLObject>();
     gl_obj2->SetMainMaterial(material);
     gl_obj2->SetVertexData(vertex_data);
 
     entity2->AddComponent<Rotator>();
 
+    entity->Name() = "cube_1";
+    entity->Name() = "cube_2";
 
     RenderingSystem::Instance().GetMainCamera().AddComponent<CameraController>();
 }

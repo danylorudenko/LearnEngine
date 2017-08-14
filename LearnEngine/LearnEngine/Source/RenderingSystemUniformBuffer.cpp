@@ -20,7 +20,7 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     // TODO: add roll support(around z coordinate)
     // Camera view direction calculation ( x = yaw, y = pitch)
 
-    auto rotation = camera.Transform().GetEuler();
+    auto rotation = camera.Transform().Euler();
     GLfloat short_hypothenuse = std::cosf(glm::radians(rotation.x));
     glm::vec3 direction(
         std::sinf(glm::radians(rotation.y)) * short_hypothenuse,
@@ -29,8 +29,8 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     );
 
     glm::mat4 view_matrix = glm::lookAt(
-        camera.Transform().GetPosition(), 
-        direction + camera.Transform().GetPosition(), 
+        camera.Transform().Position(), 
+        direction + camera.Transform().Position(), 
         glm::vec3(0.0f, 1.0f, 0.0f));
 
     glm::mat4 perspective_matrix = glm::perspective(
@@ -58,8 +58,8 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     std::memcpy(buffer_data, &perspective_matrix, sizeof(perspective_matrix));
     buffer_data += sizeof(perspective_matrix);
 
-    std::memcpy(buffer_data, &camera.Transform().GetPosition(), sizeof(camera.Transform().GetPosition()));
-    buffer_data += sizeof(camera.Transform().GetPosition());
+    std::memcpy(buffer_data, &camera.Transform().Position(), sizeof(camera.Transform().Position()));
+    buffer_data += sizeof(camera.Transform().Position());
 
     std::memcpy(buffer_data, &rotation, sizeof(rotation));
 

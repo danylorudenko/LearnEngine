@@ -42,7 +42,8 @@ void CameraController::SetNewRotation()
     auto mouse_delta = InputSystem::Instance().GetMouseDelta() * ROT_SPEED;
     x_rotation_ += mouse_delta.x;
     y_rotation_ += mouse_delta.y;
-    owner_->Transform().SetRotation(y_rotation_, x_rotation_, 0.0f);
+    owner_->Transform().Rotation().x = y_rotation_;
+    owner_->Transform().Rotation().y = x_rotation_;
 }
 
 void CameraController::SetNewPosition()
@@ -52,22 +53,18 @@ void CameraController::SetNewPosition()
         Program::Instance().Close();
     }
     
-    auto pos_local = owner_->Transform().GetPosition();
-    
     static constexpr float MOV_SPEED = 0.01f;
 
     if (InputSystem::Instance().GetKey(GLFW_KEY_W)) {
-        pos_local += owner_->Transform().Forward() * MOV_SPEED;
+        owner_->Transform().Position() += owner_->Transform().Forward() * MOV_SPEED;
     }
     if (InputSystem::Instance().GetKey(GLFW_KEY_S)) {
-        pos_local -= owner_->Transform().Forward() * MOV_SPEED;
+        owner_->Transform().Position() -= owner_->Transform().Forward() * MOV_SPEED;
     }
     if (InputSystem::Instance().GetKey(GLFW_KEY_A)) {
-        pos_local += owner_->Transform().Right() * MOV_SPEED;
+        owner_->Transform().Position() += owner_->Transform().Right() * MOV_SPEED;
     }
     if (InputSystem::Instance().GetKey(GLFW_KEY_D)) {
-        pos_local -= owner_->Transform().Right() * MOV_SPEED;
+        owner_->Transform().Position() -= owner_->Transform().Right() * MOV_SPEED;
     }
-
-    owner_->Transform().SetPosition(pos_local);
 }

@@ -4,6 +4,8 @@
 #include "..\..\Include\Program\Program.h"
 #include <iostream>
 
+static glm::quat rot_delta(glm::vec3(0.003f, 0.001f, 0));
+
 Rotator::Rotator() :
     y_rotation_(0.0f)
 {
@@ -12,10 +14,12 @@ Rotator::Rotator() :
 
 void Rotator::Tick()
 {
-    owner_->Transform().SetRotation(y_type(), y_rotation_);
-    //owner_->Transform().SetRotation(z_type(), y_rotation_ / 2.0f);
+    //owner_->Transform().SetRotation(y_type(), y_rotation_);
+    //owner_->Transform().SetRotation(z_type(), y_rotation_);
     //owner_->Transform().SetRotation(x_type(), y_rotation_ * 2);
-    y_rotation_ += 0.1f;
+    //y_rotation_ += 0.1f;
+
+    owner_->Transform().Rotation() *= rot_delta;
     
     /*auto old_pos = owner_->Transform().GetPosition();
     if (InputSystem::Instance().GetKey(GLFW_KEY_A)) {

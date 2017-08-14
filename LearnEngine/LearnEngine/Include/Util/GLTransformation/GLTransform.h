@@ -1,5 +1,5 @@
-#ifndef __I_TRANSFORMABLE_H__
-#define __I_TRANSFORMABLE_H__
+#ifndef __GL_TRANSFORM_H__
+#define __GL_TRANSFORM_H__
 
 #include <GL\glew.h>
 #include <glm\vec3.hpp>
@@ -44,29 +44,17 @@ protected:
     GLTransform&                operator=                   (const GLTransform& rhs);
 
 public:
-    void                        SetPosition                 (const glm::vec3& world_position);
-    void                        SetPosition                 (GLfloat x, GLfloat y, GLfloat z);
-    void                        SetPosition                 (x_type, GLfloat param);
-    void                        SetPosition                 (y_type, GLfloat param);
-    void                        SetPosition                 (z_type, GLfloat param);
 
-    void                        SetRotation                 (const glm::vec3& world_rotation_euler);
-    void                        SetRotation                 (GLfloat x, GLfloat y, GLfloat z);
-    void                        SetRotation                 (x_type, GLfloat param);
-    void                        SetRotation                 (y_type, GLfloat param);
-    void                        SetRotation                 (z_type, GLfloat param);
-    void                        SetRotation                 (const glm::quat& quaternion);
+    const glm::vec3&            Position                    () const;
+    glm::vec3&                  Position                    ();
 
-    void                        SetScale                    (const glm::vec3& world_scale);
-    void                        SetScale                    (GLfloat x, GLfloat y, GLfloat z);
-    void                        SetScale                    (x_type, GLfloat param);
-    void                        SetScale                    (y_type, GLfloat param);
-    void                        SetScale                    (z_type, GLfloat param);
+    const glm::quat&            Rotation                    () const;
+    glm::quat&                  Rotation                    ();
+    glm::vec3                   Euler                       () const;
 
-    const glm::vec3&            GetPosition                 () const;
-    glm::vec3                   GetEuler                    () const;
-    const glm::quat&            GetRotation                 () const;
-    const glm::vec3&            GetScale                    () const;
+
+    const glm::vec3&            Scale                       () const;
+    glm::vec3&                  Scale                       ();
 
     glm::vec3                   Right                       () const;
     glm::vec3                   Up                          () const;

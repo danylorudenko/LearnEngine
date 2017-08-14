@@ -53,131 +53,41 @@ GLTransform& GLTransform::operator=(const GLTransform& rhs)
     return *this;
 }
 
-void GLTransform::SetPosition(const glm::vec3 & world_position)
-{
-    position_ = world_position;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetPosition(GLfloat x, GLfloat y, GLfloat z)
-{
-    position_.x = x;
-    position_.y = y;
-    position_.z = z;
-
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetPosition(x_type, GLfloat param)
-{
-    position_.x = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetPosition(y_type, GLfloat param)
-{
-    position_.y = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetPosition(z_type, GLfloat param)
-{
-    position_.z = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(const glm::vec3 & world_rotation_euler)
-{
-    rotation_ = glm::quat(glm::radians(world_rotation_euler));
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(GLfloat x, GLfloat y, GLfloat z)
-{
-    rotation_ = glm::quat(glm::radians(glm::vec3(x, y, z)));
-
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(x_type, GLfloat param)
-{
-    glm::vec3 current_rotation = GetEuler();
-    current_rotation.x = param;
-    rotation_ = glm::quat(glm::radians(current_rotation));
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(y_type, GLfloat param)
-{
-    glm::vec3 current_rotation = GetEuler();
-    current_rotation.y = param;
-    rotation_ = glm::quat(glm::radians(current_rotation));
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(z_type, GLfloat param)
-{
-    glm::vec3 current_rotation = GetEuler();
-    current_rotation.z = param;
-    rotation_ = glm::quat(glm::radians(current_rotation));
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetRotation(const glm::quat & quaternion)
-{
-    rotation_ = quaternion;
-}
-
-void GLTransform::SetScale(const glm::vec3 & world_scale)
-{
-    scale_ = world_scale;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetScale(GLfloat x, GLfloat y, GLfloat z)
-{
-    scale_.x = x;
-    scale_.y = y;
-    scale_.z = z;
-
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetScale(x_type, GLfloat param)
-{
-    scale_.x = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetScale(y_type, GLfloat param)
-{
-    scale_.y = param;
-    model_mat_outdated_ = true;
-}
-
-void GLTransform::SetScale(z_type, GLfloat param)
-{
-    scale_.z = param;
-    model_mat_outdated_ = true;
-}
-
-const glm::vec3 & GLTransform::GetPosition() const
+const glm::vec3 & GLTransform::Position() const
 {
     return position_;
 }
 
-glm::vec3 GLTransform::GetEuler() const
+glm::vec3& GLTransform::Position()
+{
+    model_mat_outdated_ = true;
+    return position_;
+}
+
+glm::vec3 GLTransform::Euler() const
 {
     return glm::degrees(glm::eulerAngles(rotation_));
 }
 
-const glm::quat & GLTransform::GetRotation() const
+const glm::quat& GLTransform::Rotation() const
 {
     return rotation_;
 }
 
-const glm::vec3 & GLTransform::GetScale() const
+glm::quat& GLTransform::Rotation()
 {
+    model_mat_outdated_ = true;
+    return rotation_;
+}
+
+const glm::vec3& GLTransform::Scale() const
+{
+    return scale_;
+}
+
+glm::vec3& GLTransform::Scale()
+{
+    model_mat_outdated_ = true;
     return scale_;
 }
 

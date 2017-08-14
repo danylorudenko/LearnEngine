@@ -117,14 +117,16 @@ glm::vec3 GLTransform::Up() const
 
 glm::vec3 GLTransform::Forward() const
 {
-    GLfloat short_hypothenuse = std::cosf(glm::radians(rotation_.x));
+    /*GLfloat short_hypothenuse = std::cosf(glm::radians(rotation_.x));
     glm::vec3 direction(
         std::sinf(glm::radians(rotation_.y)) * short_hypothenuse,
         std::sinf(glm::radians(rotation_.x)),
         std::cosf(glm::radians(rotation_.y)) * short_hypothenuse
-    );
+    );*/
 
-    return direction;
+
+    glm::vec4 forward = rotation_ *  glm::vec4(0.0f, 0.0f, 1.0f, 0.0f);
+    return glm::vec3(forward.x, forward.y, forward.z);
 }
 
 void GLTransform::AllocateGPUBuffer()
@@ -163,8 +165,8 @@ void GLTransform::UpdateBuffer()
     );
 
     ApplyTranslation(&identity_matrix, position_);
-    ApplyScale(&identity_matrix, scale_);
     ApplyRotation(&identity_matrix, rotation_);
+    ApplyScale(&identity_matrix, scale_);
 
 #ifdef GL44
 
@@ -199,14 +201,6 @@ inline void GLTransform::ApplyScale(glm::mat4* const source, const glm::vec3& sc
 
 inline void GLTransform::ApplyRotation(glm::mat4* const source, const glm::quat& quaternion)
 {
-    /*static const glm::vec3 X_AXIS(1.0f, 0.0f, 0.0f);
-    static const glm::vec3 Y_AXIS(0.0f, 1.0f, 0.0f);
-    static const glm::vec3 Z_AXIS(0.0f, 0.0f, 1.0f);
-    
-    *source = glm::rotate(*source, glm::radians(euler.x), X_AXIS);
-    *source = glm::rotate(*source, glm::radians(euler.y), Y_AXIS);
-    *source = glm::rotate(*source, glm::radians(euler.z), Z_AXIS);*/
-
    *source *= glm::mat4_cast(quaternion);
 }
 

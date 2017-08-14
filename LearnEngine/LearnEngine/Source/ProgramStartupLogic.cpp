@@ -119,9 +119,12 @@ void Program::StartupLogic()
     gl_obj2->SetVertexData(vertex_data);
 
     entity2->AddComponent<Rotator>();
+    entity->AddComponent<CameraController>();
+
+    entity->Transform().Scale().z = 2.0f;
 
     entity->Name() = "cube_1";
     entity->Name() = "cube_2";
 
-    RenderingSystem::Instance().GetMainCamera().AddComponent<CameraController>();
+    //RenderingSystem::Instance().GetMainCamera().AddComponent<CameraController>();
 }

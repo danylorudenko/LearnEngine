@@ -20,12 +20,12 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     // TODO: add roll support(around z coordinate)
     // Camera view direction calculation ( x = yaw, y = pitch)
 
-    auto rotation = camera.Transform().Euler();
-    GLfloat short_hypothenuse = std::cosf(glm::radians(rotation.x));
+    auto rotation = glm::radians(camera.Transform().Euler());
+    GLfloat short_hypothenuse = std::cosf(rotation.x);
     glm::vec3 direction(
-        std::sinf(glm::radians(rotation.y)) * short_hypothenuse,
-        std::sinf(glm::radians(rotation.x)),
-        std::cosf(glm::radians(rotation.y)) * short_hypothenuse
+        std::sinf(rotation.y) * short_hypothenuse,
+        std::sinf(rotation.x),
+        std::cosf(rotation.y) * short_hypothenuse
     );
 
     glm::mat4 view_matrix = glm::lookAt(

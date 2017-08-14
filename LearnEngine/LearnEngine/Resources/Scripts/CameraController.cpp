@@ -42,8 +42,7 @@ void CameraController::SetNewRotation()
     auto mouse_delta = InputSystem::Instance().GetMouseDelta() * ROT_SPEED;
     x_rotation_ += mouse_delta.x;
     y_rotation_ += mouse_delta.y;
-    owner_->Transform().Rotation().x = y_rotation_;
-    owner_->Transform().Rotation().y = x_rotation_;
+    owner_->Transform().Rotation() = glm::quat(glm::radians(glm::vec3(y_rotation_, x_rotation_, 0.0f)));
 }
 
 void CameraController::SetNewPosition()

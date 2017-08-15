@@ -22,10 +22,6 @@ void RenderingSystemUniformBuffer::Bind() const
 void RenderingSystemUniformBuffer::UpdateCameraData(
     const CameraEntity& camera, GLfloat aspect_ratio)
 {
-    // TODO: add roll support(around z coordinate)
-    // Camera view direction calculation ( x = yaw, y = pitch)
-
-    //auto rotation = glm::radians(camera.Transform().Euler());
     glm::vec3 direction = glm::mat4_cast(camera.Transform().Rotation()) * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
 
     glm::mat4 view_matrix = glm::lookAt(
@@ -48,7 +44,13 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
 
 #else
 
-    GLubyte* buffer_data = (GLubyte*)glMapNamedBuffer(uniform_buffer_handle_, GL_WRITE_ONLY);
+    GLubyte* buffer_data = 
+        (GLubyte*)glMapNamedBufferRange(
+            uniform_buffer_handle_,
+            0,
+            sizeof(glm::mat4) * 2 + sizeof(glm::vec3) * 2,
+            GL_WRITE_ONLY
+            );
 
 #endif
 
@@ -78,6 +80,23 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     
 }
 
+void RenderingSystemUniformBuffer::UpdateLightningData(const GLuint* lights_count)
+{
+    GLuint* buffer_data =
+        (GLuint*)glMapNamedBufferRange(
+            uniform_buffer_handle_,
+            sizeof(glm::mat4) * 2 + sizeof(glm::vec3) * 2,
+            sizeof(glm::vec3),
+            GL_WRITE_ONLY
+        );
+
+    buffer_data[0] = lights_count[0];
+    buffer_data[1] = lights_count[1];
+    buffer_data[2] = lights_count[2];
+
+    glUnmapNamedBuffer(uniform_buffer_handle_);
+}
+
 void RenderingSystemUniformBuffer::AllocateGPUBuffer()
 {
     static const glm::mat4 identity_matrix(
@@ -88,6 +107,8 @@ void RenderingSystemUniformBuffer::AllocateGPUBuffer()
     );
 
     static const glm::vec3 zero_vector(0.0f);
+
+    static const GLuint zero_array[] = { 0, 0, 0 };
 
     glCreateBuffers(1, &uniform_buffer_handle_);
 
@@ -174,9 +195,16 @@ void RenderingSystemUniformBuffer::AllocateGPUBuffer()
     // camera rotation
     glNamedBufferSubData(
         uniform_buffer_handle_,
-        sizeof(identity_matrix) + sizeof(identity_matrix) + sizeof(zero_vector),
+        sizeof(identity_matrix) * 2 + sizeof(zero_vector),
         sizeof(zero_vector),
         glm::value_ptr(zero_vector)
+    );
+
+    glNamedBufferSubData(
+        uniform_buffer_handle_,
+        sizeof(identity_matrix) * 2 + sizeof(zero_vector) * 3,
+        sizeof(zero_array),
+        zero_array
     );
 
 #endif

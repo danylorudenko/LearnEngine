@@ -133,6 +133,7 @@
     <ClCompile Include="Source\ConfigManager.cpp" />
     <ClCompile Include="Source\DeferredRenderer.cpp" />
     <ClCompile Include="Source\ForwardRenderer.cpp" />
+    <ClCompile Include="Source\LightContainer.cpp" />
     <ClCompile Include="Source\ProgramStartupLogic.cpp" />
     <ClCompile Include="Source\RenderingSystemUniformBuffer.cpp" />
     <ClCompile Include="Source\DrawArraysIndirectCommand.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Include\Component\ComponentFactory.h" />
     <ClInclude Include="Include\Component\Light\Light.h" />
     <ClInclude Include="Include\Configuration\ConfigManager.h" />
+    <ClInclude Include="Include\RenderingSystem\Light\LightContainer.h" />
     <ClInclude Include="Include\RenderingSystem\Renderers\DeferredRenderer.h" />
     <ClInclude Include="Include\RenderingSystem\Renderers\ForwardRenderer.h" />
     <ClInclude Include="Include\RenderingSystem\Renderers\Renderer.h" />

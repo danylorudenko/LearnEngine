@@ -23,15 +23,20 @@ TextureController::TextureController(const std::string& file_path) : file_path_(
     LoadToGPU();
 }
 
-void TextureController::LoadToRAM()
+void TextureController::LoadToRAM(const std::string& source_file)
 {
-    image_data_ = SOIL_load_image(file_path_.c_str(), &width_, &height_, nullptr, SOIL_LOAD_RGB);
+    image_data_ = SOIL_load_image(source_file.c_str(), &width_, &height_, nullptr, SOIL_LOAD_RGB);
 
     if (image_data_ == nullptr) {
         throw std::runtime_error(std::string("Error loading texture at path: ") + file_path_);
     }
 
     is_in_memory_ = true;
+}
+
+void TextureController::LoadToRAM()
+{
+    LoadToRAM(file_path_);
 }
 
 void TextureController::UnloadFromRAM()
@@ -43,7 +48,12 @@ void TextureController::UnloadFromRAM()
 
 void TextureController::LoadToGPU()
 {
-    if (image_data_ == nullptr) {
+    LoadToGPU(image_data_);
+}
+
+void TextureController::LoadToGPU(const void* data)
+{
+    if (data == nullptr) {
         throw std::runtime_error("Can't load texture to the GL. No data in RAM.");
     }
     
@@ -103,7 +113,7 @@ void TextureController::LoadToGPU()
         width_, height_,
         GL_RGB,
         GL_UNSIGNED_BYTE,
-        image_data_
+        data
     );
 
 #endif
@@ -195,3 +205,4 @@ bool TextureController::IsOnGPU() const
 {
     return is_on_GPU_;
 }
+

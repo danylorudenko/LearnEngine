@@ -15,7 +15,10 @@ protected:
     static constexpr GLsizei    BUFFER_SIZE             = sizeof(glm::mat4)  // viewMatrix
                                                         + sizeof(glm::mat4)  // perspectiveMatrix
                                                         + sizeof(glm::vec3)  // cameraPos
-                                                        + sizeof(glm::vec3); // cameraRot
+                                                        + sizeof(glm::vec3)  // cameraRot
+                                                        + sizeof(GLuint)     // directionalLightCount
+                                                        + sizeof(GLuint)     // pointLightCount
+                                                        + sizeof(GLuint);    // spotLightCount
 
 public:
     RenderingSystemUniformBuffer                        ();
@@ -31,6 +34,8 @@ public:
 
     // Update buffer with new data from the camera.
     void            UpdateCameraData                    (const CameraEntity& camera, GLfloat aspect_ratio);
+
+    void            UpdateLightningData                 (const GLuint* lights_count);
 
 protected:
     // Allocate GPU buffer to hold rendering system main unifrom block buffer.

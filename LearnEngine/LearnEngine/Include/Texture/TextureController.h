@@ -42,16 +42,22 @@ public:
     bool                    IsOnGPU             () const;
 
     // Load texture binary data from disk to RAM.
-    virtual void            LoadToRAM           ();
+    void                    LoadToRAM           (const std::string& source_file);
+
+    // Load texture binary data from disk to RAM.
+    void                    LoadToRAM           ();
 
     // Load texture binary data from RAM to GPU buffer.
-    virtual void            LoadToGPU           ();
+    void                    LoadToGPU           (const void* texture_data);
+
+    // Load texture binary data from RAM to GPU buffer.
+    void                    LoadToGPU           ();
 
     // Delete texture memory in RAM.
-    virtual void            UnloadFromRAM       ();
+    void                    UnloadFromRAM       ();
 
     // Delete texture buffer on GPU.
-    virtual void            UnloadFromGPU       ();
+    void                    UnloadFromGPU       ();
 
 protected:
     void                    SetupDefaultSamler  ();

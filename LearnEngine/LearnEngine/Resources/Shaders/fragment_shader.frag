@@ -4,7 +4,10 @@ in VS_OUT {
 	vec2 textureCoordinate;
 } FS_IN;
 
-layout (binding = 0) uniform sampler2D mainTexture;
+layout (binding = 0) uniform sampler2D lightData;
+
+layout (binding = 3) uniform sampler2D mainTexture;
+
 
 out vec4 color;
 

@@ -9,13 +9,18 @@ layout (std140, binding = 0) uniform RenderingSystemData {
 	mat4 perspectiveMatrix;
 	vec3 cameraPos;
 	vec3 cameraRot;
+	uint  directionalLightCount;
+	uint  pointLightCount;
+	uint  spotLightCount;
 } systemData;
 
 layout (std140, binding = 1) uniform ModelData { 
 	mat4 modelMatrix;
 } modelData;
 
-layout (binding = 0) uniform sampler2D mainTexture;
+layout (binding = 0) uniform sampler2D lightData;
+
+layout (binding = 3) uniform sampler2D mainTexture;
 
 //////////////////////////////////////////////////
 // Vertex attributes inputs

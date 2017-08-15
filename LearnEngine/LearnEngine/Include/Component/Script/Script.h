@@ -32,6 +32,8 @@ public:
     // When enabled Tick() will be called every Scripting system iteration.
     void                        SetTicking                  (bool value);
 
+    virtual DestructionFunction GetDestructionFunc          () override;
+
 protected:
     // This callback can be called once in the start of Scripting system iteration.
     // To be called this callback must be registered via Script::RegisterStart().
@@ -40,7 +42,7 @@ protected:
     // This callback can be called every Scripting system iteraction, if enabled.
     virtual void                Tick                        () { };
 
-    virtual                     ~Script() = 0 { };
+    virtual                     ~Script() = 0;
 
 protected:
     bool                        is_ticking_;

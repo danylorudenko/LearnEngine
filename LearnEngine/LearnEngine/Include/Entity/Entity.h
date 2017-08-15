@@ -9,7 +9,6 @@
 
 #include "..\Util\HierarchyMember.h"
 #include "..\Component\Component.h"
-#include "..\Component\ComponentRegistrationAttorney.h"
 #include "..\Util\GLTransformation\GLTransform.h"
 
 // Main structural unit in the World.
@@ -73,7 +72,20 @@ public:
 
     // Removes pointer to the component and unregisters component from engines subsystems, if needed.
     // Removes owner pointer for the component.
-    void                            RemoveComponent             (Component* to_remove);
+    template<typename TComponent>
+    void                            RemoveComponent(TComponent* to_remove)
+    {
+        components_.remove_if(
+            [component](TComponent* candidate) {
+            if (component == candidate) {
+                ComponentFactory<TComponent>::DestroyComponent(component);
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+    }
 
     // Unregisters all components registered by this entity.
     // Clears pointer list to the components.

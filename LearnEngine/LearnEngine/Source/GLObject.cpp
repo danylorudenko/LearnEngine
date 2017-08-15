@@ -1,11 +1,20 @@
 #include "..\Include\Component\GLObject\GLObject.h"
 #include "..\Include\Entity\Entity.h"
 #include "..\Include\RenderingSystem\RenderingSystem.h"
+#include "..\Include\Component\ComponentFactory.h"
 
 GLObject::GLObject() :
     Component()
 {
     
+}
+
+Component::DestructionFunction GLObject::GetDestructionFunc()
+{
+    return [](Component* this_component) 
+    { 
+        ComponentFactory<GLObject>::DestroyComponent(dynamic_cast<GLObject*>(this_component)); 
+    };
 }
 
 GLObject::~GLObject()

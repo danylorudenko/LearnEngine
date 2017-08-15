@@ -8,9 +8,7 @@
 template<typename TComponent>
 class ComponentFactory
 {
-    friend class Entity;
-
-private:
+public:
     static TComponent* ConstructComponent(Entity* owner)
     {
         TComponent* component = new TComponent();
@@ -27,9 +25,7 @@ private:
 template<>
 class ComponentFactory<GLObject>
 {
-    friend class Entity;
-
-private:
+public:
     static GLObject* ConstructComponent(Entity* owner)
     {
         GLObject* component = new GLObject();

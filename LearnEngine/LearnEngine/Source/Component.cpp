@@ -1,7 +1,8 @@
 #include <stdexcept>
 #include "..\Include\Component\Component.h"
 
-Component::Component() : owner_(nullptr)
+Component::Component() : 
+    owner_(nullptr)
 {
 
 }

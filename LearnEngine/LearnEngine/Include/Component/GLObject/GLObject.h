@@ -17,6 +17,7 @@ protected:
     GLObject                                        ();
     friend class ComponentFactory<GLObject>;
 
+    virtual DestructionFunction GetDestructionFunc  () override;
 
 public:
     // ========== Construction and operators ==========

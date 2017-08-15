@@ -24,6 +24,8 @@ public:
     RenderingSystemUniformBuffer        operator=       (const RenderingSystemUniformBuffer& rhs) = delete;
     RenderingSystemUniformBuffer        operator=       (RenderingSystemUniformBuffer&& rhs) = delete;
 
+    virtual ~RenderingSystemUniformBuffer               ();
+
     // Bind buffer to the conventional target for the rendering system main uniform block.
     void            Bind                                () const;
 
@@ -33,6 +35,8 @@ public:
 protected:
     // Allocate GPU buffer to hold rendering system main unifrom block buffer.
     void            AllocateGPUBuffer                   ();
+
+    void            DestroyGPUBuffer                    ();
     
 protected:
     GLuint          uniform_buffer_handle_;

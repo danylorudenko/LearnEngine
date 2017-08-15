@@ -70,6 +70,9 @@ protected:
     // (position, rotation, scale).
     void                        UpdateBuffer                ();
 
+    // Deallocate GPU buffer.
+    void                        DestroyBuffer               ();
+
     // Apply scaling transfromation to the source matrix.
     static void                 ApplyScale                  (glm::mat4* const source, const glm::vec3& scale);
 

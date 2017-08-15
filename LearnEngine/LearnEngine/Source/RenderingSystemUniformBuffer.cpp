@@ -9,6 +9,11 @@ RenderingSystemUniformBuffer::RenderingSystemUniformBuffer() :
     AllocateGPUBuffer();
 }
 
+RenderingSystemUniformBuffer::~RenderingSystemUniformBuffer()
+{
+    DestroyGPUBuffer();
+}
+
 void RenderingSystemUniformBuffer::Bind() const
 {
     glBindBufferBase(GL_UNIFORM_BUFFER, RENDERING_SYSTEM_UNIFORM_BINDING_IDNEX, uniform_buffer_handle_);
@@ -175,4 +180,9 @@ void RenderingSystemUniformBuffer::AllocateGPUBuffer()
     );
 
 #endif
+}
+
+void RenderingSystemUniformBuffer::DestroyGPUBuffer()
+{
+    glDeleteBuffers(1, &uniform_buffer_handle_);
 }

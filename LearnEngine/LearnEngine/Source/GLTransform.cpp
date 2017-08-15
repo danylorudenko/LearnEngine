@@ -14,7 +14,7 @@ GLTransform::GLTransform() :
 
 GLTransform::~GLTransform()
 {
-    glDeleteBuffers(1, &transform_uniform_buffer_handle_);
+    DestroyBuffer();
 }
 
 GLTransform& GLTransform::operator=(const GLTransform& rhs)
@@ -172,6 +172,11 @@ void GLTransform::UpdateBuffer()
 #endif
 
     model_mat_outdated_ = false;
+}
+
+void GLTransform::DestroyBuffer()
+{
+    glDeleteBuffers(1, &transform_uniform_buffer_handle_);
 }
 
 inline void GLTransform::ApplyScale(glm::mat4* const source, const glm::vec3& scale)

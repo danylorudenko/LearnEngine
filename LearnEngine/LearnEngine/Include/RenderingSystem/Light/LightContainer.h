@@ -10,14 +10,17 @@
 class LightContainer
 {
 public:
+
+    static constexpr GLsizei Y_SIZE = 3;
+
     using LightList = std::list<Light>;
 
     LightContainer                          ();
 
     LightContainer                          (const LightContainer& rhs) = delete;
     LightContainer                          (LightContainer&& rhs) = delete;
-    LightContainer      operator=           (const LightContainer& rhs) = delete;
-    LightContainer      operator=           (LightContainer&& rhs) = delete;
+    LightContainer&     operator=           (const LightContainer& rhs) = delete;
+    LightContainer&     operator=           (LightContainer&& rhs) = delete;
 
     ~LightContainer                         ();
 

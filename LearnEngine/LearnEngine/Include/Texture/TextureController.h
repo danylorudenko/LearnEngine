@@ -13,8 +13,8 @@ public:
     TextureController                           (const std::string& file_path);
 
     TextureController                           (const TextureController& rhs) = delete;
-    TextureController&      operator=           (const TextureController& rhs) = delete;
     TextureController                           (TextureController&& rhs) = delete;
+    TextureController&      operator=           (const TextureController& rhs) = delete;
     TextureController&      operator=           (TextureController&& rhs) = delete;
 
     virtual ~TextureController                  ();
@@ -22,6 +22,8 @@ public:
 public:
     GLuint                  GetTextureHandle    ();
     GLuint                  GetSamplerHandle    ();
+
+    const std::string&      FileName            () const;
 
     // Bind both sampler and texture buffer to the single texture_unit
     void                    BindAllToUnit       (GLuint texture_unit) const;
@@ -44,11 +46,9 @@ public:
     // Load texture binary data from disk to RAM.
     void                    LoadToRAM           (const std::string& source_file);
 
-    // Load texture binary data from disk to RAM.
-    void                    LoadToRAM           ();
-
-    // Load texture binary data from RAM to GPU buffer.
-    void                    LoadToGPU           (const void* texture_data);
+    void                    AllocateOnGPU       (GLsizei width, GLsizei height, 
+                                                 GLenum internal_format = GL_RGBA, 
+                                                 GLsizei mipmaps = 1);
 
     // Load texture binary data from RAM to GPU buffer.
     void                    LoadToGPU           ();
@@ -69,8 +69,9 @@ protected:
     GLuint                  sampler_handle_;
 
     unsigned char*          image_data_;
-    int                     width_;
-    int                     height_;
+    GLsizei                 width_;
+    GLsizei                 height_;
+    GLenum                  internal_format_;
 
     bool                    is_in_memory_;
     bool                    is_on_GPU_;

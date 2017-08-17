@@ -16,27 +16,68 @@ TextureController::TextureController() :
     SetupDefaultSamler();
 }
 
-TextureController::TextureController(const std::string& file_path) : file_path_(file_path)
+TextureController::TextureController(const std::string& file_path) : 
+    file_path_(file_path),
+    texture_handle_(0),
+    sampler_handle_(0),
+    image_data_(nullptr),
+    width_(0),
+    height_(0),
+    internal_format_(0),
+    is_in_memory_(false),
+    is_on_GPU_(false)
 {
     SetupDefaultSamler();
-    LoadToRAM();
+    LoadToRAM(file_path_);
+    AllocateOnGPU(width_, height_, internal_format_);
     LoadToGPU();
 }
 
 void TextureController::LoadToRAM(const std::string& source_file)
 {
+    file_path_ = source_file;
     image_data_ = SOIL_load_image(source_file.c_str(), &width_, &height_, nullptr, SOIL_LOAD_RGB);
 
     if (image_data_ == nullptr) {
         throw std::runtime_error(std::string("Error loading texture at path: ") + file_path_);
     }
 
+    internal_format_ = GL_RGB;
     is_in_memory_ = true;
 }
 
-void TextureController::LoadToRAM()
+void TextureController::AllocateOnGPU(GLsizei width, GLsizei height, GLenum internal_format, GLsizei mipmaps)
 {
-    LoadToRAM(file_path_);
+    if (texture_handle_ != 0) {
+        throw std::runtime_error(std::string("Texture is already on GPU. Can't allocate new storage."));
+    }
+    
+#ifdef GL44
+
+    glGenTextures(GL_TEXTURE_2D, 1, &texture_handle_);
+    glBindTexture(GL_TEXTURE_2D, texture_handle_);
+
+    glTexStorage2D(
+        GL_TEXTURE_2D,
+        mipmaps,
+        internal_format,
+        width,
+        height
+    );
+
+#else
+
+    glCreateTextures(GL_TEXTURE_2D, 1, &texture_handle_);
+
+    glTextureStorage2D(
+        texture_handle_,
+        mipmaps,
+        internal_format,
+        width,
+        height
+    );
+
+#endif
 }
 
 void TextureController::UnloadFromRAM()
@@ -44,43 +85,27 @@ void TextureController::UnloadFromRAM()
     SOIL_free_image_data(image_data_);
     image_data_ = nullptr;
     is_in_memory_ = false;
+
+    if (!IsOnGPU()) {
+        width_ = 0;
+        height_ = 0;
+        internal_format_ = 0;
+    }
 }
 
 void TextureController::LoadToGPU()
 {
-    LoadToGPU(image_data_);
-}
-
-void TextureController::LoadToGPU(const void* data)
-{
-    if (data == nullptr) {
+    if (image_data_ == nullptr) {
         throw std::runtime_error("Can't load texture to the GL. No data in RAM.");
     }
+
+    if (texture_handle_ == 0) {
+        throw std::runtime_error("Can't load texture to GL. No texture was allocated.");
+    }
     
-    display_gl_errors();
-
-    glCreateTextures(GL_TEXTURE_2D, 1, &texture_handle_);
-
-    display_gl_errors();
-
 #ifdef GL44
 
-    glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, texture_handle_);
-
-    display_gl_errors();
-
-    // Allocating storage.
-    glTexStorage2D(
-        GL_TEXTURE_2D,
-        1, // Mipmaps
-        GL_RGB8,
-        width_,
-        height_
-    );
-
-    display_gl_errors();
-
     glTexSubImage2D(
         GL_TEXTURE_2D,
         0, // Mipmaps
@@ -91,20 +116,7 @@ void TextureController::LoadToGPU(const void* data)
         image_data_
     );
 
-    display_gl_errors();
-
 #else
-
-    // Allocating storage.
-    glTextureStorage2D(
-        texture_handle_,
-        1, // Mipmaps
-        GL_RGB8,
-        width_,
-        height_
-    );
-
-    display_gl_errors();
 
     glTextureSubImage2D(
         texture_handle_,
@@ -113,7 +125,7 @@ void TextureController::LoadToGPU(const void* data)
         width_, height_,
         GL_RGB,
         GL_UNSIGNED_BYTE,
-        data
+        image_data_
     );
 
 #endif
@@ -145,6 +157,11 @@ GLuint TextureController::GetTextureHandle()
 GLuint TextureController::GetSamplerHandle()
 {
     return sampler_handle_;
+}
+
+const std::string & TextureController::FileName() const
+{
+    return file_path_;
 }
 
 void TextureController::BindAllToUnit(GLuint texture_unit) const
@@ -205,4 +222,3 @@ bool TextureController::IsOnGPU() const
 {
     return is_on_GPU_;
 }
-

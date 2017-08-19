@@ -164,6 +164,7 @@
     <ClInclude Include="Include\Component\Light\Light.h" />
     <ClInclude Include="Include\Configuration\ConfigManager.h" />
     <ClInclude Include="Include\RenderingSystem\Light\LightContainer.h" />
+    <ClInclude Include="Include\RenderingSystem\Light\LightInfo.h" />
     <ClInclude Include="Include\RenderingSystem\Renderers\DeferredRenderer.h" />
     <ClInclude Include="Include\RenderingSystem\Renderers\ForwardRenderer.h" />
     <ClInclude Include="Include\RenderingSystem\Renderers\Renderer.h" />

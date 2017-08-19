@@ -54,10 +54,10 @@ protected:
     void                SetViewport                 (int resolution_X, int resolution_Y);
 
     // Add new GLObject to the rendering list.
-    void                AddToRenderingList          (GLObject* to_add);
+    void                AddToRenderingList          (const GLObject * to_add);
 
     // Remove GLObject from the rendering list.
-    void                RemoveFromRenderingList     (GLObject* to_remove);
+    void                RemoveFromRenderingList     (const GLObject * to_remove);
 
     // Main rendering logic. Setting states and drawing.
     void                DrawAll                     ();

@@ -10,19 +10,26 @@
 class LightContainer
 {
 public:
-
-    static constexpr GLsizei Y_SIZE = 3;
+    static constexpr GLsizei LIGHT_MAX_COUNT    = 64;
+    //static constexpr GLsizei X_SIZE             = sizeof(LightInfo) * LIGHT_MAX_COUNT;
+    static constexpr GLsizei Y_SIZE             = 3;
 
     using LightList = std::list<Light>;
 
-    LightContainer                          ();
+    LightContainer                              ();
 
-    LightContainer                          (const LightContainer& rhs) = delete;
-    LightContainer                          (LightContainer&& rhs) = delete;
-    LightContainer&     operator=           (const LightContainer& rhs) = delete;
-    LightContainer&     operator=           (LightContainer&& rhs) = delete;
+    LightContainer                              (const LightContainer& rhs) = delete;
+    LightContainer                              (LightContainer&& rhs) = delete;
+    LightContainer&         operator=           (const LightContainer& rhs) = delete;
+    LightContainer&         operator=           (LightContainer&& rhs) = delete;
 
-    ~LightContainer                         ();
+    virtual ~LightContainer                     ();
+
+
+    void                    AddLight            (const Light* const light);
+    void                    RemoveLight         ();
+
+
 
 protected:
 

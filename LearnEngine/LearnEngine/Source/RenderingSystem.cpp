@@ -63,12 +63,12 @@ void RenderingSystem::SetViewport(int resolution_X, int resolution_Y)
     glViewport(0, 0, screen_width_, screen_width_);
 }
 
-void RenderingSystem::AddToRenderingList(GLObject* to_add)
+void RenderingSystem::AddToRenderingList(const GLObject * to_add)
 {
     rendering_list_.push_back(to_add);
 }
 
-void RenderingSystem::RemoveFromRenderingList(GLObject* to_remove)
+void RenderingSystem::RemoveFromRenderingList(const GLObject * to_remove)
 {
     std::remove_if(rendering_list_.begin(), rendering_list_.end(),
         [to_remove](GLObject* candidate) { return candidate == to_remove; });

@@ -10,6 +10,7 @@ CameraEntity::CameraEntity(Entity* parent) :
     fow_(60.0f),
     transform_(new GLTransform())
 {
+    name_ = "new_camera_entity";
     clipping_planes_[0] = 0.1f;
     clipping_planes_[1] = 1000.0f;
 }

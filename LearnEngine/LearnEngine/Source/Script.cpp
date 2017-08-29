@@ -17,7 +17,18 @@ void Script::SetTicking(bool value)
     }
 }
 
+Component::DestructionFunction Script::GetDestructionFunc()
+{
+    return [](Component* this_component) {
+        ComponentFactory<Script>::DestroyComponent(dynamic_cast<Script*>(this_component));
+    };
+}
+
 void Script::RegisterStart()
 {
     ScriptingSystem::Instance().RegisterStarter(this);
+}
+
+Script::~Script() {
+    SetTicking(false);
 }

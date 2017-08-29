@@ -59,6 +59,7 @@ void Program::StartMainLoop()
 
         ScriptingSystem::Instance().Iterate();
         RenderingSystem::Instance().Iterate();
+        InputSystem::Instance().ResetFrameData();
     }
 }
 

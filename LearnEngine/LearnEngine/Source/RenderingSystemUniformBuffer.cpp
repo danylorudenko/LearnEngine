@@ -9,9 +9,14 @@ RenderingSystemUniformBuffer::RenderingSystemUniformBuffer() :
     AllocateGPUBuffer();
 }
 
+RenderingSystemUniformBuffer::~RenderingSystemUniformBuffer()
+{
+    DestroyGPUBuffer();
+}
+
 void RenderingSystemUniformBuffer::Bind() const
 {
-    glBindBufferBase(GL_UNIFORM_BUFFER, RENDERING_SYSTEM_UNIFORM_BINDING_IDNEX, uniform_buffer_handle_);
+    glBindBufferBase(GL_UNIFORM_BUFFER, RENDERING_SYSTEM_UNIFORM_BINDING_INDEX, uniform_buffer_handle_);
 }
 
 void RenderingSystemUniformBuffer::UpdateCameraData(
@@ -20,18 +25,13 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     // TODO: add roll support(around z coordinate)
     // Camera view direction calculation ( x = yaw, y = pitch)
 
-    auto rotation = camera.Transform().GetRotation();
-    GLfloat short_hypothenuse = std::cosf(glm::radians(rotation.x));
-    glm::vec3 direction(
-        std::sinf(glm::radians(rotation.y)) * short_hypothenuse,
-        std::sinf(glm::radians(rotation.x)),
-        std::cosf(glm::radians(rotation.y)) * short_hypothenuse
-    );
+    //auto rotation = glm::radians(camera.Transform().Euler());
+    glm::vec3 direction = glm::mat4_cast(camera.Transform().Rotation()) * glm::vec4(1.0f, 0.0f, 0.0f, 0.0f);
 
     glm::mat4 view_matrix = glm::lookAt(
-        camera.Transform().GetPosition(), 
-        direction + camera.Transform().GetPosition(), 
-        glm::vec3(0.0f, 1.0f, 0.0f));
+        camera.Transform().Position(), 
+        camera.Transform().Position() + camera.Transform().Forward(), 
+        camera.Transform().Up());
 
     glm::mat4 perspective_matrix = glm::perspective(
         glm::radians(camera.GetFOW()), 
@@ -58,10 +58,10 @@ void RenderingSystemUniformBuffer::UpdateCameraData(
     std::memcpy(buffer_data, &perspective_matrix, sizeof(perspective_matrix));
     buffer_data += sizeof(perspective_matrix);
 
-    std::memcpy(buffer_data, &camera.Transform().GetPosition(), sizeof(camera.Transform().GetPosition()));
-    buffer_data += sizeof(camera.Transform().GetPosition());
+    std::memcpy(buffer_data, &camera.Transform().Position(), sizeof(camera.Transform().Position()));
+    buffer_data += sizeof(camera.Transform().Position());
 
-    std::memcpy(buffer_data, &rotation, sizeof(rotation));
+    std::memcpy(buffer_data, &camera.Transform().Euler(), sizeof(camera.Transform().Euler()));
 
 #ifdef GL44
 
@@ -180,4 +180,9 @@ void RenderingSystemUniformBuffer::AllocateGPUBuffer()
     );
 
 #endif
+}
+
+void RenderingSystemUniformBuffer::DestroyGPUBuffer()
+{
+    glDeleteBuffers(1, &uniform_buffer_handle_);
 }

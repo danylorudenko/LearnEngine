@@ -139,7 +139,6 @@
     <ClCompile Include="Source\GLTransform.cpp" />
     <ClCompile Include="Source\CameraEntity.cpp" />
     <ClCompile Include="Source\Component.cpp" />
-    <ClCompile Include="Source\ComponentRegistrationAttorney.cpp" />
     <ClCompile Include="Source\DebugTools.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\GLObject.cpp" />
@@ -161,7 +160,6 @@
   <ItemGroup>
     <ClInclude Include="Include\Component\Component.h" />
     <ClInclude Include="Include\Component\ComponentFactory.h" />
-    <ClInclude Include="Include\Component\ComponentRegistrationAttorney.h" />
     <ClInclude Include="Include\Component\Light\Light.h" />
     <ClInclude Include="Include\Configuration\ConfigManager.h" />
     <ClInclude Include="Include\RenderingSystem\Renderers\DeferredRenderer.h" />

@@ -7,6 +7,8 @@ template<typename TComponent> class ComponentFactory;
 
 class Light : public Component
 {
+    friend class ComponentFactory<Light>;
+
 protected:
     Light                                   ();
 
@@ -16,7 +18,7 @@ public:
     Light&              operator=           (const Light& rhs) = delete;
     Light&              operator=           (Light&& rhs) = delete;
 
-
+    virtual DestructionFunction GetDestructionFunc () override;
 };
 
 #endif

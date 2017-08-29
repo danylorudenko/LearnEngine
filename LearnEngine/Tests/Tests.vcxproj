@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Tests\jsonTest.cpp" />
+    <ClCompile Include="Tests\quaterion_test.cpp" />
     <ClCompile Include="Tests\sizeofTest.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

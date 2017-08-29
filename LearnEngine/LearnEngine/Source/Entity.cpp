@@ -25,7 +25,7 @@ Entity* Entity::FindEntity(std::string& name)
             return dynamic_cast<Entity*>(this->FindEntity(name));
         });
     }
-    
+
     return nullptr;
 }
 
@@ -62,27 +62,11 @@ Entity::~Entity()
     RemoveAllComponents();
 }
 
-void Entity::RemoveComponent(Component* component)
-{
-    components_.remove_if(
-        [component](Component* candidate) {
-        if (component == candidate) {
-            ComponentFactory<Component>::DestroyComponent(component);
-            return true;
-        }
-        else {
-            return false;
-        }
-    });
-}
-
 void Entity::RemoveAllComponents()
 {
-    for (auto component : components_) {
-        ComponentRegistrationAttorney::UnregisterFromSystem(component);
-        ComponentRegistrationAttorney::SetComponentOwner(component, nullptr);
-        delete component;
+    while (!components_.empty()) {
+        Component* to_remove = *components_.begin();
+        to_remove->GetDestructionFunc()(to_remove);
+        components_.pop_front();
     }
-
-    components_.clear();
 }

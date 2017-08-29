@@ -15,6 +15,8 @@ class Component
 
 public:
 
+    using DestructionFunction = void(*)(Component*);
+
     Component                               (const Component& rhs) = delete;
     Component&          operator=           (const Component& rhs) = delete;
     Component                               (Component&& rhs) = delete;
@@ -24,6 +26,8 @@ public:
 
 
     Entity&             GetOwner            ();
+
+    virtual DestructionFunction GetDestructionFunc() = 0;
 
 protected:
 
@@ -36,8 +40,6 @@ protected:
 
 protected:
     Entity* owner_;
-
-    //friend class ComponentRegistrationAttorney;
 };
 
 #endif

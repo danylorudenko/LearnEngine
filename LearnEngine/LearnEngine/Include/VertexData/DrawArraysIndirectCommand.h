@@ -22,7 +22,7 @@ protected:
 
 public:
     DrawArraysIndirectCommand               ();
-    ~DrawArraysIndirectCommand              ();
+    virtual ~DrawArraysIndirectCommand      ();
 
     DrawArraysIndirectCommand               (const DrawArraysIndirectCommand& rhs);
     DrawArraysIndirectCommand&  operator=   (const DrawArraysIndirectCommand& rhs);

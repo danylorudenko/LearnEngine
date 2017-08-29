@@ -11,7 +11,7 @@
 class RenderingSystemUniformBuffer
 {
 protected:
-    static constexpr GLuint     RENDERING_SYSTEM_UNIFORM_BINDING_IDNEX = 0;
+    static constexpr GLuint     RENDERING_SYSTEM_UNIFORM_BINDING_INDEX = 0;
     static constexpr GLsizei    BUFFER_SIZE             = sizeof(glm::mat4)  // viewMatrix
                                                         + sizeof(glm::mat4)  // perspectiveMatrix
                                                         + sizeof(glm::vec3)  // cameraPos

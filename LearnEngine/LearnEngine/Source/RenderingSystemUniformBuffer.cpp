@@ -16,7 +16,7 @@ RenderingSystemUniformBuffer::~RenderingSystemUniformBuffer()
 
 void RenderingSystemUniformBuffer::Bind() const
 {
-    glBindBufferBase(GL_UNIFORM_BUFFER, RENDERING_SYSTEM_UNIFORM_BINDING_IDNEX, uniform_buffer_handle_);
+    glBindBufferBase(GL_UNIFORM_BUFFER, RENDERING_SYSTEM_UNIFORM_BINDING_INDEX, uniform_buffer_handle_);
 }
 
 void RenderingSystemUniformBuffer::UpdateCameraData(

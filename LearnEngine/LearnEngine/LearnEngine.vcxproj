@@ -203,6 +203,9 @@
     <Image Include="Resources\Images\awesomeface.png" />
     <Image Include="Resources\Images\container.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Inl\ControlledSingleton.inl" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

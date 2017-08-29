@@ -1,42 +1,31 @@
-#ifndef __SINGLETONE_H__
-#define __SINGLETONE_H__
+#ifndef __CONTROLLED_SINGLETON_H__
+#define __CONTROLLED_SINGLETON_H__
 
 #include <stdexcept>
 
+// Singleton with controlled existance of the instance.
 template<typename T>
 class ControlledSingleton
 {
 public:
-    static T& Instance()
-    {
-        return *instance_;
-    }
+    // Get reference to the internal instance.
+    // UB if instance was not created.
+    static T& Instance();
 
+    // Forward arguments to the instance constructor and create instance.
     template<typename... TArgs>
-    static void Create(TArgs&&... arg)
-    {
-        if (instance_ != nullptr) {
-            throw std::logic_error("Logical error: singletone already has an instance. Manualy delete the previous one to create a new..");
-        }
-        instance_ = T::ConstructionAttorney::ConstructInstance(std::forward<TArgs>(arg)...);
-    }
+    static void Create(TArgs&&... args);
 
-    static bool IsCreated()
-    {
-        return instance_ != nullptr;
-    }
+    // Is instance created?
+    static bool IsCreated();
 
-    static void Delete()
-    {
-        delete instance_;
-        instance_ = nullptr;
-    }
+    // Free instance memory and set instance ptr to nullptr.
+    static void Delete();
 
 protected:
     static T* instance_;
 };
 
-template<typename T>
-T* ControlledSingleton<T>::instance_ = nullptr;
+#include "..\..\Inl\ControlledSingleton.inl"
 
 #endif

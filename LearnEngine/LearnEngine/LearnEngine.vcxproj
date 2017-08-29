@@ -205,6 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Inl\ControlledSingleton.inl" />
+    <None Include="Inl\HierarchyMember.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

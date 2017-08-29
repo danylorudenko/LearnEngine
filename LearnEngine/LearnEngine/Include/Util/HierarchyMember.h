@@ -11,59 +11,19 @@ class HierarchyMember
 public:
     using ChildrenContainer = std::list<HierarchyMember*>;
 
-    HierarchyMember (HierarchyMember* parent) :
-        parent_(parent)
-    {
-        if (parent_) {
-            parent->AddChildToListWithIndex(this);
-        }
-    }
+    HierarchyMember (HierarchyMember* parent);
 
-    virtual ~HierarchyMember()
-    {
-        std::for_each(children_.begin(), children_.end(),
-            [](HierarchyMember* child) {
-            delete child;
-        });
-    }
+    virtual ~HierarchyMember();
     
-    T& Parent()
-    {
-        return static_cast<T>(parent_);
-    }
+    T& Parent();
 
-    void SetParent(HierarchyMember* parent)
-    {
-        this->parent_->children_.remove_if(
-            [this](HierarchyMember* candidate) {
-            return candidate == this;
-        });
-        // As we now may have gaps in children index order we chould update them.
-        this->parent_->UpdateIndicies();
+    void SetParent(HierarchyMember* parent);
 
-        this->parent_ = parent;
-        AddChildToListWithIndex(this);
-    }
-
-    
 
 protected:
-    void UpdateIndicies()
-    {
-        std::size_t index = 0;
-        std::for_each(children_.begin(), children_.end(),
-            [&index](HierarchyMember* child) {
-            child->member_index_ = index++;
-        });
-    }
+    void UpdateIndicies();
 
-    std::size_t AddChildToListWithIndex(HierarchyMember* new_member)
-    {
-        new_member->member_index_ = children_.size();
-        children_.push_back(new_member);
-        new_member->parent_ = this;
-        return new_member->member_index_;
-    }
+    std::size_t AddChildToListWithIndex(HierarchyMember* new_member);
 
 protected:
     std::size_t             member_index_;
@@ -71,5 +31,7 @@ protected:
 
     ChildrenContainer       children_;
 };
+
+#include "..\..\Inl\HierarchyMember.inl"
 
 #endif

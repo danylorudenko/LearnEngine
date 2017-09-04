@@ -1,4 +1,7 @@
-#include "..\Include\Util\HierarchyMember.h"
+#ifndef __HIERARCHY_MEMBER_INL__
+#define __HIERARHCY_MEMBER_INL__
+
+#include <stdexcept>
 
 template<typename T>
 HierarchyMember<T>::HierarchyMember(HierarchyMember<T>* parent) :
@@ -56,3 +59,5 @@ std::size_t HierarchyMember<T>::AddChildToListWithIndex(HierarchyMember* new_mem
     new_member->parent_ = this;
     return new_member->member_index_;
 }
+
+#endif

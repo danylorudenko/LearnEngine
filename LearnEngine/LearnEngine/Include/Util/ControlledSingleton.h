@@ -1,8 +1,6 @@
 #ifndef __CONTROLLED_SINGLETON_H__
 #define __CONTROLLED_SINGLETON_H__
 
-#include <stdexcept>
-
 // Singleton with controlled existance of the instance.
 template<typename T>
 class ControlledSingleton

@@ -1,7 +1,7 @@
 #ifndef __DRAW_ARRAYS_INDIRECT_COMMAND_H__
 #define __DRAW_ARRAYS_INDIRECT_COMMAND_H__
 
-#include <GL\glew.h>
+#include <gl\glew.h>
 
 // Wrapper for indirect array-drawing command.
 // Used to tell OpenGL params for indirect dwawing (vertex count, instance count, bases).

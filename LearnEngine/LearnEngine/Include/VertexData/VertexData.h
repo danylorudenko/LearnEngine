@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include <GL\glew.h>
+#include <gl\glew.h>
 #include "DrawArraysIndirectCommand.h"
 #include "VertexAttribData.h"
 

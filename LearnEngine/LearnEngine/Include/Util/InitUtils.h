@@ -1,7 +1,7 @@
 #ifndef __INIT_UTILS_H__
 #define __INIT_UTILS_H__
 
-#include <GL\glew.h>
+#include <gl\glew.h>
 #include <GLFW\glfw3.h>
 
 // Initializing GLFW, setting basic preferences.

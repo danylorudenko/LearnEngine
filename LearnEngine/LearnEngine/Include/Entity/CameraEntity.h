@@ -1,7 +1,7 @@
 #ifndef __CAMERA_ENTITY_H__
 #define __CAMERA_ENTITY_H__
 
-#include <GL\glew.h>
+#include <gl\glew.h>
 #include <glm\fwd.hpp>
 #include <memory>
 

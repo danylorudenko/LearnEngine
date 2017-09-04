@@ -1,7 +1,7 @@
 #ifndef __VERTEX_ATTRIB_DATA_H__
 #define __VERTEX_ATTRIB_DATA_H__
 
-#include <GL\glew.h>
+#include <gl\glew.h>
 
 // Aggregator of data needed to describe vertex attribute to OpenGL.
 class VertexAttribData

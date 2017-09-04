@@ -1,7 +1,7 @@
 #ifndef __SHADER_MANAGER_H__
 #define __SHADER_MANAGER_H__
 
-#include <GL\glew.h>
+#include <gl\glew.h>
 #include <glm\fwd.hpp>
 #include <string>
 

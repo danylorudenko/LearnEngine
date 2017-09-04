@@ -1,6 +1,6 @@
 #include "..\Include\Util\Debugging\DebugTools.h"
 
-#include <GL\glew.h>
+#include <gl\glew.h>
 #include <iostream>
 #include <fstream>
 

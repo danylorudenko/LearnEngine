@@ -48,44 +48,17 @@ public:
 
     // Gets reference to the first component in the list of the template type.
     template<typename TComponent>
-    TComponent*                     GetComponent                ()
-    {
-        for (auto component : components_) {
-            if (auto casted_component = dynamic_cast<TComponent*>(component)) {
-                return casted_component;
-            }
-        }
-
-        return nullptr;
-    }
+    TComponent*                     GetComponent                ();
 
     // Adds component to the internal list and sets its owner to self.
     // Performs registration of the component in the contolling system, if needed.
     template<typename TComponent>
-    TComponent*                     AddComponent                ()
-    {
-        TComponent* component = ComponentFactory<TComponent>::ConstructComponent(this);
-        components_.push_back(component);
-
-        return component;
-    }
+    TComponent*                     AddComponent                ();
 
     // Removes pointer to the component and unregisters component from engines subsystems, if needed.
     // Removes owner pointer for the component.
     template<typename TComponent>
-    void                            RemoveComponent(TComponent* to_remove)
-    {
-        components_.remove_if(
-            [component](TComponent* candidate) {
-            if (component == candidate) {
-                ComponentFactory<TComponent>::DestroyComponent(component);
-                return true;
-            }
-            else {
-                return false;
-            }
-        });
-    }
+	void                            RemoveComponent				(TComponent* to_remove);
 
     // Unregisters all components registered by this entity.
     // Clears pointer list to the components.
@@ -97,5 +70,7 @@ protected:
     std::string                     name_;
     ComponentList                   components_;
 };
+
+#include "../../Inl/Entity.inl"
 
 #endif

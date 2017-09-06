@@ -1,6 +1,9 @@
-#include "..\Include\Program\Program.h"
-#include "..\Include\Entity\Entity.h"
-#include "..\Include\Util\Debugging\DebugTools.h"
+#include <GL\glew.h>
+
+#include <Engine\Program\Program.h>
+#include <Engine\Entity\Entity.h>
+#include <Engine\Util\Debugging\DebugTools.h>
+
 #include "..\Resources\Scripts\CameraController.h"
 #include "..\Resources\Scripts\Rotator.h"
 
@@ -119,7 +122,6 @@ void Program::StartupLogic()
     gl_obj2->SetVertexData(vertex_data);
 
     entity2->AddComponent<Rotator>();
-    //entity->AddComponent<CameraController>();
 
     entity->Transform().Scale().z = 2.0f;
 

@@ -1,6 +1,6 @@
-#include "..\Include\Util\InitUtils.h"
-#include "..\Include\Input\InputSystem.h"
-#include "..\Include\Shaders\ShaderProgram.h"
+#include <Engine\Util\InitUtils.h>
+#include <Engine\Input\InputSystem.h>
+#include <Engine\Shaders\ShaderProgram.h>
 
 #include <iostream>
 #include <stdexcept>

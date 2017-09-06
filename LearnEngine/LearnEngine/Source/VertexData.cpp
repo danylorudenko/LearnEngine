@@ -1,5 +1,5 @@
-#include "..\Include\VertexData\VertexData.h"
-#include "..\Include\Util\Debugging\DebugTools.h"
+#include <Engine\VertexData\VertexData.h>
+#include <Engine\Util\Debugging\DebugTools.h>
 
 #include <cstdlib>
 

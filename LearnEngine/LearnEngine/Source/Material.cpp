@@ -1,6 +1,7 @@
-#include "..\Include\Material\Material.h"
 #include <glm\mat4x4.hpp>
 #include <algorithm>
+
+#include <Engine\Material\Material.h>
 
 Material::Material(std::shared_ptr<ShaderProgram> shader) : main_shader_(shader)
 {

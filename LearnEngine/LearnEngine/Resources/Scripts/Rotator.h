@@ -1,8 +1,8 @@
 #ifndef __ROTATOR_H__
 #define __ROTATOR_H__
 
-#include "..\..\Include\Component\GLObject\GLObject.h"
-#include "..\..\Include\Component\Script\Script.h"
+#include <Engine\Component\GLObject\GLObject.h>
+#include <Engine\Component\Script\Script.h>
 
 class Rotator :
     public Script

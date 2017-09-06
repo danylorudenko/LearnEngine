@@ -1,8 +1,9 @@
 #include <iostream>
 
+#include <Engine\Program\Program.h>
+#include <Engine\Input\InputSystem.h>
+
 #include "CameraController.h"
-#include "..\..\Include\Input\InputSystem.h"
-#include "..\..\Include\Program\Program.h"
 
 
 CameraController::CameraController() :

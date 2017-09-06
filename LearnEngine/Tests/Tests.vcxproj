@@ -69,8 +69,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\..\_Headers;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\..\_Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\_Headers;$(IncludePath);$(SolutionDir)\LearnEngine\Include</IncludePath>
+    <LibraryPath>$(SolutionDir)\_Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -114,6 +114,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Tests\jsonTest.cpp" />
+    <ClCompile Include="Tests\poolTest.cpp" />
     <ClCompile Include="Tests\quaterion_test.cpp" />
     <ClCompile Include="Tests\sizeofTest.cpp" />
   </ItemGroup>

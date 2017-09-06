@@ -1,5 +1,5 @@
-#include "..\Include\VertexData\DrawArraysIndirectCommand.h"
-#include "..\Include\Util\Debugging\DebugTools.h"
+#include <Engine\VertexData\DrawArraysIndirectCommand.h>
+#include <Engine\Util\Debugging\DebugTools.h>
 
 DrawArraysIndirectCommand::DrawArraysIndirectCommand() :
     buffer_handle_(0)

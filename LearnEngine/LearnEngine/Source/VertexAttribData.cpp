@@ -1,4 +1,4 @@
-#include "..\Include\VertexData\VertexAttribData.h"
+#include <Engine\VertexData\VertexAttribData.h>
 
 VertexAttribData::VertexAttribData(
     GLuint attrib_index,

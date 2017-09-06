@@ -1,5 +1,5 @@
-#include "..\Include\Texture\TextureController.h"
-#include "..\Include\Util\Debugging\DebugTools.h"
+#include <Engine\Texture\TextureController.h>
+#include <Engine\Util\Debugging\DebugTools.h>
 
 #include <SOIL\SOIL.h>
 #include <stdexcept>

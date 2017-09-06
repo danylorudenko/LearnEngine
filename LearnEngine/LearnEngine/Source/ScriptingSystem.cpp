@@ -1,5 +1,6 @@
 #include <algorithm>
-#include "..\Include\ScriptingSystem\ScriptingSystem.h"
+
+#include <Engine\ScriptingSystem\ScriptingSystem.h>
 
 ScriptingSystem::ScriptingSystem()
 {

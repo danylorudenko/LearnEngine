@@ -1,5 +1,5 @@
-#include "..\Include\Component\Script\Script.h"
-#include "..\Include\ScriptingSystem\ScriptingSystem.h"
+#include <Engine\Component\Script\Script.h>
+#include <Engine\ScriptingSystem\ScriptingSystem.h>
 
 Script::Script() : Component(), is_ticking_(false)
 {

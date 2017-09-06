@@ -1,9 +1,9 @@
 #include <glm\vec3.hpp>
 #include <glm\mat4x4.hpp>
 #include <glm\gtc\matrix_transform.hpp>
-#include "..\Include\World\World.h"
 
-#include "..\Include\Entity\CameraEntity.h"
+#include <Engine\World\World.h>
+#include <Engine\Entity\CameraEntity.h>
 
 CameraEntity::CameraEntity(Entity* parent) : 
     Entity(parent),

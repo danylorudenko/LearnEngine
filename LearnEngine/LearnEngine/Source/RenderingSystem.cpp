@@ -1,8 +1,9 @@
-#include "..\Include\RenderingSystem\RenderingSystem.h"
-#include "..\Include\Util\Debugging\DebugTools.h"
 #include <glm\mat4x4.hpp>
 
 #include <algorithm>
+
+#include <Engine\RenderingSystem\RenderingSystem.h>
+#include <Engine\Util\Debugging\DebugTools.h>
 
 RenderingSystem::RenderingSystem(GLFWwindow* window, int resolution_X, int resolution_Y, CameraEntity* main_cam) :
     context_window_(window),

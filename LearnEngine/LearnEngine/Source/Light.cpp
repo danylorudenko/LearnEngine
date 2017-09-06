@@ -1,5 +1,5 @@
-#include "..\Include\Component\Light\Light.h"
-#include "..\Include\Component\ComponentFactory.h"
+#include <Engine\Component\Light\Light.h>
+#include <Engine\Component\ComponentFactory.h>
 
 Light::Light()
 {

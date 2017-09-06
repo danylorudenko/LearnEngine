@@ -1,9 +1,10 @@
-#include "..\Include\Shaders\ShaderProgram.h"
-#include "..\Include\Util\Debugging\DebugTools.h"
-#include <glm\gtc\type_ptr.hpp>
-
 #include <fstream>
 #include <iostream>
+
+#include <glm\gtc\type_ptr.hpp>
+
+#include <Engine\Shaders\ShaderProgram.h>
+#include <Engine\Util\Debugging\DebugTools.h>
 
 ShaderProgram::ShaderProgram(const GLchar* vertex_source_file, const GLchar* fragment_source_file)
 {

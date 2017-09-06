@@ -1,7 +1,7 @@
 #ifndef __CAMERA_CONTROLLER_H__
 #define __CAMERA_CONTROLLER_H__
 
-#include "..\..\Include\Component\Script\Script.h"
+#include <Engine\Component\Script\Script.h>
 
 class CameraController : public Script
 {

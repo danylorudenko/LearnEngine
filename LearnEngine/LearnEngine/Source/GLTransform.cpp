@@ -1,7 +1,8 @@
-#include "..\Include\Util\GLTransformation\GLTransform.h"
 #include <glm\gtc\matrix_transform.hpp>
 #include <glm\gtc\type_ptr.hpp>
-#include "..\Include\Util\Debugging\DebugTools.h"
+
+#include <Engine\Util\GLTransformation\GLTransform.h>
+#include <Engine\Util\Debugging\DebugTools.h>
 
 GLTransform::GLTransform() : 
     position_(0.0f),

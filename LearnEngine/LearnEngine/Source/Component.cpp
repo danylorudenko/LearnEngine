@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "..\Include\Component\Component.h"
+#include <Engine\Component\Component.h>
 
 Component::Component() : 
     owner_(nullptr)

@@ -1,6 +1,7 @@
-#include "..\Include\Input\InputSystem.h"
 #include <iostream>
 #include <algorithm>
+
+#include <Engine\Input\InputSystem.h>
 
 void InputSystem::key_callback(GLFWwindow* window, int key, int scan_code, int action, int mode)
 {

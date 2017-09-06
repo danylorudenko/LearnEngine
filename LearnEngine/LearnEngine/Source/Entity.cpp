@@ -1,6 +1,6 @@
-#include "..\Include\Entity\Entity.h"
-#include "..\Include\World\World.h"
-#include "..\Include\Component\ComponentFactory.h"
+#include <Engine\Entity\Entity.h>
+#include <Engine\World\World.h>
+#include <Engine\Component\ComponentFactory.h>
 
 Entity* Entity::CreateEntity()
 {

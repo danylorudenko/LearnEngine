@@ -1,10 +1,12 @@
-#include "..\Include\Program\Program.h"
-#include "..\Include\Input\InputSystem.h"
-#include "..\Include\RenderingSystem\RenderingSystem.h"
-#include "..\Include\ScriptingSystem\ScriptingSystem.h"
-#include "..\Include\Util\Debugging\DebugTools.h"
-#include "..\Include\Entity\Entity.h"
-#include "..\Include\World\World.h"
+#include <GL\glew.h>
+
+#include <Engine\Program\Program.h>
+#include <Engine\Input\InputSystem.h>
+#include <Engine\RenderingSystem\RenderingSystem.h>
+#include <Engine\ScriptingSystem\ScriptingSystem.h>
+#include <Engine\Util\Debugging\DebugTools.h>
+#include <Engine\Entity\Entity.h>
+#include <Engine\World\World.h>
 
 Program::Program()
 {

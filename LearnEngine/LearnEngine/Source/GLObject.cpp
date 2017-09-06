@@ -1,7 +1,7 @@
-#include "..\Include\Component\GLObject\GLObject.h"
-#include "..\Include\Entity\Entity.h"
-#include "..\Include\RenderingSystem\RenderingSystem.h"
-#include "..\Include\Component\ComponentFactory.h"
+#include <Engine\Component\GLObject\GLObject.h>
+#include <Engine\Entity\Entity.h>
+#include <Engine\RenderingSystem\RenderingSystem.h>
+#include <Engine\Component\ComponentFactory.h>
 
 GLObject::GLObject() :
     Component()

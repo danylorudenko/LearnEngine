@@ -1,7 +1,8 @@
-#include "..\Include\RenderingSystem\RenderingSystemUniformBuffer.h"
 #include <glm\gtc\type_ptr.hpp>
 #include <glm\gtc\matrix_transform.hpp>
-#include "..\Include\Util\Debugging\DebugTools.h"
+
+#include <Engine\RenderingSystem\RenderingSystemUniformBuffer.h>
+#include <Engine\Util\Debugging\DebugTools.h>
 
 RenderingSystemUniformBuffer::RenderingSystemUniformBuffer() :
     uniform_buffer_handle_(0)

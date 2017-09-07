@@ -12,7 +12,7 @@ ObjectPool<T>::ObjectPool(std::size_t initial_capacity) :
     count_(0),
     pool_(nullptr)
 {
-    ReinitializePool(initial_capacity);
+    ReallocatePool(initial_capacity);
 }
 
 template<typename T>
@@ -60,7 +60,7 @@ T* ObjectPool<T>::GetObjectPtr(std::size_t object_ID) {
 }
 
 template<typename T>
-void ObjectPool<T>::ReinitializePool(std::size_t target_capacity)
+void ObjectPool<T>::ReallocatePool(std::size_t target_capacity)
 {
     assert(target_capacity > capacity_);
     
@@ -118,7 +118,7 @@ std::size_t ObjectPool<T>::GetFirstFreeID() const
     }
     else {
         // Double storage capacity.
-        ReinitializePool(capacity_ * 2);
+        ReallocatePool(capacity_ * 2);
         // Search again for free space.
         return GetFirstFreeID();
     }

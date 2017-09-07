@@ -10,7 +10,7 @@ struct Object
 
 int main()
 {
-    constexpr size_t iterations = 10;
+    constexpr size_t iterations = 50;
 
     Engine::ObjectPool<Object> pool;
 

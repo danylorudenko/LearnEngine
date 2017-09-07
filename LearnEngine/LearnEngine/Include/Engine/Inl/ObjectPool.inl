@@ -68,7 +68,7 @@ std::size_t ObjectPool<T>::GetObjectID(T* object_ptr)
 
 template<typename T>
 T* ObjectPool<T>::ObjectPtr(std::size_t object_ID) {
-    byte* ptr = pool_ + static_cast<std::ptrdiff_t>(object_ID + POOL_UNIT_SIZE);
+    byte* ptr = pool_ + static_cast<std::ptrdiff_t>(object_ID * POOL_UNIT_SIZE);
     return (T*)ptr;
 }
 

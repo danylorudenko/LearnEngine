@@ -13,15 +13,10 @@
 namespace Engine
 {
 
-template<typename TComponent> class ComponentFactory;
-
 // System responsible for maintaining rendering list, 
 // changing state of OpenGL, sending rendering commands.
 class RenderingSystem : public ControlledSingleton<RenderingSystem>
 {
-public:
-    friend class ComponentFactory<GLObject>;
-
 protected:
     using RenderingListContainter                   = std::vector<GLObject*>;
 

@@ -16,11 +16,8 @@ class ScriptingSystem;
 // All callbacks are empy and to be implemented by the inheriting script.
 class Script : public Component
 {
-protected:
-    Script                                                  ();
-    friend class ComponentFactory<Script>;
-
 public:
+    Script                                                  (Entity* owner);
     Script                                                  (const Script& rhs) = delete;
     Script                                                  (Script&& rhs) = delete;
 
@@ -34,8 +31,6 @@ public:
     // Enable\disable ticking of the scirpt.
     // When enabled Tick() will be called every Scripting system iteration.
     void                        SetTicking                  (bool value);
-
-    virtual DestructionFunction GetDestructionFunc          () override;
 
 protected:
     // This callback can be called once in the start of Scripting system iteration.

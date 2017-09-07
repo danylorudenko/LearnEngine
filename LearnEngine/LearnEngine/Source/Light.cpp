@@ -4,15 +4,10 @@
 namespace Engine
 {
 
-Light::Light()
+Light::Light(Entity* owner) :
+    Component(owner)
 {
-}
 
-Component::DestructionFunction Light::GetDestructionFunc()
-{
-    return [](Component* this_component) {
-        ComponentFactory<Light>::DestroyComponent(dynamic_cast<Light*>(this_component));
-    };
 }
 
 } // namespace Engine

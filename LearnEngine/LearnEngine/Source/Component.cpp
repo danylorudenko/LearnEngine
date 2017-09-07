@@ -4,8 +4,8 @@
 namespace Engine
 {
 
-Component::Component() : 
-    owner_(nullptr)
+Component::Component(Entity* owner) : 
+    owner_(owner)
 {
 
 }
@@ -18,11 +18,6 @@ Component::~Component()
 Entity& Component::GetOwner()
 {
     return *owner_;
-}
-
-void Component::SetOwner(Entity* owner)
-{
-    owner_ = owner;
 }
 
 } // namespace Engine

@@ -21,10 +21,10 @@ TComponent* Entity::GetComponent()
 template<typename TComponent>
 TComponent* Entity::AddComponent()
 {
-	TComponent* component = ComponentFactory<TComponent>::ConstructComponent(this);
-	components_.push_back(component);
+	//TComponent* component = ComponentFactory<TComponent>::ConstructComponent(this);
+	//components_.push_back(component);
 
-	return component;
+	return nullptr;
 }
 
 // Removes pointer to the component and unregisters component from engines subsystems, if needed.
@@ -32,16 +32,16 @@ TComponent* Entity::AddComponent()
 template<typename TComponent>
 void Entity::RemoveComponent(TComponent* to_remove)
 {
-	components_.remove_if(
-		[component](TComponent* candidate) {
-		if (component == candidate) {
-			ComponentFactory<TComponent>::DestroyComponent(component);
-			return true;
-		}
-		else {
-			return false;
-		}
-	});
+	//components_.remove_if(
+	//	[component](TComponent* candidate) {
+	//	if (component == candidate) {
+	//		ComponentFactory<TComponent>::DestroyComponent(component);
+	//		return true;
+	//	}
+	//	else {
+	//		return false;
+	//	}
+	//});
 }
 
 } // namespace Engine

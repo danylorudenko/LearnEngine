@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <map>
+#include <utility>
 
 namespace Engine
 {
@@ -27,10 +28,11 @@ public:
     ObjectPool                              (std::size_t initial_capacity = 20);
 
     // Construct object in the pool and get pointer to it.
-    ID                  NewObject           ();
+    template<typename... Args>
+    ID                  NewObject           (Args&&... args);
 
     // Call destructor on object and return object to the pool.
-    void                Release             (T* obj_ptr);
+    void                Release             (ID obj_id);
 
     // Check if object with in this adress belongs to this pool.
     bool                IsObjectInternal    (T* obj_ptr);
@@ -54,13 +56,16 @@ protected:
     static void         MovePool            (byte* current_pool, byte* target_pool, std::size_t capacity);
 
     // Find first free pool unit.
-    ID         GetFirstFreeID      () const;
+    ID                  GetFirstFreeID      () const;
 
     // Update state of the unit with given ID.
     void                UpdateState         (ID, bool state);
 
-    static T*           Construct           (T* ptr) { return new (ptr) T{}; }
+    // Placement-new by the given adress.
+    template<typename... Args>
+    static T*           Construct           (T* ptr, Args&&... args) { return new (ptr) T{ std::forward<Args>(args)...}; }
 
+    // Call destructor by the given adress.
     static void         Destroy             (T* obj_ptr) { ptr->~T(); }
 
 

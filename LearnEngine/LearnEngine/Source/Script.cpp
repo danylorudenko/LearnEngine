@@ -4,7 +4,8 @@
 namespace Engine
 {
 
-Script::Script() : Component(), is_ticking_(false)
+Script::Script(Entity* owner) : 
+    Component(owner), is_ticking_(false)
 {
 
 }
@@ -18,13 +19,6 @@ void Script::SetTicking(bool value)
     else {
         ScriptingSystem::Instance().UnregisterTicker(this);
     }
-}
-
-Component::DestructionFunction Script::GetDestructionFunc()
-{
-    return [](Component* this_component) {
-        ComponentFactory<Script>::DestroyComponent(dynamic_cast<Script*>(this_component));
-    };
 }
 
 void Script::RegisterStart()

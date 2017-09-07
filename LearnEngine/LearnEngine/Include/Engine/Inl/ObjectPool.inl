@@ -5,6 +5,7 @@
 #include <cassert>
 #include <algorithm>
 #include <limits>
+#include <utility>
 
 namespace Engine
 {
@@ -17,8 +18,9 @@ ObjectPool<T, ID_type>::ObjectPool(std::size_t initial_capacity) :
     ReallocatePool(initial_capacity);
 }
 
+template<typename... Args>
 template<typename T, typename ID_type>
-ID_type ObjectPool<T, ID_type>::NewObject()
+ID_type ObjectPool<T, ID_type>::NewObject(Args&&... args)
 {
     const ID free_unit_id = GetFirstFreeID();
     if (free_unit_id == std::numeric_limits<ID>::max()) {
@@ -30,16 +32,15 @@ ID_type ObjectPool<T, ID_type>::NewObject()
     UpdateState(free_unit_id, false);
 
     auto object_ptr = ObjectPtr(free_unit_id);
-    Construct(object_ptr);
+    Construct(object_ptr, std::forward<Args>(args)...);
 
     return free_unit_id;
 }
 
 template<typename T, typename ID_type>
-void ObjectPool<T, ID_type>::Release(T* obj_ptr)
+void ObjectPool<T, ID_type>::Release(ID obj_id)
 {
-    std::size_t object_id = GetObjectID(obj_ptr);
-    if (object_id == std::numeric_limits<ID>::max()) {
+    if (!IsObjectInternal(ObjectPtr(obj_id))) {
         throw std::runtime_error("Object does not belong to the current pool.");
     }
 

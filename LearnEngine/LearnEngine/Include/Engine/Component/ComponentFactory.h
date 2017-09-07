@@ -2,71 +2,39 @@
 #define __COMPONENT_FACTORY_H__
 
 #include <Engine\Entity\Entity.h>
-#include <Engine\Component\GLObject\GLObject.h>
-#include <Engine\RenderingSystem\RenderingSystem.h>
+#include <Engine\Component\Component.h>
 #include <Engine\Util\Memory\ObjectPool.h>
+#include <Engine\Util\Memory\Handle.h>
 
 namespace Engine
 {
 
-template<typename TComponent>
+template<
+    typename TComponent,
+    typename ID_type,
+    template <typename> PoolType,
+    template <typename> HandleType
+>
 class ComponentFactory
 {
 public:
-    static TComponent* ConstructComponent(Entity* owner)
-    {
-        TComponent* component = new TComponent();
-        component->SetOwner(owner);
-        return component;
-    }
+    using component_t = TComponent;
+    using id_t = ID_type;
+    using pool_t = PoolType<TComponent, id_t>;
+    using handle_t = HandleType<id_t, pool_t>;
 
-    static void DestroyComponent(TComponent* component)
-    {
-        delete component;
-    }
+    ComponentFactory() { }
+
+    handle_t* ConstructComponent(Entity* owner) { return handle_t{ object_pool_.NewObject(), this }; }
+
+    void DestroyComponent(handle_t* component) { object_pool_.Release(component.id()) };
 
 private:
-    /*static ObjectPool<TComponent>& ComponentPool()
-    {
-        static ObjectPool<TComponent>* component_pool_ = nullptr;
-
-        return 
-            *(component_pool_ != nullptr 
-            ? component_pool_ 
-            : (component_pool_ = new ObjectPool<TComponent>{ 20 }));
-    }*/
-};
-
-template<>
-class ComponentFactory<GLObject>
-{
-public:
-    static GLObject* ConstructComponent(Entity* owner)
-    {
-        GLObject* component = new GLObject();
-        component->SetOwner(owner);
-        RenderingSystem::Instance().AddToRenderingList(component);
-        return component;
-    }
-
-    static void DestroyComponent(GLObject* component)
-    {
-        RenderingSystem::Instance().RemoveFromRenderingList(component);
-        delete component;
-    }
-
-    /*static ObjectPool<GLObject>& ComponentPool()
-    {
-        static ObjectPool<GLObject>* component_pool_ = nullptr;
-
-        return 
-            *(component_pool_ != nullptr
-            ? component_pool_
-            : (component_pool_ = new ObjectPool<GLObject>{ 20 }));
-    }*/
-
+    pool_t object_pool_;
 };
 
 } // namespace Engine
+
+#include <Engine\Inl\ComponentFactory.inl>
 
 #endif

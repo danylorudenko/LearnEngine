@@ -9,21 +9,16 @@
 
 namespace Engine {
 
-template<typename TComponent> class ComponentFactory;
-
 // Represents component that allows Entity to be drawn in the scene.
 // Contains logic for setting context of OpenGL.
 class GLObject : public Component
 {
 protected:
-    GLObject                                        ();
-    friend class ComponentFactory<GLObject>;
-
-    virtual DestructionFunction GetDestructionFunc  () override;
 
 public:
     // ========== Construction and operators ==========
 
+    GLObject                                        (Entity* owner);
     GLObject                                        (const GLObject& rhs) = delete;
                                                     
     GLObject&                operator=              (const GLObject& rhs) = delete;

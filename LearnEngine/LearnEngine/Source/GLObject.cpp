@@ -6,18 +6,10 @@
 namespace Engine
 {
 
-GLObject::GLObject() :
-    Component()
+GLObject::GLObject(Entity* owner) :
+    Component(owner)
 {
     
-}
-
-Component::DestructionFunction GLObject::GetDestructionFunc()
-{
-    return [](Component* this_component) 
-    { 
-        ComponentFactory<GLObject>::DestroyComponent(dynamic_cast<GLObject*>(this_component)); 
-    };
 }
 
 GLObject::~GLObject()

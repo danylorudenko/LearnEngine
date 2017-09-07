@@ -69,7 +69,7 @@ void Entity::RemoveAllComponents()
 {
     while (!components_.empty()) {
         Component* to_remove = *components_.begin();
-        to_remove->GetDestructionFunc()(to_remove);
+        //to_remove->GetDestructionFunc()(to_remove);
         components_.pop_front();
     }
 }

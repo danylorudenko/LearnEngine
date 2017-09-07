@@ -7,7 +7,7 @@
 #include "..\Resources\Scripts\CameraController.h"
 #include "..\Resources\Scripts\Rotator.h"
 
-void Program::StartupLogic()
+void Engine::Program::StartupLogic()
 {
     auto vertex_data = std::shared_ptr<VertexData>(
         new VertexData(

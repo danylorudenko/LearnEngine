@@ -4,17 +4,12 @@
 #include <vector>
 #include <queue>
 
-#include <Engine\Util\ConstructionAttorneyTemplate.h>
+#include <Engine\Util\ControlledSingleton.h>
 #include <Engine\Component\Script\Script.h>
 
 // System responsible for maintaining Script components to trigger custom Entity behaviour.
 class ScriptingSystem : public ControlledSingleton<ScriptingSystem>
 {
-public:
-    using ConstructionAttorney                              = SingletonConstructionAttorneyTemplate<ScriptingSystem>;
-    friend class ConstructionAttorney;
-
-protected:
     using StartCallback                                     = void(Script::*)();
     using StartCallbackQueue                                = std::queue<Script*>;
 

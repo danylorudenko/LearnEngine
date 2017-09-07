@@ -8,22 +8,16 @@
 #include <GLFW\glfw3.h>
 #include <glm\vec2.hpp>
 
-#include <Engine\Util\ConstructionAttorneyTemplate.h>
+#include <Engine\Util\ControlledSingleton.h>
 
 // System for interaction with user keyboard/mouse input.
 // Independently of user-code request, holds the state of pressed/holded/unpressed keys/mouse_pos/etc.
 class InputSystem : public ControlledSingleton<InputSystem>
 {
-public:
-    using ConstructionAttorney                  = SingletonConstructionAttorneyTemplate<InputSystem>;
-    friend class ConstructionAttorney;
-    
-protected:
-    //                               key, action
-    //using KeyboardEvent = std::tuple<int, int>;
     using CommandsContainer = std::set<int>;
+
 public:
-    
+    InputSystem                                 (GLFWwindow* window);
     InputSystem                                 (const InputSystem& rhs) = delete;
     InputSystem                                 (InputSystem&& rhs) = delete;
     InputSystem&            operator=           (const InputSystem& rhs) = delete;
@@ -51,8 +45,6 @@ public:
 
 
 protected:
-    InputSystem                                 (GLFWwindow* window);
-
     glm::vec2               ComputeMouseDelta   (glm::vec2& new_pos);
 
     // Called by GLFW to handle user input

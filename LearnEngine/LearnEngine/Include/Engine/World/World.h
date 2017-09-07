@@ -1,7 +1,7 @@
 #ifndef __WORLD_H__
 #define __WORLD_H__
 
-#include <Engine\Util\ConstructionAttorneyTemplate.h>
+#include <Engine\Util\ControlledSingleton.h>
 #include <Engine\Entity\Entity.h>
 
 // Main world where all actions are performed.
@@ -10,10 +10,7 @@
 class World : public ControlledSingleton<World>
 {
 public:
-    using ConstructionAttorney                  = SingletonConstructionAttorneyTemplate<World>;
-    friend class ConstructionAttorney;
-
-    
+    World                                       ();
     World                                       (const World& rhs) = delete;
     World               operator=               (const World& rhs) = delete;
     World                                       (World&& rhs) = delete;
@@ -29,10 +26,6 @@ public:
     Entity*             FindEntity              (std::string& name);
 
     virtual             ~World                  ();
-
-protected:
-
-    World                                       ();
 
 protected:
     Entity* root_;

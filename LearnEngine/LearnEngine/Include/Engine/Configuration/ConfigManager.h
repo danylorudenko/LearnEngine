@@ -5,13 +5,9 @@
 #include <rapidjson\fwd.h>
 #include <Engine\Util\ControlledSingleton.h>
 
-class ConfigManagerConstructionAttorney;
-
 class ConfigManager : ControlledSingleton<ConfigManager>
 {
 public:
-    using ConstructionAttorney = ConfigManagerConstructionAttorney;
-
     ConfigManager                                       (const ConfigManager& rhs) = delete;
     ConfigManager                                       (ConfigManager&& rhs) = delete;
     ConfigManager&          operator=                   (const ConfigManager& rhs) = delete;
@@ -34,19 +30,6 @@ protected:
 protected:
     const std::string&      main_config_file_;
 
-
-    friend class ConfigManagerConstructionAttorney;
-};
-
-class ConfigManagerConstructionAttorney
-{
-    template<typename... TArgs>
-    static ConfigManager*   ConstructInstance(TArgs&&... args)
-    {
-        return new ConfigManager(args...);
-    }
-
-    friend class ControlledSingleton<ConfigManager>;
 };
 
 #endif

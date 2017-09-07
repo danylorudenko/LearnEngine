@@ -50,7 +50,7 @@ void CameraController::SetNewPosition()
 {
     
     if (InputSystem::Instance().GetKeyDown(GLFW_KEY_ESCAPE)) {
-        Program::Instance().Close();
+        Engine::Program::Instance().Close();
     }
     
     static constexpr float MOV_SPEED = 0.01f;

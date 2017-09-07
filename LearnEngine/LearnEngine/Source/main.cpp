@@ -4,11 +4,11 @@
 
 int main()
 {
-    Program::Create();
+    Engine::Program::Create();
 
-    Program::Instance().StartMainLoop();
+    Engine::Program::Instance().StartMainLoop();
 
-    Program::Delete();
+    Engine::Program::Delete();
 
     return 0;
 }

@@ -4,19 +4,20 @@
 #include <GL\glew.h>
 
 #include <Engine\Util\InitUtils.h>
-#include <Engine\Util\ConstructionAttorneyTemplate.h>
+#include <Engine\Util\ControlledSingleton.h>
+
+namespace Engine 
+{
 
 // The highest facade for engine launching.
 class Program : public ControlledSingleton<Program>
 {
 public:
-    using ConstructionAttorney      = SingletonConstructionAttorneyTemplate<Program>;
-    friend class ConstructionAttorney;
-
     static constexpr unsigned int           DEFAULT_RESOLUTION_X = 800;
     static constexpr unsigned int           DEFAULT_RESOLUTION_Y = 600;
 
     
+    Program                         ();
     Program                         (const Program& rhs) = delete;
     Program&        operator=       (const Program& rhs) = delete;
     Program                         (Program&& rhs) = delete;
@@ -32,9 +33,6 @@ public:
     void            Close           ();
 
 protected:
-
-    Program                         ();
-
     // Engine initialization logic.
     // Calls the startup of the main engine loop.
     void            Initialize      ();
@@ -45,5 +43,7 @@ protected:
 protected:
     GLFWwindow* main_window_;
 };
+
+} // namespace Engine
 
 #endif

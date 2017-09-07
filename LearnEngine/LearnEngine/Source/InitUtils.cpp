@@ -1,9 +1,10 @@
 #include <Engine\Util\InitUtils.h>
-#include <Engine\Input\InputSystem.h>
-#include <Engine\Shaders\ShaderProgram.h>
 
 #include <iostream>
 #include <stdexcept>
+
+namespace Engine
+{
 
 int InitGLFW()
 {
@@ -42,3 +43,5 @@ int InitGLEW()
 	}
 	return 0;
 }
+
+} // namespace Engine

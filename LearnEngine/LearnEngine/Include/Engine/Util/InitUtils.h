@@ -4,6 +4,9 @@
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
 
+namespace Engine
+{
+
 // Initializing GLFW, setting basic preferences.
 // Returns !0 in case of error.
 int InitGLFW();
@@ -15,5 +18,7 @@ int OpenWindow_SetContext(GLFWwindow*& window, int width, int height);
 // Initializing GLEW.
 // Returns !0 in case of error
 int InitGLEW();
+
+} // namespace Engine
 
 #endif

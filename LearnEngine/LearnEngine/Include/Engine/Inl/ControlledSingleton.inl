@@ -17,7 +17,7 @@ void ControlledSingleton<T>::Create(TArgs&&... args)
     if (instance_ != nullptr) {
         throw std::logic_error("Logical error: singletone already has an instance. Manualy delete the previous one to create a new..");
     }
-    instance_ = T::ConstructionAttorney::ConstructInstance(std::forward<TArgs>(args)...);
+    instance_ = new T(std::forward<TArgs>(args)...);
 }
 
 template<typename T>

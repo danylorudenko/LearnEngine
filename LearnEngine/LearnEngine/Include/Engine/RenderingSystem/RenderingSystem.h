@@ -4,7 +4,7 @@
 #include <Engine\Entity\CameraEntity.h>
 #include <Engine\Component\GLObject\GLObject.h>
 #include <Engine\RenderingSystem\RenderingSystemUniformBuffer.h>
-#include <Engine\Util\ConstructionAttorneyTemplate.h>
+#include <Engine\Util\ControlledSingleton.h>
 
 #include <GLFW\glfw3.h>
 
@@ -17,15 +17,16 @@ template<typename TComponent> class ComponentFactory;
 class RenderingSystem : public ControlledSingleton<RenderingSystem>
 {
 public:
-    using ConstructionAttorney = SingletonConstructionAttorneyTemplate<RenderingSystem>;
-    friend class ConstructionAttorney;
-
     friend class ComponentFactory<GLObject>;
 
 protected:
     using RenderingListContainter                   = std::vector<GLObject*>;
 
 public:
+    RenderingSystem                                 (GLFWwindow* window,
+                                                     int viewport_X, int viewport_Y, 
+                                                     CameraEntity* main_cam);
+
     RenderingSystem                                 (const RenderingSystem& rhs) = delete;
     RenderingSystem                                 (RenderingSystem&& rhs) = delete;
     
@@ -44,11 +45,7 @@ public:
     // Set new main camera. Only one camera is currently supported.
     void                SetMainCamera               (CameraEntity * main_cam);
 
-
 protected:
-    RenderingSystem                                 (GLFWwindow* window,
-                                                     int viewport_X, int viewport_Y, 
-                                                     CameraEntity* main_cam);
 
     // Set viewport for rendering.
     void                SetViewport                 (int resolution_X, int resolution_Y);

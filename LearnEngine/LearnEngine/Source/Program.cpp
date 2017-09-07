@@ -8,6 +8,9 @@
 #include <Engine\Entity\Entity.h>
 #include <Engine\World\World.h>
 
+namespace Engine
+{
+
 Program::Program()
 {
     Initialize();
@@ -69,3 +72,5 @@ void Program::Close()
 {
     glfwSetWindowShouldClose(main_window_, true);
 }
+
+} // namespace Engine

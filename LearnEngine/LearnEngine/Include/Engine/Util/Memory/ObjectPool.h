@@ -5,6 +5,9 @@
 #include <cstdint>
 #include <map>
 
+namespace Engine
+{
+
 template<typename T>
 class ObjectPool
 {
@@ -16,13 +19,13 @@ public:
     using pool_map = std::map<std::size_t, bool>;
     
     // Each unit is aligned to the std::uint32_t for faster copying.
-    static constexpr std::size_t POOL_UNIT_SIZE = alignof(type) + (alignof(type) % sizeof(std::uint32_t));
+    static constexpr std::size_t POOL_UNIT_SIZE = sizeof(type) + (alignof(type) % sizeof(std::uint32_t));
 
 
     ObjectPool                              (std::size_t initial_capacity = 20);
 
     // Construct object in the pool and get pointer to it.
-    T*                  Get                 ();
+    std::size_t         Get                 ();
 
     // Call destructor on object and return object to the pool.
     void                Release             (T* obj_ptr);
@@ -30,12 +33,13 @@ public:
     // Check if object with in this adress belongs to this pool.
     bool                IsObjectInternal    (T* obj_ptr);
 
-
-protected:
     // Get object pointer by ID.
     // This does not perform check wheather object is constructed with this ID.
-    T*                  GetObjectPtr        (std::size_t object_ID);
+    T*                  ObjectPtr           (std::size_t object_ID);
 
+    T&                  AccessObj           (std::size_t object_ID);
+
+protected:
     // Get object ID by his adress. No check if object with this adress was constructed.
     // Performs simple check of adress belongs the the pool.
     std::size_t         GetObjectID         (T* object_ptr);
@@ -45,7 +49,7 @@ protected:
     void                ReallocatePool      (std::size_t new_capacity);
     
     // Fast pool move.
-    static void         MovePool            (byte* current_pool, byte* target_pool, size_t count);
+    static void         MovePool            (byte* current_pool, byte* target_pool, std::size_t capacity);
 
     // Find first free pool unit.
     std::size_t         GetFirstFreeID      () const;
@@ -53,13 +57,19 @@ protected:
     // Update state of the unit with given ID.
     void                UpdateState         (std::size_t unit_ID, bool state);
 
+    static T*           Construct           (T* ptr) { return new (ptr) T{}; }
+
+    static void         Destroy             (T* obj_ptr) { ptr->~T(); }
+
+
 protected:
     std::size_t         capacity_;
-    std::size_t         count_;
 
     pool_map            state_map_;
     byte*               pool_;
 };
+
+} // namespace Engine
 
 #include <Engine/Inl/ObjectPool.inl>
 

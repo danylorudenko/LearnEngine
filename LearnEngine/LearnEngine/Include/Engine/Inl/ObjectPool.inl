@@ -6,21 +6,33 @@
 #include <algorithm>
 #include <limits>
 
+namespace Engine
+{
+
 template<typename T>
 ObjectPool<T>::ObjectPool(std::size_t initial_capacity) :
     capacity_(0),
-    count_(0),
     pool_(nullptr)
 {
     ReallocatePool(initial_capacity);
 }
 
 template<typename T>
-T* ObjectPool<T>::Get()
+std::size_t ObjectPool<T>::Get()
 {
     const size_t free_unit_id = GetFirstFreeID();
+    if (free_unit_id == std::numeric_limits<std::size_t>::max()) {
+        // Double pool capacity.
+        ReallocatePool(capacity_ * 2);
+        return Get();
+    }
+
     UpdateState(free_unit_id, false);
-    return GetObjectPtr(free_unit_id);
+
+    auto object_ptr = ObjectPtr(free_unit_id);
+    Construct(object_ptr);
+
+    return free_unit_id;
 }
 
 template<typename T>
@@ -31,6 +43,7 @@ void ObjectPool<T>::Release(T* obj_ptr)
         throw std::runtime_error("Object does not belong to the current pool.");
     }
 
+    Destroy(obj_ptr);
     UpdateState(object_id, true);
 }
 
@@ -54,9 +67,15 @@ std::size_t ObjectPool<T>::GetObjectID(T* object_ptr)
 }
 
 template<typename T>
-T* ObjectPool<T>::GetObjectPtr(std::size_t object_ID) {
+T* ObjectPool<T>::ObjectPtr(std::size_t object_ID) {
     byte* ptr = pool_ + static_cast<std::ptrdiff_t>(object_ID + POOL_UNIT_SIZE);
     return (T*)ptr;
+}
+
+template<typename T>
+T& ObjectPool<T>::AccessObj(std::size_t object_ID)
+{
+    return *ObjectPtr(object_ID);
 }
 
 template<typename T>
@@ -65,7 +84,7 @@ void ObjectPool<T>::ReallocatePool(std::size_t target_capacity)
     assert(target_capacity > capacity_);
     
     if (pool_ == nullptr) {
-        pool_ = (byte*)std::malloc(POOL_UNIT_SIZE * target_capacity);
+        pool_ = new byte[POOL_UNIT_SIZE * target_capacity];
         capacity_ = target_capacity;
 
         for (size_t i = 0; i < target_capacity; i++) {
@@ -74,15 +93,15 @@ void ObjectPool<T>::ReallocatePool(std::size_t target_capacity)
     }
     // if pool is already allocated, alloc new and perform fast move.
     else {
-        byte* new_pool = (byte*)std::malloc(target_capacity);
+        byte* new_pool = new byte[POOL_UNIT_SIZE * target_capacity];
         MovePool(pool_, new_pool, capacity_);
-
-        std::free(pool_);
+        delete[] pool_;
+        
         pool_ = new_pool;
 
         size_t additional_val_count = target_capacity - capacity_;
         for (size_t i = 0; i < additional_val_count; i++) {
-            state_map_.emplace(capacity_ + additional_val_count, true);
+            state_map_.emplace(capacity_ + i, true);
         }
 
         capacity_ = target_capacity;
@@ -90,15 +109,15 @@ void ObjectPool<T>::ReallocatePool(std::size_t target_capacity)
 }
 
 template<typename T>
-void ObjectPool<T>::MovePool(byte* source_pool, byte* destination_pool, std::size_t count)
+void ObjectPool<T>::MovePool(byte* source_pool, byte* destination_pool, std::size_t capacity)
 {
-    std::size_t iterations = count * POOL_UNIT_SIZE;
+    std::size_t iterations = capacity * POOL_UNIT_SIZE / sizeof(align_type);
 
     aligned_ptr source  = reinterpret_cast<aligned_ptr>(source_pool);
     aligned_ptr dest    = reinterpret_cast<aligned_ptr>(destination_pool);
     for (size_t i = 0; i < iterations; i++)
     {
-        *(source++) = *(dest++);
+        *(dest++) = *(source++);
     }
 }
 
@@ -117,10 +136,7 @@ std::size_t ObjectPool<T>::GetFirstFreeID() const
         return std::get<0>(*state_iter);
     }
     else {
-        // Double storage capacity.
-        ReallocatePool(capacity_ * 2);
-        // Search again for free space.
-        return GetFirstFreeID();
+        return std::numeric_limits<std::size_t>::max();
     }
 }
 
@@ -129,5 +145,7 @@ void ObjectPool<T>::UpdateState(std::size_t unit_ID, bool state)
 {
     state_map_.at(unit_ID) = state;
 }
+
+} // namespace Engine
 
 #endif

@@ -1,15 +1,34 @@
-//#include <Engine/Util/Memory/ObjectPool.h>
 #include <iostream>
+#include <string>
+
+#include <Engine/Util/Memory/ObjectPool.h>
+
+struct Object
+{
+    std::string member_;
+};
 
 int main()
 {
-    /*ObjectPool<long long> pool;
+    constexpr size_t iterations = 10;
 
-    long long ** objects = new long long*[50];
-    for (size_t i = 0; i < 50; i++)
+    Engine::ObjectPool<Object> pool;
+
+    std::size_t * handles = new size_t[50];
+
+    std::size_t* iter = handles;
+    for (size_t i = 0; i < iterations; i++)
     {
-        *objects++ = pool.Get();
-    }*/
+        *iter = pool.Get();
+        pool.AccessObj(*iter++).member_ = std::to_string(i);
+    }
+
+    iter = handles;
+
+    for (size_t i = 0; i < iterations; i++)
+    {
+        std::cout << pool.AccessObj(*iter++).member_ << std::endl;
+    }
 
     system("pause");
     return 0;

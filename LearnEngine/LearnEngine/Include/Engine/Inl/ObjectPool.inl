@@ -9,22 +9,22 @@
 namespace Engine
 {
 
-template<typename T>
-ObjectPool<T>::ObjectPool(std::size_t initial_capacity) :
+template<typename T, typename ID_type>
+ObjectPool<T, ID_type>::ObjectPool(std::size_t initial_capacity) :
     capacity_(0),
     pool_(nullptr)
 {
     ReallocatePool(initial_capacity);
 }
 
-template<typename T>
-std::size_t ObjectPool<T>::Get()
+template<typename T, typename ID_type>
+ID_type ObjectPool<T, ID_type>::NewObject()
 {
-    const size_t free_unit_id = GetFirstFreeID();
-    if (free_unit_id == std::numeric_limits<std::size_t>::max()) {
+    const ID free_unit_id = GetFirstFreeID();
+    if (free_unit_id == std::numeric_limits<ID>::max()) {
         // Double pool capacity.
         ReallocatePool(capacity_ * 2);
-        return Get();
+        return NewObject();
     }
 
     UpdateState(free_unit_id, false);
@@ -35,11 +35,11 @@ std::size_t ObjectPool<T>::Get()
     return free_unit_id;
 }
 
-template<typename T>
-void ObjectPool<T>::Release(T* obj_ptr)
+template<typename T, typename ID_type>
+void ObjectPool<T, ID_type>::Release(T* obj_ptr)
 {
     std::size_t object_id = GetObjectID(obj_ptr);
-    if (object_id == std::numeric_limits<std::size_t>::max()) {
+    if (object_id == std::numeric_limits<ID>::max()) {
         throw std::runtime_error("Object does not belong to the current pool.");
     }
 
@@ -47,39 +47,39 @@ void ObjectPool<T>::Release(T* obj_ptr)
     UpdateState(object_id, true);
 }
 
-template<typename T>
-bool ObjectPool<T>::IsObjectInternal(T* object_ptr)
+template<typename T, typename ID_type>
+bool ObjectPool<T, ID_type>::IsObjectInternal(T* object_ptr)
 {
     std::ptrdiff_t to_start = object_ptr - pool_;
     return to_start >= 0;
 }
 
-template<typename T>
-std::size_t ObjectPool<T>::GetObjectID(T* object_ptr)
+template<typename T, typename ID_type>
+ID_type ObjectPool<T, ID_type>::GetObjectID(T* object_ptr)
 {
     if (IsObjectInternal(object_ptr)) {
         std::ptrdiff_t to_start = object_ptr - pool_;
         return to_start;
     }
     else {
-        return std::numeric_limits<std::size_t>::max();
+        return std::numeric_limits<ID>::max();
     }
 }
 
-template<typename T>
-T* ObjectPool<T>::ObjectPtr(std::size_t object_ID) {
+template<typename T, typename ID_type>
+T* ObjectPool<T, ID_type>::ObjectPtr(ID object_ID) {
     byte* ptr = pool_ + static_cast<std::ptrdiff_t>(object_ID * POOL_UNIT_SIZE);
     return (T*)ptr;
 }
 
-template<typename T>
-T& ObjectPool<T>::AccessObj(std::size_t object_ID)
+template<typename T, typename ID_type>
+T& ObjectPool<T, ID_type>::AccessObj(ID object_ID)
 {
     return *ObjectPtr(object_ID);
 }
 
-template<typename T>
-void ObjectPool<T>::ReallocatePool(std::size_t target_capacity)
+template<typename T, typename ID_type>
+void ObjectPool<T, ID_type>::ReallocatePool(std::size_t target_capacity)
 {
     assert(target_capacity > capacity_);
     
@@ -108,8 +108,8 @@ void ObjectPool<T>::ReallocatePool(std::size_t target_capacity)
     }
 }
 
-template<typename T>
-void ObjectPool<T>::MovePool(byte* source_pool, byte* destination_pool, std::size_t capacity)
+template<typename T, typename ID_type>
+void ObjectPool<T, ID_type>::MovePool(byte* source_pool, byte* destination_pool, std::size_t capacity)
 {
     std::size_t iterations = capacity * POOL_UNIT_SIZE / sizeof(align_type);
 
@@ -121,8 +121,8 @@ void ObjectPool<T>::MovePool(byte* source_pool, byte* destination_pool, std::siz
     }
 }
 
-template<typename T>
-std::size_t ObjectPool<T>::GetFirstFreeID() const
+template<typename T, typename ID_type>
+ID_type ObjectPool<T, ID_type>::GetFirstFreeID() const
 {   
     using state_value = pool_map::value_type;
     auto state_iter = 
@@ -140,8 +140,8 @@ std::size_t ObjectPool<T>::GetFirstFreeID() const
     }
 }
 
-template<typename T>
-void ObjectPool<T>::UpdateState(std::size_t unit_ID, bool state)
+template<typename T, typename ID_type>
+void ObjectPool<T, ID_type>::UpdateState(ID unit_ID, bool state)
 {
     state_map_.at(unit_ID) = state;
 }

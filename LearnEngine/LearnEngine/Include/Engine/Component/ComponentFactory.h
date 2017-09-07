@@ -26,7 +26,7 @@ public:
     }
 
 private:
-    static ObjectPool<TComponent>& ComponentPool()
+    /*static ObjectPool<TComponent>& ComponentPool()
     {
         static ObjectPool<TComponent>* component_pool_ = nullptr;
 
@@ -34,7 +34,7 @@ private:
             *(component_pool_ != nullptr 
             ? component_pool_ 
             : (component_pool_ = new ObjectPool<TComponent>{ 20 }));
-    }
+    }*/
 };
 
 template<>
@@ -55,7 +55,7 @@ public:
         delete component;
     }
 
-    static ObjectPool<GLObject>& ComponentPool()
+    /*static ObjectPool<GLObject>& ComponentPool()
     {
         static ObjectPool<GLObject>* component_pool_ = nullptr;
 
@@ -63,7 +63,7 @@ public:
             *(component_pool_ != nullptr
             ? component_pool_
             : (component_pool_ = new ObjectPool<GLObject>{ 20 }));
-    }
+    }*/
 
 };
 

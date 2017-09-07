@@ -165,6 +165,7 @@
     <ClInclude Include="Include\Engine\RenderingSystem\Renderers\DeferredRenderer.h" />
     <ClInclude Include="Include\Engine\RenderingSystem\Renderers\ForwardRenderer.h" />
     <ClInclude Include="Include\Engine\RenderingSystem\Renderers\Renderer.h" />
+    <ClInclude Include="Include\Engine\Util\Memory\Handle.h" />
     <ClInclude Include="Include\Engine\Util\Memory\ObjectPool.h" />
     <ClInclude Include="Include\Engine\VertexData\DrawArraysIndirectCommand.h" />
     <ClInclude Include="Include\Component\GLObject\GLTransformation\GLTransform.h" />

@@ -1,5 +1,8 @@
 #include <Engine\World\World.h>
 
+namespace Engine
+{
+
 World::World() :
     root_(Entity::CreateRootEnitity())
 {
@@ -26,3 +29,5 @@ World::~World()
 {
     delete root_;
 }
+
+} // namespace Engine

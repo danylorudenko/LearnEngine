@@ -2,6 +2,9 @@
 #include <Engine\World\World.h>
 #include <Engine\Component\ComponentFactory.h>
 
+namespace Engine
+{
+
 Entity* Entity::CreateEntity()
 {
     Entity* new_entity = new Entity(&World::Instance().Root());
@@ -70,3 +73,5 @@ void Entity::RemoveAllComponents()
         components_.pop_front();
     }
 }
+
+} // namespace Engine

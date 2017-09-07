@@ -3,6 +3,9 @@
 
 #include <Engine\Component\Component.h>
 
+namespace Engine
+{
+
 template<typename TComponent> class ComponentFactory;
 
 class Light : public Component
@@ -20,5 +23,7 @@ public:
 
     virtual DestructionFunction GetDestructionFunc () override;
 };
+
+} // namespace Engine
 
 #endif

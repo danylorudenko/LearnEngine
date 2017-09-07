@@ -5,6 +5,9 @@
 #include <Engine\RenderingSystem\RenderingSystem.h>
 #include <Engine\Util\Debugging\DebugTools.h>
 
+namespace Engine
+{
+
 RenderingSystem::RenderingSystem(GLFWwindow* window, int resolution_X, int resolution_Y, CameraEntity* main_cam) :
     context_window_(window),
     screen_width_(resolution_X), 
@@ -79,3 +82,5 @@ void RenderingSystem::frame_buffer_size_callback(GLFWwindow * window, int width,
 {
     RenderingSystem::Instance().SetViewport(width, height);
 }
+
+} // namespace Engine

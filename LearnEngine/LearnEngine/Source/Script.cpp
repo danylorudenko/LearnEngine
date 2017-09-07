@@ -1,6 +1,9 @@
 #include <Engine\Component\Script\Script.h>
 #include <Engine\ScriptingSystem\ScriptingSystem.h>
 
+namespace Engine
+{
+
 Script::Script() : Component(), is_ticking_(false)
 {
 
@@ -32,3 +35,5 @@ void Script::RegisterStart()
 Script::~Script() {
     SetTicking(false);
 }
+
+} // namespace Engine

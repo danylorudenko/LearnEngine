@@ -3,6 +3,9 @@
 #include <Engine\RenderingSystem\RenderingSystem.h>
 #include <Engine\Component\ComponentFactory.h>
 
+namespace Engine
+{
+
 GLObject::GLObject() :
     Component()
 {
@@ -56,3 +59,5 @@ std::shared_ptr<Material> GLObject::GetMainMaterialShared()
 {
     return main_material_;
 }
+
+} // namespace Engine

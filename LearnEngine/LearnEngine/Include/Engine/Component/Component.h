@@ -3,6 +3,9 @@
 
 #include <utility>
 
+namespace Engine
+{
+
 class Entity;
 
 template<typename TComponent> class ComponentFactory;
@@ -41,5 +44,7 @@ protected:
 protected:
     Entity* owner_;
 };
+
+} // namespace Engine
 
 #endif

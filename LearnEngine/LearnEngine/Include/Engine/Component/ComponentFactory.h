@@ -5,6 +5,9 @@
 #include <Engine\Component\GLObject\GLObject.h>
 #include <Engine\RenderingSystem\RenderingSystem.h>
 
+namespace Engine
+{
+
 template<typename TComponent>
 class ComponentFactory
 {
@@ -40,5 +43,7 @@ public:
         delete component;
     }
 };
+
+} // namespace Engine
 
 #endif

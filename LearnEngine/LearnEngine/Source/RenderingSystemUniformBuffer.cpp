@@ -4,6 +4,9 @@
 #include <Engine\RenderingSystem\RenderingSystemUniformBuffer.h>
 #include <Engine\Util\Debugging\DebugTools.h>
 
+namespace Engine
+{
+
 RenderingSystemUniformBuffer::RenderingSystemUniformBuffer() :
     uniform_buffer_handle_(0)
 {
@@ -187,3 +190,5 @@ void RenderingSystemUniformBuffer::DestroyGPUBuffer()
 {
     glDeleteBuffers(1, &uniform_buffer_handle_);
 }
+
+} // namespace Engine

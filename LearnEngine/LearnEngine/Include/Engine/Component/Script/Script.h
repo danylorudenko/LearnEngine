@@ -4,6 +4,9 @@
 #include <Engine\Component\Component.h>
 #include <Engine\Component\ComponentFactory.h>
 
+namespace Engine
+{
+
 class ScriptingSystem;
 
 // Base class for all scripts in the application.
@@ -60,5 +63,7 @@ class ScriptingSystemCallbackAttorney
 
     friend ScriptingSystem;
 };
+
+} // namespace Engine
 
 #endif

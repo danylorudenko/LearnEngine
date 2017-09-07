@@ -11,6 +11,9 @@
 #include <Engine\Util\GLTransformation\GLTransform.h>
 #include <Engine\Component\Component.h>
 
+namespace Engine
+{
+
 // Main structural unit in the World.
 // Can be identified only by name. Default name is "new_entity"
 // Has a position, can contain components that describe it's behaviour.
@@ -72,5 +75,7 @@ protected:
 };
 
 #include "Engine\Inl\Entity.inl"
+
+} // namespace Engine
 
 #endif

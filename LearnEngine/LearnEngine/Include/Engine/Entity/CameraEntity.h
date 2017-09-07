@@ -7,6 +7,9 @@
 
 #include <Engine\Entity\Entity.h>
 
+namespace Engine
+{
+
 // Aggregator for camera entity properties:
 //  - transform;
 //  - FOW;
@@ -45,5 +48,7 @@ protected:
 
     std::unique_ptr<GLTransform> transform_;
 };
+
+} // namespace Engine
 
 #endif

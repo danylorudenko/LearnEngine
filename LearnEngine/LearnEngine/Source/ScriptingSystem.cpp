@@ -2,6 +2,9 @@
 
 #include <Engine\ScriptingSystem\ScriptingSystem.h>
 
+namespace Engine
+{
+
 ScriptingSystem::ScriptingSystem()
 {
 
@@ -51,3 +54,5 @@ void ScriptingSystem::UnregisterTicker(Script* script)
         return candidate == script;
     });
 }
+
+} // namespace Engine

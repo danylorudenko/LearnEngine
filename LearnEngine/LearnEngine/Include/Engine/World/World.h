@@ -4,6 +4,9 @@
 #include <Engine\Util\ControlledSingleton.h>
 #include <Engine\Entity\Entity.h>
 
+namespace Engine
+{
+
 // Main world where all actions are performed.
 // Must aggregate all created Entities.
 // Has Empty entity as a root.
@@ -30,5 +33,7 @@ public:
 protected:
     Entity* root_;
 };
+
+} // namespace Engine
 
 #endif

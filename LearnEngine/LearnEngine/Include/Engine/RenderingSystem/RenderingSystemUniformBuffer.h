@@ -7,6 +7,9 @@
 
 #include <Engine\Entity\\CameraEntity.h>
 
+namespace Engine
+{
+
 // Wrapper for conventional RenderingSystem uniform buffer.
 // Rendering system is responisble for putting data in this buffer, it is persistent across single rendering iteration.
 class RenderingSystemUniformBuffer
@@ -42,5 +45,7 @@ protected:
 protected:
     GLuint          uniform_buffer_handle_;
 };
+
+} // namespace Engine
 
 #endif

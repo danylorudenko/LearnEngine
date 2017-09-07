@@ -10,6 +10,9 @@
 
 #include <vector>
 
+namespace Engine
+{
+
 template<typename TComponent> class ComponentFactory;
 
 // System responsible for maintaining rendering list, 
@@ -74,5 +77,7 @@ protected:
 
     RenderingSystemUniformBuffer            uniform_buffer_;
 };
+
+} // namespace Engine
 
 #endif

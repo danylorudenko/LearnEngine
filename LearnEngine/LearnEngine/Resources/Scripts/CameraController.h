@@ -3,7 +3,7 @@
 
 #include <Engine\Component\Script\Script.h>
 
-class CameraController : public Script
+class CameraController : public Engine::Script
 {
 public:
     CameraController();

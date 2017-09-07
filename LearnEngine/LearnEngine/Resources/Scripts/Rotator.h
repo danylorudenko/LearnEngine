@@ -4,8 +4,7 @@
 #include <Engine\Component\GLObject\GLObject.h>
 #include <Engine\Component\Script\Script.h>
 
-class Rotator :
-    public Script
+class Rotator : public Engine::Script
 {
 public:
     Rotator();

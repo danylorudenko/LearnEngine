@@ -7,6 +7,9 @@
 #include <Engine\Util\ControlledSingleton.h>
 #include <Engine\Component\Script\Script.h>
 
+namespace Engine
+{
+
 // System responsible for maintaining Script components to trigger custom Entity behaviour.
 class ScriptingSystem : public ControlledSingleton<ScriptingSystem>
 {
@@ -52,5 +55,7 @@ protected:
     StartCallbackQueue              start_queue_;
     TickCallbackList                ticking_scripts_;
 };
+
+} // namespace Engine
 
 #endif

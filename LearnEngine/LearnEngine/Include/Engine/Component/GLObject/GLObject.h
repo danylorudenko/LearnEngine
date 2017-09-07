@@ -7,6 +7,8 @@
 #include <Engine\Material\Material.h>
 #include <Engine\VertexData\VertexData.h>
 
+namespace Engine {
+
 template<typename TComponent> class ComponentFactory;
 
 // Represents component that allows Entity to be drawn in the scene.
@@ -55,5 +57,7 @@ protected:
     std::shared_ptr<VertexData>         vertex_data_;
 
 };
+
+} // namespace Engine
 
 #endif

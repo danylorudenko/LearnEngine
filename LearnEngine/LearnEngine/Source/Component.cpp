@@ -1,6 +1,9 @@
 #include <stdexcept>
 #include <Engine\Component\Component.h>
 
+namespace Engine
+{
+
 Component::Component() : 
     owner_(nullptr)
 {
@@ -21,3 +24,5 @@ void Component::SetOwner(Entity* owner)
 {
     owner_ = owner;
 }
+
+} // namespace Engine

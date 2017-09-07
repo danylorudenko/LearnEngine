@@ -5,6 +5,9 @@
 #include <Engine\World\World.h>
 #include <Engine\Entity\CameraEntity.h>
 
+namespace Engine
+{
+
 CameraEntity::CameraEntity(Entity* parent) : 
     Entity(parent),
     fow_(60.0f),
@@ -40,3 +43,5 @@ const GLfloat* CameraEntity::GetClippingPlanes() const
 {
     return (GLfloat*)clipping_planes_;
 }
+
+} // namespace Engine

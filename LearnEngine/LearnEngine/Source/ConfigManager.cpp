@@ -1,5 +1,8 @@
 #include <Engine\Configuration\ConfigManager.h>
 
+namespace Engine
+{
+
 ConfigManager::ConfigManager(const char* main_config_file_name) :
     main_config_file_(main_config_file_)
 {
@@ -33,3 +36,5 @@ std::string ConfigManager::SetUserConfigValue(const char * key, const char * val
 {
     return std::string();
 }
+
+} // namespace Engine

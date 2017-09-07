@@ -12,20 +12,20 @@ CameraController::CameraController() :
     cursor_on_(false)
 {
     SetTicking(true);
-    InputSystem::Instance().DisableCursor();
+    Engine::InputSystem::Instance().DisableCursor();
 }
 
 void CameraController::Tick()
 {
-    if (InputSystem::Instance().GetKeyDown(GLFW_KEY_C)) {
+    if (Engine::InputSystem::Instance().GetKeyDown(GLFW_KEY_C)) {
         switch(cursor_on_) 
         {
         case true:
-            InputSystem::Instance().DisableCursor();
+            Engine::InputSystem::Instance().DisableCursor();
             cursor_on_ = false;
             break;
         case false:
-            InputSystem::Instance().EnableCursor();
+            Engine::InputSystem::Instance().EnableCursor();
             cursor_on_ = true;
             break;
         }
@@ -40,7 +40,7 @@ void CameraController::SetNewRotation()
 {
     static constexpr float ROT_SPEED = 0.1f;
 
-    auto mouse_delta = InputSystem::Instance().GetMouseDelta() * ROT_SPEED;
+    auto mouse_delta = Engine::InputSystem::Instance().GetMouseDelta() * ROT_SPEED;
     x_rotation_ += mouse_delta.x;
     y_rotation_ += mouse_delta.y;
     owner_->Transform().Rotation() = glm::quat(glm::radians(glm::vec3(-y_rotation_, x_rotation_, 0.0f)));
@@ -49,28 +49,28 @@ void CameraController::SetNewRotation()
 void CameraController::SetNewPosition()
 {
     
-    if (InputSystem::Instance().GetKeyDown(GLFW_KEY_ESCAPE)) {
+    if (Engine::InputSystem::Instance().GetKeyDown(GLFW_KEY_ESCAPE)) {
         Engine::Program::Instance().Close();
     }
     
     static constexpr float MOV_SPEED = 0.01f;
 
-    if (InputSystem::Instance().GetKey(GLFW_KEY_W)) {
+    if (Engine::InputSystem::Instance().GetKey(GLFW_KEY_W)) {
         owner_->Transform().Position() += owner_->Transform().Forward() * MOV_SPEED;
     }
-    if (InputSystem::Instance().GetKey(GLFW_KEY_S)) {
+    if (Engine::InputSystem::Instance().GetKey(GLFW_KEY_S)) {
         owner_->Transform().Position() -= owner_->Transform().Forward() * MOV_SPEED;
     }
-    if (InputSystem::Instance().GetKey(GLFW_KEY_A)) {
+    if (Engine::InputSystem::Instance().GetKey(GLFW_KEY_A)) {
         owner_->Transform().Position() += owner_->Transform().Right() * MOV_SPEED;
     }
-    if (InputSystem::Instance().GetKey(GLFW_KEY_D)) {
+    if (Engine::InputSystem::Instance().GetKey(GLFW_KEY_D)) {
         owner_->Transform().Position() -= owner_->Transform().Right() * MOV_SPEED;
     }
-    if (InputSystem::Instance().GetKey(GLFW_KEY_LEFT_CONTROL)) {
+    if (Engine::InputSystem::Instance().GetKey(GLFW_KEY_LEFT_CONTROL)) {
         owner_->Transform().Position().y -= MOV_SPEED;
     }
-    if (InputSystem::Instance().GetKey(GLFW_KEY_SPACE)) {
+    if (Engine::InputSystem::Instance().GetKey(GLFW_KEY_SPACE)) {
         owner_->Transform().Position().y += MOV_SPEED;
     }
 }

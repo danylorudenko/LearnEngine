@@ -6,6 +6,9 @@
 #include <glm\mat4x4.hpp>
 #include <glm\gtc\quaternion.hpp>
 
+namespace Engine
+{
+
 class x_type { std::int8_t ch; };
 class y_type { std::int8_t ch; };
 class z_type { std::int8_t ch; };
@@ -92,5 +95,7 @@ protected:
     bool                        model_mat_outdated_;
     GLuint                      transform_uniform_buffer_handle_;
 };
+
+} // namespace Engine
 
 #endif

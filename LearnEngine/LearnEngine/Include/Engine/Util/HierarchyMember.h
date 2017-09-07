@@ -5,6 +5,9 @@
 #include <memory>
 #include <list>
 
+namespace Engine
+{
+
 template<typename T>
 class HierarchyMember
 {
@@ -31,6 +34,8 @@ protected:
 
     ChildrenContainer       children_;
 };
+
+} // namespace Engine
 
 #include <Engine\Inl\HierarchyMember.inl>
 

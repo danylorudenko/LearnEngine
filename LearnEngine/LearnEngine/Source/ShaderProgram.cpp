@@ -6,6 +6,9 @@
 #include <Engine\Shaders\ShaderProgram.h>
 #include <Engine\Util\Debugging\DebugTools.h>
 
+namespace Engine
+{
+
 ShaderProgram::ShaderProgram(const GLchar* vertex_source_file, const GLchar* fragment_source_file)
 {
 	std::string vertex_source = ReadFile(vertex_source_file);
@@ -178,3 +181,5 @@ ShaderProgram::~ShaderProgram()
 {
 	glDeleteProgram(shader_program_handle_);
 }
+
+} // namespace Engine

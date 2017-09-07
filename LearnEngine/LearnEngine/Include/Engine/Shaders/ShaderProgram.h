@@ -5,6 +5,9 @@
 #include <glm\fwd.hpp>
 #include <string>
 
+namespace Engine
+{
+
 // Wrapper around OpenGL shader program.
 // Has accessors to various unifrom setting functions.
 class ShaderProgram
@@ -42,5 +45,7 @@ protected:
 protected:
 	GLuint			shader_program_handle_;
 };
+
+} // namespace Engine
 
 #endif

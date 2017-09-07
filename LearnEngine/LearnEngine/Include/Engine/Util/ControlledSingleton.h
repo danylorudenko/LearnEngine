@@ -1,6 +1,9 @@
 #ifndef __CONTROLLED_SINGLETON_H__
 #define __CONTROLLED_SINGLETON_H__
 
+namespace Engine
+{
+
 // Singleton with controlled existance of the instance.
 template<typename T>
 class ControlledSingleton
@@ -23,6 +26,8 @@ public:
 protected:
     static T* instance_;
 };
+
+} // namespace Engine
 
 #include <Engine\Inl\ControlledSingleton.inl>
 

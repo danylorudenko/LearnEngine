@@ -74,8 +74,8 @@ protected:
     ComponentList                   components_;
 };
 
-#include "Engine\Inl\Entity.inl"
-
 } // namespace Engine
+
+#include "Engine\Inl\Entity.inl"
 
 #endif

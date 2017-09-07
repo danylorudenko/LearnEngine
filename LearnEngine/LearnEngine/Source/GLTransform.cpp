@@ -4,6 +4,9 @@
 #include <Engine\Util\GLTransformation\GLTransform.h>
 #include <Engine\Util\Debugging\DebugTools.h>
 
+namespace Engine
+{
+
 GLTransform::GLTransform() : 
     position_(0.0f),
     rotation_(1.0f, 0.0f, 0.0f, 0.0f),
@@ -194,3 +197,5 @@ inline void GLTransform::ApplyTranslation(glm::mat4* const source, const glm::ve
 {
     *source = glm::translate(*source, position);
 }
+
+} // namespace Engine

@@ -3,6 +3,8 @@
 
 #include <cstdlib>
 
+namespace Engine
+{
 VertexData::VertexData(void* data, GLuint vertex_count, GLsizei size, GLsizei stride, GLuint offset) : 
     vertex_data_(data), 
     data_size_(size),
@@ -186,3 +188,5 @@ GLsizei VertexData::Stride() const
 {
     return stride_;
 }
+
+} // namespace Engine

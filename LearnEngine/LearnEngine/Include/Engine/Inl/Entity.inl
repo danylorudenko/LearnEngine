@@ -1,6 +1,9 @@
 #ifndef __ENTITY_INL__
 #define __ENTITY_INL__
 
+namespace Engine
+{
+
 template<typename TComponent>
 TComponent* Entity::GetComponent()
 {
@@ -40,5 +43,7 @@ void Entity::RemoveComponent(TComponent* to_remove)
 		}
 	});
 }
+
+} // namespace Engine
 
 #endif

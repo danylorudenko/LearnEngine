@@ -3,6 +3,9 @@
 
 #include <Engine\Input\InputSystem.h>
 
+namespace Engine
+{
+
 void InputSystem::key_callback(GLFWwindow* window, int key, int scan_code, int action, int mode)
 {
     auto& system = Instance();
@@ -96,3 +99,5 @@ const glm::vec2 & InputSystem::GetMouseDelta() const
 {
     return mouse_delta_;
 }
+
+} // namespace Engine

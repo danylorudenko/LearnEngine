@@ -1,6 +1,9 @@
 ﻿#ifndef __CONTROLLED_SINGLETON_INL__
 #define __CONTROLLED_SINGLETON_INL__
 
+namespace Engine
+{
+
 template<typename T>
 T* ControlledSingleton<T>::instance_ = nullptr;
 
@@ -32,5 +35,7 @@ void ControlledSingleton<T>::Delete()
     delete instance_;
     instance_ = nullptr;
 }
+
+} // namespace Engine
 
 #endif

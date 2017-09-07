@@ -3,6 +3,9 @@
 
 #include <GL\glew.h>
 
+namespace Engine
+{
+
 // Aggregator of data needed to describe vertex attribute to OpenGL.
 class VertexAttribData
 {
@@ -29,5 +32,7 @@ public:
     GLubyte                         attrib_size_;
     GLubyte                         element_count_;
 };
+
+} // namespace
 
 #endif

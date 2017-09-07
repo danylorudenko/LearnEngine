@@ -1,5 +1,8 @@
 #include <Engine\VertexData\VertexAttribData.h>
 
+namespace Engine
+{
+
 VertexAttribData::VertexAttribData(
     GLuint attrib_index,
     GLuint binding_index,
@@ -18,3 +21,5 @@ VertexAttribData::VertexAttribData(
 {
 
 }
+
+} // namespace Engine

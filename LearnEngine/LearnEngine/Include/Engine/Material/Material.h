@@ -8,6 +8,9 @@
 #include <Engine\Shaders\ShaderProgram.h>
 #include <Engine\Texture\TextureController.h>
 
+namespace Engine
+{
+
 // Aggregator for the properties that can describe a physical material.
 // Dependant on the main shader which material uses to provide a state for rendering.
 // Contains additional unifrom properties like textures paired with texture binding unit ID.
@@ -50,5 +53,7 @@ protected:
     std::shared_ptr<ShaderProgram>      main_shader_;
     UnitTexturePairList                 textures_;
 };
+
+} // namespace Engine
 
 #endif

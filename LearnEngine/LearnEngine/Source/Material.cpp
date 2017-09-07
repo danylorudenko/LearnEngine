@@ -3,6 +3,9 @@
 
 #include <Engine\Material\Material.h>
 
+namespace Engine
+{
+
 Material::Material(std::shared_ptr<ShaderProgram> shader) : main_shader_(shader)
 {
 
@@ -64,3 +67,5 @@ void Material::BindAllTextures()
         std::get<1>(textures_[i])->BindAllToUnit(std::get<0>(textures_[i]));
     }
 }
+
+} // namespace Engine

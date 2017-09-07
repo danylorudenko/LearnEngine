@@ -1,6 +1,9 @@
 #include <Engine\VertexData\DrawArraysIndirectCommand.h>
 #include <Engine\Util\Debugging\DebugTools.h>
 
+namespace Engine
+{
+
 DrawArraysIndirectCommand::DrawArraysIndirectCommand() :
     buffer_handle_(0)
 {
@@ -250,3 +253,5 @@ void DrawArraysIndirectCommand::Unmap() const
 
 #endif
 }
+
+} // namespace Engine

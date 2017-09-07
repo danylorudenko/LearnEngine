@@ -3,6 +3,9 @@
 
 #include <stdexcept>
 
+namespace Engine
+{
+
 template<typename T>
 HierarchyMember<T>::HierarchyMember(HierarchyMember<T>* parent) :
     parent_(parent)
@@ -59,5 +62,7 @@ std::size_t HierarchyMember<T>::AddChildToListWithIndex(HierarchyMember* new_mem
     new_member->parent_ = this;
     return new_member->member_index_;
 }
+
+} // namespace Engine
 
 #endif

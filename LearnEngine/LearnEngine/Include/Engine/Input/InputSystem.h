@@ -10,6 +10,9 @@
 
 #include <Engine\Util\ControlledSingleton.h>
 
+namespace Engine
+{
+
 // System for interaction with user keyboard/mouse input.
 // Independently of user-code request, holds the state of pressed/holded/unpressed keys/mouse_pos/etc.
 class InputSystem : public ControlledSingleton<InputSystem>
@@ -66,5 +69,7 @@ protected:
     glm::vec2               mouse_position_;
     glm::vec2               mouse_delta_;
 };
+
+} // namespace Engine
 
 #endif

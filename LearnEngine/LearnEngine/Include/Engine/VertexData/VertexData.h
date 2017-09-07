@@ -8,6 +8,9 @@
 #include <Engine\VertexData\DrawArraysIndirectCommand.h>
 #include <Engine\VertexData\VertexAttribData.h>
 
+namespace Engine
+{
+
 // Wrapper to hold binary vertex data in the RAM and in GPU buffer + data needed to set state to render internal vertex data.
 class VertexData
 {
@@ -93,5 +96,7 @@ protected:
 
     DrawArraysIndirectCommand                               draw_arrays_command_;
 };
+
+} // namespace Engine
 
 #endif

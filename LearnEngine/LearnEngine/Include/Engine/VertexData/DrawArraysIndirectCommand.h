@@ -3,6 +3,9 @@
 
 #include <GL\glew.h>
 
+namespace Engine
+{
+
 // Wrapper for indirect array-drawing command.
 // Used to tell OpenGL params for indirect dwawing (vertex count, instance count, bases).
 class DrawArraysIndirectCommand
@@ -25,8 +28,8 @@ public:
     virtual ~DrawArraysIndirectCommand      ();
 
     DrawArraysIndirectCommand               (const DrawArraysIndirectCommand& rhs);
-    DrawArraysIndirectCommand&  operator=   (const DrawArraysIndirectCommand& rhs);
     DrawArraysIndirectCommand               (DrawArraysIndirectCommand&& rhs);
+    DrawArraysIndirectCommand&  operator=   (const DrawArraysIndirectCommand& rhs);
     DrawArraysIndirectCommand&  operator=   (DrawArraysIndirectCommand&& rhs);
 
     
@@ -57,8 +60,6 @@ public:
     // Unmapping GPU buffer.
     void    Unmap                           () const;
 
-
-
 protected:
 
     // Allocate GPU buffer of proper size for indirect command.
@@ -73,5 +74,7 @@ protected:
     // Default data to be filled in the internal GPU buffer.
     static constexpr GLuint  DEFAULT_DATA[]         = { 0, 1, 0, 0 };
 };
+
+} // namespace Engine
 
 #endif

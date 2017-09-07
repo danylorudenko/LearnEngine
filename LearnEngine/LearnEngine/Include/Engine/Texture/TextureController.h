@@ -4,6 +4,9 @@
 #include <string>
 #include <GL\glew.h>
 
+namespace Engine
+{
+
 // Wpapper around texture binary data and texture buffer on the GPU.
 // Contains state-setting logic of sampler, seperate/solid binding of texture and sampler to texture units units.
 class TextureController
@@ -69,5 +72,7 @@ protected:
     bool                    is_in_memory_;
     bool                    is_on_GPU_;
 };
+
+} // namespace Engine
 
 #endif

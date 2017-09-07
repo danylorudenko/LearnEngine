@@ -1,8 +1,12 @@
+#include <stdexcept>
+
+#include <SOIL\SOIL.h>
+
 #include <Engine\Texture\TextureController.h>
 #include <Engine\Util\Debugging\DebugTools.h>
 
-#include <SOIL\SOIL.h>
-#include <stdexcept>
+namespace Engine
+{
 
 TextureController::TextureController() : 
     texture_handle_(0),
@@ -195,3 +199,5 @@ bool TextureController::IsOnGPU() const
 {
     return is_on_GPU_;
 }
+
+} // namespace Engine

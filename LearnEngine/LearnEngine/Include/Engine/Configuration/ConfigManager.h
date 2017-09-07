@@ -5,6 +5,9 @@
 #include <rapidjson\fwd.h>
 #include <Engine\Util\ControlledSingleton.h>
 
+namespace Engine
+{
+
 class ConfigManager : ControlledSingleton<ConfigManager>
 {
 public:
@@ -31,5 +34,7 @@ protected:
     const std::string&      main_config_file_;
 
 };
+
+} // namespace Engine
 
 #endif

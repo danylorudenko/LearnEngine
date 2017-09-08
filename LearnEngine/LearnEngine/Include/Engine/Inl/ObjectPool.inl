@@ -10,21 +10,25 @@
 namespace Engine
 {
 
-template<typename T, typename ID_type>
-ObjectPool<T, ID_type>::ObjectPool(std::size_t initial_capacity) :
+template<typename T, typename ID_type, bool RESIZABLE>
+ObjectPool<T, ID_type, RESIZABLE>::ObjectPool(std::size_t initial_capacity) :
     capacity_(0),
     pool_(nullptr)
 {
     ReallocatePool(initial_capacity);
 }
 
+template<typename T, typename ID_type, bool RESIZABLE>
 template<typename... Args>
-template<typename T, typename ID_type>
-ID_type ObjectPool<T, ID_type>::NewObject(Args&&... args)
+ID_type ObjectPool<T, ID_type, RESIZABLE>::NewObject(Args&&... args)
 {
     const ID free_unit_id = GetFirstFreeID();
     if (free_unit_id == std::numeric_limits<ID>::max()) {
         // Double pool capacity.
+        if (!Resizable()) {
+            throw std::runtime_error("Pool is not resizable.");
+        }
+
         ReallocatePool(capacity_ * 2);
         return NewObject();
     }
@@ -37,8 +41,8 @@ ID_type ObjectPool<T, ID_type>::NewObject(Args&&... args)
     return free_unit_id;
 }
 
-template<typename T, typename ID_type>
-void ObjectPool<T, ID_type>::Release(ID obj_id)
+template<typename T, typename ID_type, bool RESIZABLE>
+void ObjectPool<T, ID_type, RESIZABLE>::Release(ID obj_id)
 {
     if (!IsObjectInternal(ObjectPtr(obj_id))) {
         throw std::runtime_error("Object does not belong to the current pool.");
@@ -48,15 +52,15 @@ void ObjectPool<T, ID_type>::Release(ID obj_id)
     UpdateState(object_id, true);
 }
 
-template<typename T, typename ID_type>
-bool ObjectPool<T, ID_type>::IsObjectInternal(T* object_ptr)
+template<typename T, typename ID_type, bool RESIZABLE>
+bool ObjectPool<T, ID_type, RESIZABLE>::IsObjectInternal(T* object_ptr)
 {
     std::ptrdiff_t to_start = object_ptr - pool_;
     return to_start >= 0;
 }
 
-template<typename T, typename ID_type>
-ID_type ObjectPool<T, ID_type>::GetObjectID(T* object_ptr)
+template<typename T, typename ID_type, bool RESIZABLE>
+ID_type ObjectPool<T, ID_type, RESIZABLE>::GetObjectID(T* object_ptr)
 {
     if (IsObjectInternal(object_ptr)) {
         std::ptrdiff_t to_start = object_ptr - pool_;
@@ -67,20 +71,20 @@ ID_type ObjectPool<T, ID_type>::GetObjectID(T* object_ptr)
     }
 }
 
-template<typename T, typename ID_type>
-T* ObjectPool<T, ID_type>::ObjectPtr(ID object_ID) {
+template<typename T, typename ID_type, bool RESIZABLE>
+T* ObjectPool<T, ID_type, RESIZABLE>::ObjectPtr(ID object_ID) {
     byte* ptr = pool_ + static_cast<std::ptrdiff_t>(object_ID * POOL_UNIT_SIZE);
     return (T*)ptr;
 }
 
-template<typename T, typename ID_type>
-T& ObjectPool<T, ID_type>::ObjectRef(ID object_ID)
+template<typename T, typename ID_type, bool RESIZABLE>
+T& ObjectPool<T, ID_type, RESIZABLE>::ObjectRef(ID object_ID)
 {
     return *ObjectPtr(object_ID);
 }
 
-template<typename T, typename ID_type>
-void ObjectPool<T, ID_type>::ReallocatePool(std::size_t target_capacity)
+template<typename T, typename ID_type, bool RESIZABLE>
+void ObjectPool<T, ID_type, RESIZABLE>::ReallocatePool(std::size_t target_capacity)
 {
     assert(target_capacity > capacity_);
     
@@ -109,8 +113,8 @@ void ObjectPool<T, ID_type>::ReallocatePool(std::size_t target_capacity)
     }
 }
 
-template<typename T, typename ID_type>
-void ObjectPool<T, ID_type>::MovePool(byte* source_pool, byte* destination_pool, std::size_t capacity)
+template<typename T, typename ID_type, bool RESIZABLE = true>
+void ObjectPool<T, ID_type, RESIZABLE>::MovePool(byte* source_pool, byte* destination_pool, std::size_t capacity)
 {
     std::size_t iterations = capacity * POOL_UNIT_SIZE / sizeof(align_type);
 
@@ -122,8 +126,8 @@ void ObjectPool<T, ID_type>::MovePool(byte* source_pool, byte* destination_pool,
     }
 }
 
-template<typename T, typename ID_type>
-ID_type ObjectPool<T, ID_type>::GetFirstFreeID() const
+template<typename T, typename ID_type, bool RESIZABLE>
+ID_type ObjectPool<T, ID_type, RESIZABLE>::GetFirstFreeID() const
 {   
     using state_value = pool_map::value_type;
     auto state_iter = 
@@ -141,8 +145,8 @@ ID_type ObjectPool<T, ID_type>::GetFirstFreeID() const
     }
 }
 
-template<typename T, typename ID_type>
-void ObjectPool<T, ID_type>::UpdateState(ID unit_ID, bool state)
+template<typename T, typename ID_type, bool RESIZABLE>
+void ObjectPool<T, ID_type, RESIZABLE>::UpdateState(ID unit_ID, bool state)
 {
     state_map_.at(unit_ID) = state;
 }

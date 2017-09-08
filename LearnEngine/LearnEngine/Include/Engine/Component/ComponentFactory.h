@@ -1,6 +1,7 @@
 #ifndef __COMPONENT_FACTORY_H__
 #define __COMPONENT_FACTORY_H__
 
+#include <Engine\Util\Constants.h>
 #include <Engine\Entity\Entity.h>
 #include <Engine\Component\Component.h>
 #include <Engine\Util\Memory\ObjectPool.h>
@@ -11,7 +12,6 @@ namespace Engine
 
 template<
     typename TComponent,
-    typename ID_type,
     template <typename, typename> PoolType,
     template <typename, typename> HandleType
 >
@@ -19,7 +19,7 @@ class ComponentFactory
 {
 public:
     using component_t = TComponent;
-    using id_t = ID_type;
+    using id_t = CONSTANTS::HANDLE_ID_TYPE;
     using pool_t = PoolType<component_t, id_t>;
     using handle_t = HandleType<id_t, pool_t>;
 

@@ -9,7 +9,10 @@
 namespace Engine
 {
 
-template<typename T, typename ID_type>
+template<
+    typename T, 
+    typename ID_type, 
+    bool RESIZABLE = true>
 class ObjectPool
 {
 public:
@@ -38,10 +41,14 @@ public:
     bool                IsObjectInternal    (T* obj_ptr);
 
     // Get object pointer by ID.
-    // This does not perform check wheather object is constructed with this ID.
+    // Does not perform check wheather object is constructed with this ID.
     T*                  ObjectPtr           (ID object_ID);
 
+    // Get object reference by ID.
+    // Does not perform check wheather object is constructed with this ID.
     T&                  ObjectRef           (ID object_ID);
+
+    bool                Resizable           () { return RESIZABLE; }
 
 protected:
     // Get object ID by his adress. No check if object with this adress was constructed.

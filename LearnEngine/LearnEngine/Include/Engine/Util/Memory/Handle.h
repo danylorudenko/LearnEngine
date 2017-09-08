@@ -4,14 +4,14 @@
 namespace Engine
 {
 
-template<typename ID_type, typename PoolType>
+template<typename ID_type, typename FactoryType>
 class Handle
 {
 public:
     using ID = ID_type;
-    using obj_type = PoolType::type;
+    using obj_type = FactoryType::type;
 
-    Handle              (ID object_id, PoolType* owner_pool) : object_id_(object_id), owner_pool_(owner_pool) { }
+    Handle              (ID object_id, FactoryType* owner_pool) : object_id_(object_id), owner_factory_(owner_pool) { }
     Handle              (const Handle& rhs) = default;
     Handle              (Handle&& rhs) = default;
     Handle&   operator= (const Handle& rhs) = default;
@@ -19,12 +19,17 @@ public:
 
     ID id() { return object_id_; }
 
-    obj_type& operator* () { return owner_pool_->AccessObj(object_id_); }
-    obj_type* operator->() { return owner_pool_->ObjectPtr(object_id_); }
+    obj_type&       operator* ()        { return owner_factory_->Pool().ObjectRef(object_id_); }
+    obj_type const& operator* () const  { return owner_factory_->Pool().ObjectRef(object_id_); }
+
+    obj_type*       operator->()        { return owner_factory_->Pool().ObjectPtr(object_id_); }
+    obj_type const* operator->() const  { return owner_factory_->Pool().ObjectPtr(object_id_); }
+
+    void            DestroyObj() { owner_factory_->Release(object_id_); }
 
 private:
     ID object_id_;
-    PoolType* owner_pool_;
+    FactoryType* owner_factory_;
 };
 
 } // namespace Engine

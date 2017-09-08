@@ -74,7 +74,7 @@ T* ObjectPool<T, ID_type>::ObjectPtr(ID object_ID) {
 }
 
 template<typename T, typename ID_type>
-T& ObjectPool<T, ID_type>::AccessObj(ID object_ID)
+T& ObjectPool<T, ID_type>::ObjectRef(ID object_ID)
 {
     return *ObjectPtr(object_ID);
 }

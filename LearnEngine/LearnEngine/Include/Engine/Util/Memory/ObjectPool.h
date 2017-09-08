@@ -41,7 +41,7 @@ public:
     // This does not perform check wheather object is constructed with this ID.
     T*                  ObjectPtr           (ID object_ID);
 
-    T&                  AccessObj           (ID object_ID);
+    T&                  ObjectRef           (ID object_ID);
 
 protected:
     // Get object ID by his adress. No check if object with this adress was constructed.

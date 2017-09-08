@@ -12,22 +12,25 @@ namespace Engine
 template<
     typename TComponent,
     typename ID_type,
-    template <typename> PoolType,
-    template <typename> HandleType
+    template <typename, typename> PoolType,
+    template <typename, typename> HandleType
 >
 class ComponentFactory
 {
 public:
     using component_t = TComponent;
     using id_t = ID_type;
-    using pool_t = PoolType<TComponent, id_t>;
+    using pool_t = PoolType<component_t, id_t>;
     using handle_t = HandleType<id_t, pool_t>;
 
     ComponentFactory() { }
 
-    handle_t* ConstructComponent(Entity* owner) { return handle_t{ object_pool_.NewObject(), this }; }
+    handle_t ConstructComponent(Entity* owner) { return handle_t{ object_pool_.NewObject(), this }; }
 
     void DestroyComponent(handle_t* component) { object_pool_.Release(component.id()) };
+
+    pool_t&         Pool()          { return object_pool_; }
+    pool_t const&   Pool() const    { return object_pool_; }
 
 private:
     pool_t object_pool_;

@@ -11,7 +11,7 @@ namespace Engine
 
 template<
     typename T, 
-    typename ID_type, 
+    typename ID_type = std::size_t, 
     bool RESIZABLE = true>
 class ObjectPool
 {
@@ -48,7 +48,8 @@ public:
     // Does not perform check wheather object is constructed with this ID.
     T&                  ObjectRef           (ID object_ID);
 
-    bool                Resizable           () { return RESIZABLE; }
+    // Is pool allowed to be resized.
+    constexpr bool      Resizable           () { return RESIZABLE; }
 
 protected:
     // Get object ID by his adress. No check if object with this adress was constructed.

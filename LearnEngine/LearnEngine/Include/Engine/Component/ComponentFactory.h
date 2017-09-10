@@ -12,8 +12,8 @@ namespace Engine
 
 template<
     typename TComponent,
-    template <typename, typename> PoolType,
-    template <typename, typename> HandleType
+    template <typename, typename> typename PoolType,
+    template <typename, typename> typename HandleType
 >
 class ComponentFactory
 {

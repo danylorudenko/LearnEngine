@@ -3,6 +3,7 @@
 #include <Engine\Program\Program.h>
 #include <Engine\Entity\Entity.h>
 #include <Engine\Util\Debugging\DebugTools.h>
+#include <Engine\RenderingSystem\RenderingSystem.h>
 
 #include "..\Resources\Scripts\CameraController.h"
 #include "..\Resources\Scripts\Rotator.h"

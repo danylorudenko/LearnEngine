@@ -49,7 +49,7 @@ public:
     T&                  ObjectRef           (ID object_ID);
 
     // Is pool allowed to be resized.
-    constexpr bool      Resizable           () { return RESIZABLE; }
+    constexpr bool      Resizable           () const { return RESIZABLE; }
 
 protected:
     // Get object ID by his adress. No check if object with this adress was constructed.

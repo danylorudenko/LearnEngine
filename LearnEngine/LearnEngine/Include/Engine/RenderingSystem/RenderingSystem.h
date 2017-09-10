@@ -41,7 +41,7 @@ public:
     CameraEntity&       GetMainCamera               ();
 
     // Set new main camera. Only one camera is currently supported.
-    void                SetMainCamera               (CameraEntity * main_cam);
+    void                SetMainCamera               (CameraEntity* main_cam);
 
 protected:
 

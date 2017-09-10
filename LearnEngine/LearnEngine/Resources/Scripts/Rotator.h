@@ -7,7 +7,7 @@
 class Rotator : public Engine::Script
 {
 public:
-    Rotator();
+    Rotator(Engine::Entity* owner);
 
 protected:
     virtual void Tick() override;

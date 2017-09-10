@@ -6,7 +6,8 @@
 #include "CameraController.h"
 
 
-CameraController::CameraController() :
+CameraController::CameraController(Engine::Entity* owner) :
+    Script(owner),
     x_rotation_(0.0f),
     y_rotation_(0.0f),
     cursor_on_(false)

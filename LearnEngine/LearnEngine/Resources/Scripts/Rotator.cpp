@@ -9,7 +9,8 @@
 static glm::quat rot_delta(glm::vec3(0.0f, 0.008f, 0.002f));
 //static float x_rotation_ = 0.0f;
 
-Rotator::Rotator() :
+Rotator::Rotator(Engine::Entity* owner) :
+    Script(owner),
     y_rotation_(0.0f)
 {
     SetTicking(true);

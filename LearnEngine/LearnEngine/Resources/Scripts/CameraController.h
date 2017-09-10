@@ -6,7 +6,7 @@
 class CameraController : public Engine::Script
 {
 public:
-    CameraController();
+    CameraController(Engine::Entity* owner);
 
     virtual ~CameraController() { }
 

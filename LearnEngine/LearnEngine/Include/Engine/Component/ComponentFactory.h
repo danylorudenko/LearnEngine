@@ -3,9 +3,6 @@
 
 #include <Engine\Util\Constants.h>
 #include <Engine\Entity\Entity.h>
-#include <Engine\Component\Component.h>
-#include <Engine\Util\Memory\ObjectPool.h>
-#include <Engine\Util\Memory\Handle.h>
 
 namespace Engine
 {

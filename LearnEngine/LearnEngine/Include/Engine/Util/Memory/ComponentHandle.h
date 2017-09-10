@@ -21,13 +21,16 @@ public:
 
     ID id() { return object_id_; }
 
+    virtual void*       Ptr()       { return owner_factory_->Pool().ObjectPtr(object_id_); }
+    virtual void const* Ptr() const { return owner_factory_->Pool().ObjectPtr(object_id_); }
+
+    virtual void    DestroyObj() override { owner_factory_->Pool().Release(object_id_); }
+
     obj_type&       operator* ()        { return owner_factory_->Pool().ObjectRef(object_id_); }
     obj_type const& operator* () const  { return owner_factory_->Pool().ObjectRef(object_id_); }
 
-    virtual obj_type*       operator->()       override { return owner_factory_->Pool().ObjectPtr(object_id_); }
-    virtual obj_type const* operator->() const override { return owner_factory_->Pool().ObjectPtr(object_id_); }
-
-    virtual void            DestroyObj() override { owner_factory_->Pool().Release(object_id_); }
+    obj_type*       operator->()        { return owner_factory_->Pool().ObjectPtr(object_id_); }
+    obj_type const* operator->() const  { return owner_factory_->Pool().ObjectPtr(object_id_); }
 
 private:
     ID object_id_;
